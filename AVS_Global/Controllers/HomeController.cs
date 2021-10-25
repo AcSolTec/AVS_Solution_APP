@@ -23,6 +23,11 @@ namespace AVS_Global.Controllers
             return View();
         }
 
+        public IActionResult datatab()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
