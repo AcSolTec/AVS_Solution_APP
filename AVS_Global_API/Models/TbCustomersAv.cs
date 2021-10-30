@@ -15,7 +15,7 @@ namespace AVS_Global_API.Models
         public int IdCustomer { get; set; }
         public int? IdCountry { get; set; }
         public string RegisteredMail { get; set; }
-        public byte[] Pass { get; set; }
+        public string Pass { get; set; }
         public string Seed { get; set; }
         public DateTime? DateOfEntry { get; set; }
         public DateTime? DateValidity { get; set; }

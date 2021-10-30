@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -23,6 +22,9 @@ namespace AVS_Global_API.Models
         public virtual DbSet<TbAvsSecurityOption> TbAvsSecurityOptions { get; set; }
         public virtual DbSet<TbBankFamily> TbBankFamilies { get; set; }
         public virtual DbSet<TbCatCountry> TbCatCountries { get; set; }
+        public virtual DbSet<TbCatTypesVisa> TbCatTypesVisas { get; set; }
+        public virtual DbSet<TbCatTypesVisasApplied> TbCatTypesVisasApplieds { get; set; }
+        public virtual DbSet<TbCatVisasTime> TbCatVisasTimes { get; set; }
         public virtual DbSet<TbChildrensFamiliy> TbChildrensFamiliys { get; set; }
         public virtual DbSet<TbConctactDetail> TbConctactDetails { get; set; }
         public virtual DbSet<TbConvictionsTravel> TbConvictionsTravels { get; set; }
@@ -46,6 +48,7 @@ namespace AVS_Global_API.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=LTW10JM3N493\\SQLEXPRESSEMG;Database=AVS_DB; User=sa;password=Xerox9010");
             }
         }
@@ -154,6 +157,42 @@ namespace AVS_Global_API.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<TbCatTypesVisa>(entity =>
+            {
+                entity.HasKey(e => e.IdTypeVisa)
+                    .HasName("PK__tb_cat_t__9617DA942C0C99BE");
+
+                entity.ToTable("tb_cat_types_visas");
+
+                entity.Property(e => e.TypeVisa)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCatTypesVisasApplied>(entity =>
+            {
+                entity.HasKey(e => e.IdVisaAp)
+                    .HasName("PK__tb_cat_t__0C7581C4A5B7008A");
+
+                entity.ToTable("tb_cat_types_visas_applied");
+
+                entity.Property(e => e.TypeVisa)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCatVisasTime>(entity =>
+            {
+                entity.HasKey(e => e.IdVisasTime)
+                    .HasName("PK__tb_cat_v__C0A4FF995176C523");
+
+                entity.ToTable("tb_cat_visas_times");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<TbChildrensFamiliy>(entity =>
             {
                 entity.HasKey(e => e.IdChild)
@@ -254,6 +293,10 @@ namespace AVS_Global_API.Models
                 entity.Property(e => e.DateOfEntry).HasColumnType("datetime");
 
                 entity.Property(e => e.DateValidity).HasColumnType("datetime");
+
+                entity.Property(e => e.Pass)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.RegisteredMail)
                     .HasMaxLength(100)
@@ -484,6 +527,23 @@ namespace AVS_Global_API.Models
                 entity.Property(e => e.Name)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.Property(e => e.PortDeparture)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PortEntry)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PurposeOfVisit)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pvpakistan)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("PVPakistan");
 
                 entity.Property(e => e.Religion)
                     .HasMaxLength(50)

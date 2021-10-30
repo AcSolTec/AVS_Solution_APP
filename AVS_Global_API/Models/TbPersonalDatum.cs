@@ -23,6 +23,10 @@ namespace AVS_Global_API.Models
         public string DetailOfProfesion { get; set; }
         public string Religion { get; set; }
         public DateTime? DateOfChange { get; set; }
+        public string PurposeOfVisit { get; set; }
+        public string PortEntry { get; set; }
+        public string PortDeparture { get; set; }
+        public string Pvpakistan { get; set; }
 
         public virtual TbCatCountry IdCatCountryNavigation { get; set; }
         public virtual TbFormulary IdFormNavigation { get; set; }

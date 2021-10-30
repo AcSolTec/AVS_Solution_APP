@@ -25,6 +25,52 @@ namespace AVS_Global_API.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult SaveCustomer(Entities.enTbCustomersAvs model)
+        {
+
+
+            Helpers.EncryptingService encryptor = new Helpers.EncryptingService();
+
+            var passEncrypt = encryptor.EncryptString128Bit(model.Pass, "customerseed");
+
+            var result = Data.CustomersData.InsertCustomer(model.IdCountry, model.RegisteredMail, passEncrypt);
+            string msjeOut = string.Empty;
+            if(result == "OK")
+            {
+                msjeOut = "Customer created";
+            }
+            else
+            {
+                msjeOut = "Customer failed";
+            }
+
+            return Ok(msjeOut);
+
+        }
+
+
+        //[HttpPost]
+        //public IActionResult SaveForm(int IdCountry, string Mail, string Pass)
+        //{
+
+        //    var result = Data.CustomersData.InsertCustomer(IdCountry, Mail, Pass);
+        //    string msjeOut = string.Empty;
+        //    if (result == "OK")
+        //    {
+        //        msjeOut = "Customer created";
+        //    }
+        //    else
+        //    {
+        //        msjeOut = "Customer failed";
+        //    }
+
+        //    return Ok(msjeOut);
+
+        //}
+
+
+
         // GET: api/<PakistanController>
         //[HttpGet]
         //public IEnumerable<string> Get()

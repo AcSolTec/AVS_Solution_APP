@@ -1,0 +1,11 @@
+y5JOAWDqigU4zJ/u+NxtZDJhFzIgSrPC5zkLnwy8MLeIGEJOedLGC6gtv/QO0QAxjc3Mvi1Ksj00uY5ZKChEUeseIqo0BV04P2VfrleF/eCqE9KqhqyOxxJK1oSeOT2a
+
+
+Server=LTW10JM3N493\\SQLEXPRESSEMG;Database=AVS_DB; User=sa;password=Xerox9010
+
+
+*crear*
+Scaffold-DbContext "Server=LTW10JM3N493\SQLEXPRESSEMG;Database=AVS_DB; User=sa;password=Xerox9010" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+*actualizar*
+Scaffold-DbContext "Server=LTW10JM3N493\SQLEXPRESSEMG;Database=AVS_DB; User=sa;password=Xerox9010" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -f

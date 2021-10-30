@@ -17,6 +17,7 @@ namespace AVS_Global_API.Models
         public string Address { get; set; }
         public string Phone { get; set; }
         public string DescAddContr { get; set; }
+        public bool? BitApplyVisaThird { get; set; }
 
         public virtual TbFormulary IdFormNavigation { get; set; }
     }

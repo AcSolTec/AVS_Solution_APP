@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.CompilerServices;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,87 +12,124 @@ namespace AVS_Global_API.Helpers
 {
     public class EncryptingService
     {
-        public string Encrypt(string value, string KeyValue)
+        protected byte[] bytIV;
+        protected string SecretPhrase;
+
+        public EncryptingService()
         {
-            if (string.IsNullOrEmpty(value)) return value;
-            try
+            this.bytIV = new byte[16]
             {
-                var key = Encoding.UTF8.GetBytes(KeyValue);
-
-                using (var aesAlg = Aes.Create())
-                {
-                    using (var encryptor = aesAlg.CreateEncryptor(key, aesAlg.IV))
-                    {
-                        using (var msEncrypt = new MemoryStream())
-                        {
-                            using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                            using (var swEncrypt = new StreamWriter(csEncrypt))
-                            {
-                                swEncrypt.Write(value);
-                            }
-
-                            var iv = aesAlg.IV;
-
-                            var decryptedContent = msEncrypt.ToArray();
-
-                            var result = new byte[iv.Length + decryptedContent.Length];
-
-                            Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
-                            Buffer.BlockCopy(decryptedContent, 0, result, iv.Length, decryptedContent.Length);
-
-                            var str = Convert.ToBase64String(result);
-                            var fullCipher = Convert.FromBase64String(str);
-                            return str;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return string.Empty;
-            }
+                (byte) 121,
+                (byte) 241,
+                (byte) 10,
+                (byte) 1,
+                (byte) 132,
+                (byte) 74,
+                (byte) 11,
+                (byte) 39,
+                byte.MaxValue,
+                (byte) 91,
+                (byte) 45,
+                (byte) 78,
+                (byte) 14,
+                (byte) 211,
+                (byte) 22,
+                (byte) 62
+            };
         }
 
-
-        public string Decrypt(string value, string KeyValue)
+        private string GenerateSecretPhrase()
         {
-            if (string.IsNullOrEmpty(value)) return value;
+            char[] chArray = new char[33];
+            Random random = new Random();
+            int index = 1;
+            do
+            {
+                chArray[index] = Strings.Chr(random.Next() % 200);
+                checked { ++index; }
+            }
+            while (index <= 32);
+            return new string(chArray);
+        }
+
+        public string GetIV()
+        {
+            return Convert.ToBase64String(this.bytIV);
+        }
+
+        public string GenerateKey()
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(this.GenerateSecretPhrase());
+            SHA384Managed shA384Managed = new SHA384Managed();
+            shA384Managed.ComputeHash(bytes);
+            return Convert.ToBase64String(shA384Managed.Hash);
+        }
+
+        public string DecryptString128Bit(string vstrStringToBeDecrypted, string vstrDecryptionKey)
+        {
+            RijndaelManaged rijndaelManaged = new RijndaelManaged();
+            string empty = string.Empty;
+            byte[] buffer = Convert.FromBase64String(vstrStringToBeDecrypted);
+            if (Strings.Len(vstrDecryptionKey) >= 32)
+            {
+                vstrDecryptionKey = Strings.Left(vstrDecryptionKey, 32);
+            }
+            else
+            {
+                int Number = checked(32 - Strings.Len(vstrDecryptionKey));
+                vstrDecryptionKey += Strings.StrDup(Number, "X");
+            }
+            byte[] bytes = Encoding.ASCII.GetBytes(vstrDecryptionKey.ToCharArray());
+            byte[] numArray = new byte[checked(buffer.Length + 1)];
+            MemoryStream memoryStream = new MemoryStream(buffer);
             try
             {
-                value = value.Replace(" ", "+");
-                var fullCipher = Convert.FromBase64String(value);
-
-                var iv = new byte[16];
-                var cipher = new byte[fullCipher.Length - iv.Length];
-
-                Buffer.BlockCopy(fullCipher, 0, iv, 0, iv.Length);
-                Buffer.BlockCopy(fullCipher, iv.Length, cipher, 0, fullCipher.Length - iv.Length);
-                var key = Encoding.UTF8.GetBytes(KeyValue);
-
-                using (var aesAlg = Aes.Create())
-                {
-                    using (var decryptor = aesAlg.CreateDecryptor(key, iv))
-                    {
-                        string result;
-                        using (var msDecrypt = new MemoryStream(cipher))
-                        {
-                            using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                            {
-                                using (var srDecrypt = new StreamReader(csDecrypt))
-                                {
-                                    result = srDecrypt.ReadToEnd();
-                                }
-                            }
-                        }
-
-                        return result;
-                    }
-                }
+                CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, rijndaelManaged.CreateDecryptor(bytes, this.bytIV), CryptoStreamMode.Read);
+                cryptoStream.Read(numArray, 0, numArray.Length);
+                cryptoStream.FlushFinalBlock();
+                memoryStream.Close();
+                cryptoStream.Close();
             }
             catch (Exception ex)
             {
-                return string.Empty;
+                ProjectData.SetProjectError(ex);
+                ProjectData.ClearProjectError();
             }
+            return Encoding.ASCII.GetString(numArray);
+        }
+
+        byte[] array;
+        public string EncryptString128Bit(string vstrTextToBeEncrypted, string vstrEncryptionKey)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            byte[] bytes1 = Encoding.ASCII.GetBytes(vstrTextToBeEncrypted.ToCharArray());
+            if (Strings.Len(vstrEncryptionKey) >= 32)
+            {
+                vstrEncryptionKey = Strings.Left(vstrEncryptionKey, 32);
+            }
+            else
+            {
+                int Number = checked(32 - Strings.Len(vstrEncryptionKey));
+                vstrEncryptionKey += Strings.StrDup(Number, "X");
+            }
+            byte[] bytes2 = Encoding.ASCII.GetBytes(vstrEncryptionKey.ToCharArray());
+            RijndaelManaged rijndaelManaged = new RijndaelManaged();
+            
+            try
+            {
+                CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, rijndaelManaged.CreateEncryptor(bytes2, this.bytIV), CryptoStreamMode.Write);
+                cryptoStream.Write(bytes1, 0, bytes1.Length);
+                cryptoStream.FlushFinalBlock();
+                array = memoryStream.ToArray();
+                memoryStream.Close();
+                cryptoStream.Close();
+            }
+            catch (Exception ex)
+            {
+                ProjectData.SetProjectError(ex);
+                ProjectData.ClearProjectError();
+            }
+            return Convert.ToBase64String(array);
         }
     }
 }
