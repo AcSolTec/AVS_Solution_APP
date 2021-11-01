@@ -49,7 +49,11 @@ namespace AVS_Global_API
 
             app.UseRouting();
 
+
+
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

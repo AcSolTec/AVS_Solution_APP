@@ -25,6 +25,40 @@ namespace AVS_Global_API.Controllers
         }
 
 
+        [HttpGet]
+        [Route("CatVisasApplied")]
+        public IEnumerable<Models.TbCatTypesVisasApplied> GetCatVisasApplied()
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                IEnumerable<Models.TbCatTypesVisasApplied> visasApplied = db.TbCatTypesVisasApplieds.Where(d => d.BitActive == true).ToList();
+                return visasApplied;
+            }
+        }
+
+
+        [HttpGet]
+        [Route("VisasRequiered")]
+        public IEnumerable<Models.TbCatVisasTime> GetVisasRequiered()
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                IEnumerable<Models.TbCatVisasTime> visasTimes = db.TbCatVisasTimes.Where(d => d.BitActive == true).ToList();
+                return visasTimes;
+            }
+        }
+
+        [HttpGet]
+        [Route("TypesVisas")]
+        public IEnumerable<Models.TbCatTypesVisa> GetTypesVisas()
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                IEnumerable<Models.TbCatTypesVisa> types = db.TbCatTypesVisas.Where(d => d.BitActive == true).ToList();
+                return types;
+            }
+        }
+
         [HttpPost]
         public IActionResult SaveCustomer(Entities.enTbCustomersAvs model)
         {

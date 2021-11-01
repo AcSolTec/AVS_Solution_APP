@@ -46,11 +46,13 @@ namespace AVS_Global
 
             app.UseAuthorization();
 
+            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                    pattern: "{controller=Formularies}/{action=FormPakistan}/{id?}");
             });
         }
     }

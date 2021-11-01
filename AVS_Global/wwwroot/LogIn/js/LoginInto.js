@@ -33,7 +33,7 @@
             success: function (result) {
                 console.log(result);
                 if (result.message == 'OK') {
-                    window.location.href = '/Home/Index';
+                    window.location.href = '/Formularies/FormPakistan';
                 }
                 else {
                     alert(result.message);
