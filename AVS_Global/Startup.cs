@@ -52,7 +52,7 @@ namespace AVS_Global
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Formularies}/{action=FormPakistan}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
