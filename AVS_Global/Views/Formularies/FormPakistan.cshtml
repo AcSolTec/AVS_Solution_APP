@@ -46,15 +46,16 @@
                 <div class="multisteps-form">
                     <!--progress bar-->
                     <div class="row">
-                        <div class="col-12 col-lg-9 ml-auto mr-auto mb-4">
+                        <div class="col-12 col-lg-10 ml-auto mr-auto mb-4">
                             <div class="multisteps-form__progress">
                                 <button class="multisteps-form__progress-btn js-active" type="button" title="Personal">Personal Info</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Applicants">Applicant's Details</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Passport Details">Passport Details</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="AdressMail">Address & Email</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="DetailsJobs">Details Jobs in the Past</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="FamilyDetails">Family Details Sec.1</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="FamilyDetailsTwo">Family Details Sec.2</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="DetailsJobs">Jobs in the Past</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="FamilyDetails">Family Det. Sec.1</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="FamilyDetailsTwo">Family Det. Sec.2</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="TravelHistory">Travel History</button>
                             </div>
                         </div>
                     </div>
@@ -306,13 +307,13 @@
                                     <div class="multisteps-form__content">
                                         <div class="row">
                                             @*<div class="col-12 col-md-6 mt-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Item Title</h5>
-                                <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
-                            </div>
-                        </div>
-                    </div>*@
+                                            <div class="card shadow-sm">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Item Title</h5>
+                                                    <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
+                                                </div>
+                                            </div>
+                                        </div>*@
 
                                             <div class="form-row mt-4">
                                                 <label>Abroad / Country of origin:</label>
@@ -894,12 +895,414 @@
                                     </div>
                                 </div>
                                 <!--Travel history-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Travel History</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Have you ever visited Pakistan during last live years?:
+                                                    <input id="checkLast5Years" name="check" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!--Visited last 5 years pakistan-->
+                                        <div id="dvVisitedLast5Ye">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisited" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_Visited" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestination" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurpose" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDuration" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div id="dvVisitedLast5Y1">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisited1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited1" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_Visited1" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestination1" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurpose1" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDuration1" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvVisitedLast5Y2">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisited2" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited2" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_Visited2" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestination2" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurpose2" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDuration2" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvVisitedLast5Y3">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisited3" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited3" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_Visited3" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestination3" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurpose3" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDuration3" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvVisitedLast5Y4">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisited4" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited4" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_Visited4" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestination4" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurpose4" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDuration4" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--End form Visited last 5 years pakistan-->
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Details Of others countries visited, during last two years</label>
+
+                                            </div>
+                                        </div>
+                                        <!--Visited last 2 years pakistan-->
+                                        <div id="dvVisitedLast2Ye">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTwo" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_VisitedTwo" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestinationTwo" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurposeTwo" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDurationTwo" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvVisitedLast2Ye1">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw1" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_VisitedTwo1" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestinationTwo1" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurposeTwo1" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDurationTwo1" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvVisitedLast2Ye2">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo2" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw2" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_VisitedTwo2" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestinationTwo2" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurposeTwo2" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDurationTwo2" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvVisitedLast2Ye3">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo3" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw3" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_VisitedTwo3" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestinationTwo3" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurposeTwo3" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDurationTwo3" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvVisitedLast2Ye4">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo4" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw4" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_VisitedTwo4" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Destination/Address</label>
+                                                    <input id="txtDestinationTwo4" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Purpose</label>
+                                                    <input id="txtPurposeTwo4" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Duration</label>
+                                                    <input id="txtDurationTwo4" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--End form Visited last 2 years pakistan-->
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-8">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Have you ever been refused a visa for any country, Including Pakistan?:
+                                                    <input id="checkRefused" name="check" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Have you ever been refused entry on arrival to Pakistan?:
+                                                    <input id="checkRefusedEntry" name="check" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvDetailsOfRefusal">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-12">
+                                                    <label>Please provide details of refusal</label>
+                                                    <textarea id="txtDetailsRefusal" class="form-control" rows="3" cols="75"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-8">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Have you ever been deported, removed or otherwise required to leave any country, Including Pakistan?:
+                                                    <input id="checkDeported" name="check" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div id="dvDeported">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateDeported" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Deported" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_Deported" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Country</label>
+                                                    <input id="txtCountryDepo" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Reason</label>
+                                                    <input id="txtReasonDepo" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-4 mt-4 mt-sm-0">
+                                                    <label>Reference Number(for Pakistan)</label>
+                                                    <input id="txtrefNumberDepo" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-8">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Dou you have any criminal convictions or charged in any country?:
+                                                    <input id="checkCriminal" name="check" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvCriminal">
+                                            <div class="form-row mt-4">
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label class="control-label">Date</label>
+                                                    <div class="controls input-append date form_date" id="dtDateCriminal" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Criminal" data-link-format="dd/mm/yy">
+                                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                                        <span class="add-on"><i class="icon-remove"></i></span>
+                                                        <span class="add-on"><i class="icon-th"></i></span>
+                                                    </div>
+                                                    <input type="hidden" id="dtp_Criminal" value="" /><br />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Country</label>
+                                                    <input id="txtCountryCriminal" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                    <label>Offence</label>
+                                                    <input id="txtOffenceCriminal" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-6 col-sm-4 mt-4 mt-sm-0">
+                                                    <label>Sentence</label>
+                                                    <input id="txtSentence" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <h2>Declaration</h2>
+                                        <p>
+                                            <blockquote class="small">
+                                                I declare that the Information given in this form is correct to the best of my knowledge<br />
+                                                and bellet and if any of the particulars furnished above are found to be Incorrect or<br />
+                                                withheld the visa is liable to be rejected / cancelled at any time.
+                                            </blockquote>
+                                        </p>
+
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                            <button id="btnsaveForm" class="btn btn-success ml-auto" type="button" title="Send">Save formulary</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
     </div>
     <!-- partial -->
@@ -920,8 +1323,47 @@
             $("#dvAccompanying").hide();
             $("#dvAccompanying1").hide();
             $("#dvBankPanel").hide();
+            $("#dvVisitedLast5Ye").hide();
+            $("#dvVisitedLast5Y1").hide();
+            $("#dvVisitedLast5Y2").hide();
+            $("#dvVisitedLast5Y3").hide();
+            $("#dvVisitedLast5Y4").hide();
+            $("#dvDetailsOfRefusal").hide();
+            $("#dvDeported").hide();
+            $("#dvCriminal").hide();
+            
+            //$("#dvVisitedLast2Ye").hide();
+            //$("#dvVisitedLast2Ye1").hide();
+            //$("#dvVisitedLast2Ye2").hide();
+            //$("#dvVisitedLast2Ye3").hide();
+            //$("#dvVisitedLast2Ye4").hide();
 
-            //toggle the componenet with class msg_body
+            
+
+            $('#checkCriminal').change(function () {
+                if (this.checked)
+                    $('#dvCriminal').fadeIn('slow');
+                else
+                    $('#dvCriminal').fadeOut('slow');
+
+            });
+
+            $('#checkDeported').change(function () {
+                if (this.checked)
+                    $('#dvDeported').fadeIn('slow');
+                else
+                    $('#dvDeported').fadeOut('slow');
+
+            });
+            
+            $('#checkRefusedEntry').change(function () {
+                if (this.checked)
+                    $('#dvDetailsOfRefusal').fadeIn('slow');
+                else
+                    $('#dvDetailsOfRefusal').fadeOut('slow');
+
+            });
+
             $('#chekSponsored').change(function () {
                 if (this.checked)
                     $('#sponsorA').fadeIn('slow');
@@ -994,7 +1436,32 @@
 
             });
 
-            
+            $('#checkLast5Years').change(function () {
+                if (this.checked)
+                    $('#dvVisitedLast5Ye').fadeIn('slow');
+                else
+                    $('#dvVisitedLast5Ye').fadeOut('slow');
+
+            });
+
+            $('#checkLast5Years').change(function () {
+                if (this.checked) {
+                    $('#dvVisitedLast5Ye').fadeIn('slow');
+                    $("#dvVisitedLast5Y1").fadeIn('slow');
+                    $("#dvVisitedLast5Y2").fadeIn('slow');
+                    $("#dvVisitedLast5Y3").fadeIn('slow');
+                    $("#dvVisitedLast5Y4").fadeIn('slow');
+                }
+                else {
+                    $('#dvVisitedLast5Ye').fadeOut('slow');
+                    $("#dvVisitedLast5Y1").fadeOut('slow');
+                    $("#dvVisitedLast5Y2").fadeOut('slow');
+                    $("#dvVisitedLast5Y3").fadeOut('slow');
+                    $("#dvVisitedLast5Y4").fadeOut('slow');
+                }
+                   
+
+            });
         });
     </script>
     <script>
@@ -1114,8 +1581,110 @@
             forceParse: 0
         });
 
+        $('#dtDateVisited').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtDateVisited1').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtDateVisited2').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtDateVisited3').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtDateVisited4').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtDateVisitedTwo').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtDateVisitedTwo1').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtDateVisitedTwo2').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
 
         
+        $('#dtDateVisitedTwo3').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtDateVisitedTwo4').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
 
         function onlyOne(checkbox) {
             var checkboxes = document.getElementsByName('check');
@@ -1131,6 +1700,11 @@
             });
 
         }
+
+        $('#btnsaveForm').click(function () {
+            alert('Form saved successfuly!');
+            location.reload();
+        });
 
     </script>
 </body>
