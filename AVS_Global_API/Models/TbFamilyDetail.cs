@@ -25,10 +25,12 @@ namespace AVS_Global_API.Models
         public string DateBirth { get; set; }
         public string PlaceBirth { get; set; }
         public string Profesion { get; set; }
-        public string InfoEmployerSpouse { get; set; }
         public bool? BitChildrens { get; set; }
         public bool? BitAcompany { get; set; }
         public bool? BitAccountBank { get; set; }
+        public string NameEmployerSpouse { get; set; }
+        public string AddressEmployerSpouse { get; set; }
+        public string TelEmployerSpouse { get; set; }
 
         public virtual TbFormulary IdFormNavigation { get; set; }
         public virtual ICollection<TbAcompanyingFamily> TbAcompanyingFamilies { get; set; }

@@ -22,6 +22,8 @@ namespace AVS_Global_API.Models
         public virtual DbSet<TbAvsSecurityOption> TbAvsSecurityOptions { get; set; }
         public virtual DbSet<TbBankFamily> TbBankFamilies { get; set; }
         public virtual DbSet<TbCatCountry> TbCatCountries { get; set; }
+        public virtual DbSet<TbCatPortsInOut> TbCatPortsInOuts { get; set; }
+        public virtual DbSet<TbCatPurposeVisited> TbCatPurposeVisiteds { get; set; }
         public virtual DbSet<TbCatTypesVisa> TbCatTypesVisas { get; set; }
         public virtual DbSet<TbCatTypesVisasApplied> TbCatTypesVisasApplieds { get; set; }
         public virtual DbSet<TbCatVisasTime> TbCatVisasTimes { get; set; }
@@ -153,6 +155,30 @@ namespace AVS_Global_API.Models
                 entity.ToTable("tb_cat_countries");
 
                 entity.Property(e => e.Country)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCatPortsInOut>(entity =>
+            {
+                entity.HasKey(e => e.IdPorts)
+                    .HasName("PK__tb_cat_p__C6299272F956994C");
+
+                entity.ToTable("tb_cat_ports_in_out");
+
+                entity.Property(e => e.DescPorts)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCatPurposeVisited>(entity =>
+            {
+                entity.HasKey(e => e.IdPurpose)
+                    .HasName("PK__tb_cat_p__78A96180B896C3CA");
+
+                entity.ToTable("tb_cat_purpose_visited");
+
+                entity.Property(e => e.DescPurpose)
                     .HasMaxLength(100)
                     .IsUnicode(false);
             });
@@ -344,12 +370,16 @@ namespace AVS_Global_API.Models
 
                 entity.ToTable("tb_family_details");
 
+                entity.Property(e => e.AddressEmployerSpouse)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.DateBirth)
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.InfoEmployerSpouse)
-                    .HasMaxLength(150)
+                entity.Property(e => e.NameEmployerSpouse)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Nmother)
@@ -372,6 +402,10 @@ namespace AVS_Global_API.Models
 
                 entity.Property(e => e.SpouseName)
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TelEmployerSpouse)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdFormNavigation)
@@ -475,6 +509,10 @@ namespace AVS_Global_API.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Phone)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -528,18 +566,6 @@ namespace AVS_Global_API.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PortDeparture)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PortEntry)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PurposeOfVisit)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Pvpakistan)
                     .HasMaxLength(200)
                     .IsUnicode(false)
@@ -587,6 +613,10 @@ namespace AVS_Global_API.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.City)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -601,6 +631,10 @@ namespace AVS_Global_API.Models
 
                 entity.Property(e => e.TelWork)
                     .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ZipCode)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdConctactNavigation)

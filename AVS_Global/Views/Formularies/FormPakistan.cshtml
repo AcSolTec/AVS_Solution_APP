@@ -10,8 +10,11 @@
     <meta charset="UTF-8">
     <title>Form | Pakistan</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+
     <link href="~/bootstrap.min.css" rel="stylesheet" />
     <link href="~/style.css" rel="stylesheet" />
+    <link href="~/Bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
+
 </head>
 <body>
     <!--PEN CONTENT     -->
@@ -43,13 +46,15 @@
                 <div class="multisteps-form">
                     <!--progress bar-->
                     <div class="row">
-                        <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                        <div class="col-12 col-lg-9 ml-auto mr-auto mb-4">
                             <div class="multisteps-form__progress">
                                 <button class="multisteps-form__progress-btn js-active" type="button" title="Personal">Personal Info</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Applicants">Applicant's Details</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Address">Address</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Order Info">Order Info</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Comments">Comments</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Passport Details">Passport Details</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="AdressMail">Address & Email</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="DetailsJobs">Details Jobs in the Past</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="FamilyDetails">Family Details Sec.1</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="FamilyDetailsTwo">Family Details Sec.2</button>
                             </div>
                         </div>
                     </div>
@@ -64,11 +69,11 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Type of visa applied for:</label>
-                                                <select class="multisteps-form__select form-control" asp-for="visasApplied.idVisaAp" asp-items="@(new SelectList(@ViewBag.items,"idVisaAp", "typeVisa"))"></select>
+                                                <select id="ddVisaApp" class="multisteps-form__select form-control" asp-for="visasApplied.idVisaAp" asp-items="@(new SelectList(@ViewBag.items,"idVisaAp", "typeVisa"))"></select>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Purpose of Visit:</label>
-                                                <textarea class="multisteps-form__input form-control" id="txtAreaPurpose" rows="5" cols="20"></textarea>
+                                                <select id="ddPurpose" class="multisteps-form__select form-control" asp-for="purposes.IdPurpose" asp-items="@(new SelectList(@ViewBag.itemsPurposes,"IdPurpose", "DescPurpose"))"></select>
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
@@ -78,28 +83,35 @@
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Visa required for:</label>
-                                                <select class="multisteps-form__select form-control" asp-for="visasRequiered.idVisasTime" asp-items="@(new SelectList(@ViewBag.itemsReq,"idVisasTime", "description"))"></select>
+                                                <select id="ddVisasTime" class="multisteps-form__select form-control" asp-for="visasRequiered.idVisasTime" asp-items="@(new SelectList(@ViewBag.itemsReq,"idVisasTime", "description"))"></select>
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Type of Visa:</label>
-                                                <select class="multisteps-form__select form-control" asp-for="typeVisas.IdTypeVisa" asp-items="@(new SelectList(@ViewBag.itemsType,"IdTypeVisa", "TypeVisa"))"></select>
+                                                <select id="ddTypeVisa" class="multisteps-form__select form-control" asp-for="typeVisas.IdTypeVisa" asp-items="@(new SelectList(@ViewBag.itemsType,"IdTypeVisa", "TypeVisa"))"></select>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Port of Entry:</label>
-                                                <input id="txtPortEntry" class="multisteps-form__input form-control" type="text" />
+                                                <select id="ddPortIn" class="multisteps-form__select form-control" asp-for="portsInOut.IdPorts" asp-items="@(new SelectList(@ViewBag.itemsPorts,"IdPorts", "DescPorts"))"></select>
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Port of Departure:</label>
-                                                <input id="txtPortDepture" class="multisteps-form__input form-control" type="text" />
+                                                <select id="ddPortOut" class="multisteps-form__select form-control" asp-for="portsInOut.IdPorts" asp-items="@(new SelectList(@ViewBag.itemsPorts,"IdPorts", "DescPorts"))"></select>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Places to be visited in pakistan:</label>
                                                 <input id="txtPlacesVisited" class="multisteps-form__input form-control" type="text" />
                                             </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>Details of profesional(Please specify Rank/Service, in case if Armed Forces/Uniform Personnel):</label>
+                                                <textarea id="txtDetailsProfesion" class="form-control" rows="3" cols="75"></textarea>
+                                            </div>
+
                                         </div>
                                         <div class="button-row d-flex mt-4">
                                             <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
@@ -126,45 +138,101 @@
                                                 <input id="txtLastName" class="multisteps-form__input form-control" type="text" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <input class="multisteps-form__input form-control" type="email" placeholder="Email" />
+                                                <label class="control-label">Date of Birth</label>
+                                                <div class="controls input-append date form_date" id="dtPickerBirht" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_birht" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_birht" value="" /><br />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
+                                            <label>Place of birth</label>
+                                        </div>
+                                        <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <input class="multisteps-form__input form-control" type="password" placeholder="Password" />
+                                                <label>City</label>
+                                                <input id="txtCityBirth" class="multisteps-form__input form-control" type="text" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <input class="multisteps-form__input form-control" type="password" placeholder="Repeat Password" />
-                                            </div>
-                                        </div>
-                                        <div class="button-row d-flex mt-4">
-                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--single form panel-->
-                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                                    <h3 class="multisteps-form__title">Your Address</h3>
-                                    <div class="multisteps-form__content">
-                                        <div class="form-row mt-4">
-                                            <div class="col">
-                                                <input class="multisteps-form__input form-control" type="text" placeholder="Address 1" />
+                                                <label>Country</label>
+                                                <select id="ddCountryDetails" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))"></select>
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
-                                            <div class="col">
-                                                <input class="multisteps-form__input form-control" type="text" placeholder="Address 2" />
+                                            <label>Sex</label>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Male
+                                                    <input id="chekSexMen" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Female
+                                                    <input id="chekSexWom" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <label>Marital status</label>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Single
+                                                    <input id="chekMaritalSingle" name="checkMarr" type="checkbox" onclick="onlyCheckMarried(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Married
+                                                    <input id="chekMaritalMarried" name="checkMarr" type="checkbox" onclick="onlyCheckMarried(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <input class="multisteps-form__input form-control" type="text" placeholder="City" />
+                                                <label>Blood Group</label>
+                                                <input id="txtBlood" class="multisteps-form__input form-control" type="text" />
                                             </div>
-                                            <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                <select class="multisteps-form__select form-control" asp-for="visasApplied.idVisaAp" asp-items="@(new SelectList(@ViewBag.items,"idVisaAp", "typeVisa"))"></select>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Identification Mark</label>
+                                                <input id="txtIdMark" class="multisteps-form__input form-control" type="text" />
                                             </div>
-                                            <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                <select class="multisteps-form__select form-control" asp-for="visasRequiered.idVisasTime" asp-items="@(new SelectList(@ViewBag.itemsReq,"idVisasTime", "description"))"></select>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Native Language:</label>
+                                                <input id="txtNatLan" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Religion:</label>
+                                                <input id="txtReligion" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <label>Nationality:</label>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Present:</label>
+                                                <input id="txtPresentNat" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Previous:</label>
+                                                <input id="txtPreviousNat" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Dual:</label>
+                                                <input id="txtDualNat" class="multisteps-form__input form-control" type="text" />
                                             </div>
                                         </div>
                                         <div class="button-row d-flex mt-4">
@@ -173,26 +241,234 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--single form panel-->
+                                <!--Passport Detais-->
                                 <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                                    <h3 class="multisteps-form__title">Your Order Info</h3>
+                                    <h3 class="multisteps-form__title">Passport Details</h3>
+                                    <div class="multisteps-form__content">
+
+                                        <div class="form-row mt-4">
+                                            <label>Type of Passport</label>
+                                            <select id="ddTypePass" class="multisteps-form__select form-control" asp-for="typesPass.IdTypePass" asp-items="@(new SelectList(@ViewBag.itemsTypesPass,"IdTypePass", "TypePass"))"></select>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    UN Travel documents
+                                                    <input id="chekUNTravel" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Passport Number</label>
+                                                <input id="passNum" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                <label>Place of Issue</label>
+                                                <input id="txtIssue" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                <label class="control-label">Date of Issue</label>
+                                                <div class="controls input-append date form_date" id="dtPickerIssue" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_issue" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_issue" value="" /><br />
+                                            </div>
+                                            <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                <label class="control-label">Date of Expiry</label>
+                                                <div class="controls input-append date form_date" id="dtPickerExpiry" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Expiry" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_Expiry" value="" /><br />
+                                            </div>
+                                            <div class="col-6 col-sm-3 mt-4 mt-sm-0">
+                                                <label>Issuing Authority</label>
+                                                <input id="txtIsAuth" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                        </div>
+
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Adress & Email-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Address & Email</h3>
                                     <div class="multisteps-form__content">
                                         <div class="row">
-                                            <div class="col-12 col-md-6 mt-4">
-                                                <div class="card shadow-sm">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Item Title</h5>
-                                                        <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
-                                                    </div>
+                                            @*<div class="col-12 col-md-6 mt-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Item Title</h5>
+                                <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
+                            </div>
+                        </div>
+                    </div>*@
+
+                                            <div class="form-row mt-4">
+                                                <label>Abroad / Country of origin:</label>
+                                                <select id="ddCountryAdress" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))"></select>
+                                            </div>
+                                            <div class="form-row mt-4">
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>Telephone:</label>
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>a):</label>
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>Home:</label>
+                                                    <input id="txtPhoneHome" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>Work:</label>
+                                                    <input id="txtPhoneWork" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>Cell:</label>
+                                                    <input id="txtPhoneCell" class="multisteps-form__input form-control" type="text" />
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-6 mt-4">
-                                                <div class="card shadow-sm">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Item Title</h5>
-                                                        <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
-                                                    </div>
+                                            <div class="form-row mt-4">
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>b):</label>
                                                 </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>Home:</label>
+                                                    <input id="txtPhoneHomeb" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>Work:</label>
+                                                    <input id="txtPhoneWorkb" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <label>Cell:</label>
+                                                    <input id="txtPhoneCellb" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-row mt-4">
+                                                <div class="col-12 col-sm-6">
+                                                    <label class="checkbox-wrap checkbox-primary">
+                                                        Is your visit sponsored?
+                                                        <input id="chekSponsored" type="checkbox">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div id="sponsorA">
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>Name of Sponsor:</label>
+                                                            <input id="txtNameSponsorA" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                            <label>Address:</label>
+                                                            <input id="txtAddressA" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    @* next *@
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>City:</label>
+                                                            <input id="txtCityA" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                            <label>ZIP:</label>
+                                                            <input id="txtPCA" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    @* next *@
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>Phone Home:</label>
+                                                            <input id="txtPHomeSponsorA" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                            <label>Phone Work:</label>
+                                                            <input id="txtPWorkSponsorA" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    @* next *@
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>Cell Work:</label>
+                                                            <input id="txtPCellSponsorA" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label class="checkbox-wrap checkbox-primary">
+                                                                Other sponsored?
+                                                                <input id="chekSponOther" type="checkbox">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div id="dvSponsoredB">
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>Name of Sponsor:</label>
+                                                            <input id="txtNameSponsorB" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                            <label>Address:</label>
+                                                            <input id="txtAddressB" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    @* next *@
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>City:</label>
+                                                            <input id="txtCityB" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                            <label>ZIP:</label>
+                                                            <input id="txtPCB" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    @* next *@
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>Phone Home:</label>
+                                                            <input id="txtPHomeSponsorB" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                            <label>Phone Work:</label>
+                                                            <input id="txtPWorkSponsorB" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    @* next *@
+                                                    <div class="form-row mt-4">
+                                                        <div class="col-12 col-sm-6">
+                                                            <label>Cell Work:</label>
+                                                            <input id="txtPCellSponsorB" class="multisteps-form__input form-control" type="text" />
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="row">
@@ -203,19 +479,422 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--single form panel-->
+                                <!--Details Jobs in the past-->
                                 <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                                    <h3 class="multisteps-form__title">Additional Comments</h3>
+                                    <h3 class="multisteps-form__title">Details of jobs hield in the past</h3>
                                     <div class="multisteps-form__content">
                                         <div class="form-row mt-4">
-                                            <textarea class="multisteps-form__textarea form-control" placeholder="Additional Comments and Requirements"></textarea>
+                                            <div class="col-12 col-sm-6">
+                                                <label>Designation:</label>
+                                                <input id="txtDesignation" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Departament:</label>
+                                                <input id="txtDepartament" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label class="control-label">Duration from</label>
+                                                <div class="controls input-append date form_date" id="dtDurationFrom" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_durFrom" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_durFrom" value="" /><br />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="control-label">Duration to</label>
+                                                <div class="controls input-append date form_date" id="dtDurationTo" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_durTo" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_durTo" value="" /><br />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Duties:</label>
+                                                <input id="txtDuties" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Name:</label>
+                                                <input id="txtNameHead" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Address:</label>
+                                                <input id="txtAdressJobs" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Phone:</label>
+                                                <input id="txtPhoneHead" class="multisteps-form__input form-control" type="text" />
+                                            </div>
                                         </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Are you applying visa from a third country?
+                                                    <input id="chekApp3Country" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvApply3Country">
+                                            <div class="form-row mt-4">
+                                                <div class="col-12 col-sm-10">
+                                                    <label>Please provide copy of residence / work permit of that country</label>
+                                                    <input id="txtProvideRes" class="multisteps-form__input form-control" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="button-row d-flex mt-4">
                                             <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                                            <button class="btn btn-success ml-auto" type="button" title="Send">Send</button>
+                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
                                         </div>
                                     </div>
                                 </div>
+                                <!--Family Details section 1-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Family Details Section I</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Name of Mother:</label>
+                                                <input id="txtNameMother" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Nationality of Mother:</label>
+                                                <input id="txtNatMother" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label>Name of Father:</label>
+                                                <input id="txtNameFatherr" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Nationality of Father:</label>
+                                                <input id="txtNatFatherr" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <br />
+                                            <div class="col-12 col-sm-6">
+                                                <label>Spouse details:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label>Name:</label>
+                                                <input id="txtNameSpouse" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Nationality:</label>
+                                                <input id="txtNatSpouse" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label class="control-label">Date Birth</label>
+                                                <div class="controls input-append date form_date" id="dtBirthSpuse" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_BirthSpo" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_BirthSpo" value="" /><br />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Place of Birth:</label>
+                                                <input id="txtPlaceBirth" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label>Profesion</label>
+                                                <input id="txtProfesion" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <br />
+                                                <br />
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Spouse Employer?
+                                                    <input id="chekSpouseEmp" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                                            </div>
+
+                                            @* Spouse details employer *@
+                                            <div id="dvSpouseEmp">
+                                                <div class="form-row mt-4">
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Name Employer</label>
+                                                        <input id="txtNameEmployer" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Address:</label>
+                                                        <input id="txtAddEmp" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Tel Employer</label>
+                                                        <input id="txtPhoneEmp" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Place of Birth:</label>
+                                                        <input id="txtPlaceBirth" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Profesion</label>
+                                                        <input id="txtProfesion" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @* Children's panel' *@
+                                            <div class="col-12 col-sm-6">
+                                                <br />
+                                                <br />
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Do you have any children?
+                                                    <input id="checkChildren" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            </div>
+                                            <div id="dvChil1">
+                                                <div class="form-row mt-4">
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Name:</label>
+                                                        <input id="txtChildren1" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label class="control-label">Date Birth</label>
+                                                        <div class="controls input-append date form_date" id="dtBirthChil1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Chil1" data-link-format="dd/mm/yy">
+                                                            <input class="form-control" size="16" type="text" value="" readonly>
+                                                            <span class="add-on"><i class="icon-remove"></i></span>
+                                                            <span class="add-on"><i class="icon-th"></i></span>
+                                                        </div>
+                                                        <input type="hidden" id="dtp_Chil1" value="" /><br />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label class="checkbox-wrap checkbox-primary">
+                                                            Other Children?
+                                                            <input id="checkChildren1" type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="dvChil2">
+                                                <div class="form-row mt-4">
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Name:</label>
+                                                        <input id="txtChildren2" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label class="control-label">Date Birth</label>
+                                                        <div class="controls input-append date form_date" id="dtBirthChil2" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Chil2" data-link-format="dd/mm/yy">
+                                                            <input class="form-control" size="16" type="text" value="" readonly>
+                                                            <span class="add-on"><i class="icon-remove"></i></span>
+                                                            <span class="add-on"><i class="icon-th"></i></span>
+                                                        </div>
+                                                        <input type="hidden" id="dtp_Chil2" value="" /><br />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label class="checkbox-wrap checkbox-primary">
+                                                            Other Children?
+                                                            <input id="checkChildren2" type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Family Details section 2-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Family Details Section II</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>Please list any of accompanying person / family member(include children) traveling with you to Pakistan:</label>
+
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Full Name:</label>
+                                                <input id="txtFullname" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label class="control-label">Date of Birth</label>
+                                                <div class="controls input-append date form_date" id="dtBirthAccomp" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_BirthAccomp" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_BirthAccomp" value="" /><br />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Passport Number(if Any):</label>
+                                                <input id="txtPassNumAccomp" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <br />
+                                            <div class="col-12 col-sm-6">
+                                                <label>Address:</label>
+                                                <input id="txtAddressAccomp" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+
+                                            <div class="col-12 col-sm-6">
+                                                <br />
+                                                <br />
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Other Accompanying?
+                                                    <input id="checkAccompanying" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                                            </div>
+
+                                            @* Accompanying details *@
+                                            <div id="dvAccompanying">
+                                                <div class="form-row mt-4">
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Full Name:</label>
+                                                        <input id="txtFullname1" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label class="control-label">Date of Birth</label>
+                                                        <div class="controls input-append date form_date" id="dtBirthAccomp1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_BirthAccomp1" data-link-format="dd/mm/yy">
+                                                            <input class="form-control" size="16" type="text" value="" readonly>
+                                                            <span class="add-on"><i class="icon-remove"></i></span>
+                                                            <span class="add-on"><i class="icon-th"></i></span>
+                                                        </div>
+                                                        <input type="hidden" id="dtp_BirthAccomp1" value="" /><br />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Passport Number(if Any):</label>
+                                                        <input id="txtPassNumAccomp1" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <br />
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Address:</label>
+                                                        <input id="txtAddressAccomp1" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+
+                                                    <div class="col-12 col-sm-6">
+                                                        <br />
+                                                        <br />
+                                                        <label class="checkbox-wrap checkbox-primary">
+                                                            Other Accompanying?
+                                                            <input id="checkAccompanying1" type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @* Accompanying details 1' *@
+
+                                            <div id="dvAccompanying1">
+                                                <div class="form-row mt-4">
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Full Name:</label>
+                                                        <input id="txtFullname2" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label class="control-label">Date of Birth</label>
+                                                        <div class="controls input-append date form_date" id="dtBirthAccomp2" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_BirthAccomp2" data-link-format="dd/mm/yy">
+                                                            <input class="form-control" size="16" type="text" value="" readonly>
+                                                            <span class="add-on"><i class="icon-remove"></i></span>
+                                                            <span class="add-on"><i class="icon-th"></i></span>
+                                                        </div>
+                                                        <input type="hidden" id="dtp_BirthAccomp2" value="" /><br />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Passport Number(if Any):</label>
+                                                        <input id="txtPassNumAccomp2" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <br />
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Address:</label>
+                                                        <input id="txtAddressAccomp2" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+
+                                                    <div class="col-12 col-sm-6">
+                                                        <br />
+                                                        <br />
+                                                        <label class="checkbox-wrap checkbox-primary">
+                                                            Other Accompanying?
+                                                            <input id="checkAccompanying2" type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            @* Children's panel' *@
+                                            <div class="col-12 col-sm-6">
+                                                <br />
+                                                <br />
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Do you have any bank account in Pakistan?
+                                                    <input id="checkBank" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            </div>
+
+                                            <div id="dvBankPanel">
+                                                <div class="form-row mt-4">
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Bank Name:</label>
+                                                        <input id="txtBankName" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Branch:</label>
+                                                        <input id="txtBranch" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>A/c Number:</label>
+                                                        <input id="txtBranch" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                        <label>Address:</label>
+                                                        <input id="txtAddressBank" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <label>Veriefer Details:</label>
+                                                        <input id="txtVerifier" class="multisteps-form__input form-control" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Travel history-->
+
                             </form>
                         </div>
                     </div>
@@ -226,5 +905,233 @@
     <!-- partial -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'></script>
     <script src="~/script.js"></script>
+    <script src="~/Bootstrap/js/jquery-1.8.3.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#sponsorA").hide();
+            $("#dvSponsoredB").hide();
+            $("#dvApply3Country").hide();
+            $("#dvSpouseEmp").hide();
+            $("#dvChil1").hide();
+            $("#dvChil2").hide();
+            $("#dvAccompanying").hide();
+            $("#dvAccompanying1").hide();
+            $("#dvBankPanel").hide();
+
+            //toggle the componenet with class msg_body
+            $('#chekSponsored').change(function () {
+                if (this.checked)
+                    $('#sponsorA').fadeIn('slow');
+                else
+                    $('#sponsorA').fadeOut('slow');
+
+            });
+
+            $('#chekSponOther').change(function () {
+                if (this.checked)
+                    $('#dvSponsoredB').fadeIn('slow');
+                else
+                    $('#dvSponsoredB').fadeOut('slow');
+
+            });
+
+            $('#chekApp3Country').change(function () {
+                if (this.checked)
+                    $('#dvApply3Country').fadeIn('slow');
+                else
+                    $('#dvApply3Country').fadeOut('slow');
+
+            });
+
+            $('#chekSpouseEmp').change(function () {
+                if (this.checked)
+                    $('#dvSpouseEmp').fadeIn('slow');
+                else
+                    $('#dvSpouseEmp').fadeOut('slow');
+
+            });
+
+            $('#checkChildren').change(function () {
+                if (this.checked)
+                    $('#dvChil1').fadeIn('slow');
+                else
+                    $('#dvChil1').fadeOut('slow');
+
+            });
+
+            $('#checkChildren1').change(function () {
+                if (this.checked)
+                    $('#dvChil2').fadeIn('slow');
+                else
+                    $('#dvChil2').fadeOut('slow');
+
+            });
+
+            $('#checkAccompanying').change(function () {
+                if (this.checked)
+                    $('#dvAccompanying').fadeIn('slow');
+                else
+                    $('#dvAccompanying').fadeOut('slow');
+
+            });
+
+            $('#checkAccompanying1').change(function () {
+                if (this.checked)
+                    $('#dvAccompanying1').fadeIn('slow');
+                else
+                    $('#dvAccompanying1').fadeOut('slow');
+
+            });
+
+            $('#checkBank').change(function () {
+                if (this.checked)
+                    $('#dvBankPanel').fadeIn('slow');
+                else
+                    $('#dvBankPanel').fadeOut('slow');
+
+            });
+
+            
+        });
+    </script>
+    <script>
+        $('#dtPickerBirht').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtPickerIssue').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtPickerExpiry').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtDurationFrom').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtDurationTo').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtBirthSpuse').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+        $('#dtBirthChil1').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtBirthChil2').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtBirthAccomp').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtBirthAccomp1').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtBirthAccomp2').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        
+
+        function onlyOne(checkbox) {
+            var checkboxes = document.getElementsByName('check');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
+
+        function onlyCheckMarried(checkbox) {
+            var checkMarried = document.getElementsByName('checkMarr');
+            checkMarried.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+
+        }
+
+    </script>
 </body>
 </html>

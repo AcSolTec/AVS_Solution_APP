@@ -13,7 +13,7 @@ namespace AVS_Global_API.Controllers
     public class PakistanController : ControllerBase
     {
 
-        //Testing
+
         [HttpGet]
         public IEnumerable<Models.TbCountry> Get()
         {
@@ -23,6 +23,7 @@ namespace AVS_Global_API.Controllers
                 return countries;
             }
         }
+
 
 
         [HttpGet]

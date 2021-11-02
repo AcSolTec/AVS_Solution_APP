@@ -14,6 +14,8 @@ namespace AVS_Global_API.Models
         public string TelPhone { get; set; }
         public string TelHome { get; set; }
         public string TelWork { get; set; }
+        public string City { get; set; }
+        public string ZipCode { get; set; }
 
         public virtual TbConctactDetail IdConctactNavigation { get; set; }
     }

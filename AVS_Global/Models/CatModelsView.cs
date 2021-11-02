@@ -11,5 +11,9 @@ namespace AVS_Global.Models
         public CatVisasRequiered visasRequiered { get; set; }
 
         public CatTypeVisas typeVisas { get; set; }
+        public CatCountries countries { get; set; }
+        public CatTypesPassports typesPass { get; set; }
+        public CatPurposes purposes { get; set; }
+        public CatsPortsInOut portsInOut { get; set; }
     }
 }
