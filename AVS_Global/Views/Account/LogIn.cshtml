@@ -1,4 +1,6 @@
-﻿@{
+﻿@model AVS_Global.Models.CatModelsView
+
+@{
     Layout = "";
 }
 
@@ -18,49 +20,96 @@
 <body>
     <section class="ftco-section">
         <div class="container">
-            <div class="row justify-content-center">
 
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-7 col-lg-5">
-                    <div class="login-wrap p-4 p-md-5">
-                        <div class="icon d-flex align-items-center justify-content-center">
-                            <span class="fa fa-user-o"></span>
+
+
+            <div id="LoginInto">
+                <div class="row justify-content-center">
+
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-7 col-lg-5">
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-user-o"></span>
+                            </div>
+                            <h3 class="text-center mb-4">Sign In</h3>
+                            <form action="#" class="login-form">
+                                <div class="form-group">
+                                    <input type="text" id="user" class="form-control rounded-left" placeholder="Username" required>
+                                </div>
+                                <div class="form-group d-flex">
+                                    <input type="password" id="pass" class="form-control rounded-left" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="form-control btn btn-primary rounded submit px-3" onclick="Validate();">Login</button>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-50">
+                                        <label class="checkbox-wrap checkbox-primary">
+                                            Remember Me
+                                            <input type="checkbox" checked>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="w-50 text-md-right">
+                                        <a href="#">Forgot Password</a>
+                                    </div>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <button type="button" id="btnDontAccount" class="form-control btn btn-warning rounded submit px-3">Don't have an account?</button>
+                                </div>
+                            </form>
                         </div>
-                        <h3 class="text-center mb-4">Sign In</h3>
-                        <form action="#" class="login-form">
-                            <div class="form-group">
-                                <input type="text" id="user" class="form-control rounded-left" placeholder="Username" required>
-                            </div>
-                            <div class="form-group d-flex">
-                                <input type="password" id="pass" class="form-control rounded-left" placeholder="Password" required>
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="form-control btn btn-primary rounded submit px-3" onclick="Validate();">Login</button>
-                            </div>
-                            <div class="form-group d-md-flex">
-                                <div class="w-50">
-                                    <label class="checkbox-wrap checkbox-primary">
-                                        Remember Me
-                                        <input type="checkbox" checked>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="w-50 text-md-right">
-                                    <a href="#">Forgot Password</a>
-                                </div>
-                            </div>
-                            <div class="form-group d-md-flex">
-                                <div class="w-50">
-                                </div>
-                                <div class="w-50 text-md-right">
-                                    <a href="#">Don't have an account?</a>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
+
+
+            <div id="RegisterInto">
+                <div class="row justify-content-center">
+
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-7 col-lg-5">
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-user-o"></span>
+                            </div>
+                            <h3 class="text-center mb-4">Register</h3>
+                            <form action="#" class="login-form">
+                                <div class="form-group">
+                                    <div id="dvcardMessage" class="card text-white bg-success mb-3">
+                                        <div class="card-body">
+                                            <p id="pMeesage" class="card-text"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="userReg" class="form-control rounded-left" placeholder="Username" required>
+                                </div>
+                                <div class="form-group d-flex">
+                                    <input type="password" id="passReg" class="form-control rounded-left" placeholder="Password" required>
+                                </div>
+                                <div class="form-group d-flex">
+                                    <input type="password" id="passConfirmReg" class="form-control rounded-left" placeholder="Confirm Password" required>
+                                </div>
+                                <div class="form-group d-flex">
+                                    <select id="ddCountry" class="multisteps-form__select form-control" asp-for="countriesCust.IdCountry" asp-items="@(new SelectList(@ViewBag.items,"IdCountry", "Name"))"></select>
+                                </div>
+                                <div class="form-group">
+                                    <button id="btnRegister" type="button" class="form-control btn btn-primary rounded submit px-3">Register</button>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <button type="button" id="btnLoginPage" class="form-control btn-warning rounded">Go to LogIn page</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </section>
 

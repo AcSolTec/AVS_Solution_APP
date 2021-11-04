@@ -66,7 +66,6 @@ namespace AVS_Global.Controllers
             ViewBag.itemsTypesPass = responseTypesPass.Data;
             #endregion
 
-
             #region CallCatPurpose
             //Visa requiered
             var clientPurpose = new RestClient(urlApiCatalogs + "CatPurposes");
@@ -74,7 +73,6 @@ namespace AVS_Global.Controllers
             var responsePurpose = clientPurpose.Execute<List<Models.CatPurposes>>(request);
             ViewBag.itemsPurposes = responsePurpose.Data;
             #endregion
-
 
             #region CallCatPortsInOut
             //Visa requiered
@@ -84,6 +82,16 @@ namespace AVS_Global.Controllers
             ViewBag.itemsPorts = responsePortsInOut.Data;
             #endregion
 
+
+            return View();
+        }
+
+
+
+        public IActionResult FormCuba()
+        {
+
+            //ViewData["User"] = "user@example.com";
 
             return View();
         }

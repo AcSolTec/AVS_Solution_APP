@@ -1,7 +1,7 @@
 ﻿@model AVS_Global.Models.CatModelsView
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_NavBarForms.cshtml";
 }
 
 <!DOCTYPE html>
@@ -307,13 +307,13 @@
                                     <div class="multisteps-form__content">
                                         <div class="row">
                                             @*<div class="col-12 col-md-6 mt-4">
-                                            <div class="card shadow-sm">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Item Title</h5>
-                                                    <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
-                                                </div>
-                                            </div>
-                                        </div>*@
+                                                    <div class="card shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Item Title</h5>
+                                                            <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
 
                                             <div class="form-row mt-4">
                                                 <label>Abroad / Country of origin:</label>
@@ -1331,14 +1331,14 @@
             $("#dvDetailsOfRefusal").hide();
             $("#dvDeported").hide();
             $("#dvCriminal").hide();
-            
+
             //$("#dvVisitedLast2Ye").hide();
             //$("#dvVisitedLast2Ye1").hide();
             //$("#dvVisitedLast2Ye2").hide();
             //$("#dvVisitedLast2Ye3").hide();
             //$("#dvVisitedLast2Ye4").hide();
 
-            
+
 
             $('#checkCriminal').change(function () {
                 if (this.checked)
@@ -1355,7 +1355,7 @@
                     $('#dvDeported').fadeOut('slow');
 
             });
-            
+
             $('#checkRefusedEntry').change(function () {
                 if (this.checked)
                     $('#dvDetailsOfRefusal').fadeIn('slow');
@@ -1459,7 +1459,7 @@
                     $("#dvVisitedLast5Y3").fadeOut('slow');
                     $("#dvVisitedLast5Y4").fadeOut('slow');
                 }
-                   
+
 
             });
         });
@@ -1664,7 +1664,7 @@
             forceParse: 0
         });
 
-        
+
         $('#dtDateVisitedTwo3').datetimepicker({
             weekStart: 1,
             todayBtn: 1,

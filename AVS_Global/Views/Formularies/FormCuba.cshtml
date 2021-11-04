@@ -1,0 +1,421 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_NavBarForms.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Cuba";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+
+    <link href="~/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/style.css" rel="stylesheet" />
+    <link href="~/Bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
+
+
+</head>
+<body>
+    <!--PEN CONTENT     -->
+    <div class="content">
+
+        <!--content inner-->
+        <div class="content__inner">
+            <div class="container">
+                <!--content title-->
+                <div class="content__title content__title--m-sm">
+
+                </div>
+            </div>
+            <div class="container overflow-hidden">
+                <!--multisteps-form-->
+                <div class="multisteps-form">
+                    <!--progress bar-->
+                    <div class="row">
+                        <div class="col-12 col-lg-7 ml-auto mr-auto mb-4">
+                            <div class="multisteps-form__progress">
+                                <button class="multisteps-form__progress-btn js-active" type="button" title="contact">Contact Details</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="travShipp">Travel & Shipping Details</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Summary">Summary</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Payment">Payment</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--form panels-->
+                    <div class="row">
+                        <div class="col-12 col-lg-8 m-auto">
+                            <form class="multisteps-form__form">
+                                <!--Datos de contacto-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Contact Details</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>First Name:</label>
+                                                <input id="txtName" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Surname:</label>
+                                                <input id="txtSurname" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Address:</label>
+                                                <input id="txtAddress" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Zip Code:</label>
+                                                <input id="txtZip" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Town:</label>
+                                                <input id="txtTown" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>E-Mail Address:</label>
+                                                <input id="txtMail" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Telephone Number:</label>
+                                                <input id="txtNumeroTel" class="multisteps-form__input form-control" type="text" />
+                                            </div>
+
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Travel & Shipping Details-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Travel & Shipping Details</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="control-label">Date of entry into cuba</label>
+                                                <div class="controls input-append date form_date" id="dtEntry" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_EntryCuba" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_EntryCuba" value="" /><br />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="control-label">Date of departure from Cuba</label>
+                                                <div class="controls input-append date form_date" id="dtDeparture" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_DepartureCuba" data-link-format="dd/mm/yy">
+                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_DepartureCuba" value="" /><br />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <label>Enter the Number of Tourist Cards you require</label>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Adults</label>
+                                                <select id="ddAdults" class="multisteps-form__select form-control">
+                                                    <option value="0">Select Adults</option>
+                                                    <option value="1" selected>1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Children (0-16 years)</label>
+                                                <select id="ddChildren" class="multisteps-form__select form-control">
+                                                    <option value="0">Select Children</option>
+                                                    <option value="1" selected>1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Passport for Adults:</label>
+                                                <input id="File1" class="form-control" type="file" />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>Passport for Children:</label>
+                                                <input id="File2" class="form-control" type="file" />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-row mt-4">
+                                            <label>Is the shipping address diffrent as the contact adress?</label>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    Yes
+                                                    <input id="chekShipYes" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    No
+                                                    <input id="checkShipNo" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <label>Shipping to you</label>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-10">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    <input id="chekch5" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                    A-Post-Plus (Insured, delivery without signature): CHF 5.
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    <input id="chekch7" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                    Registered Switzerland: CHF 7.50.
+                                                </label>
+                                                <br />
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    <input id="chek22" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                    Express Switzerland: CHF 22.
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    <input id="chekNatInt" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                    Courier national / international: Price on request.
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Summary-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Summary</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div id="dvcardMessage" class="card text-white bg-info mb-3">
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <b>Important informations</b>
+                                                        <br />
+                                                        <br />
+                                                        Tourist cards for Cuba cannot be cancelled or returned. The card costs 65 CHF for adults and 50 CHF for children up to 16 years. The costs are non-refundable. I have read and agree to this conditions<br /><br />
+                                                        This tourist card will not be valid, if you travelling over/from the USA to Cuba.In this case, you need to obtain the card directly in the USA.<br /><br />
+                                                        The Passport has to be valid for at least 6 Months after return from Cuba<br />
+                                                        <br />
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="dvcardMessage" class="card text-white bg-primary mb-3">
+                                            <div class="card-body">
+                                                Contact Details
+                                            </div>
+                                        </div>
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">First</th>
+                                                    <th scope="col">Last</th>
+                                                    <th scope="col">Handle</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>fat</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">Larry the Bird</td>
+                                                    <td>twitter</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div id="dvcardMessage" class="card text-white bg-primary mb-3">
+                                            <div class="card-body">
+                                                Travel & Shipping Details
+                                            </div>
+                                        </div>
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">First</th>
+                                                    <th scope="col">Last</th>
+                                                    <th scope="col">Handle</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>fat</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">Larry the Bird</td>
+                                                    <td>twitter</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>Comments:</label>
+                                                <textarea id="txtComments" class="form-control" rows="3" cols="75"></textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-10">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    <input id="chekch5" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                    I have read this information and confirm that I am aware that any errors in the passport details provided in my application will result in entry into Cuba at a border crossing point.
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    <input id="chekch7" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <span class="checkmark"></span>
+                                                    I have read <a href="http://allvisa.s213.sureserver.com/web/AGB_AVS.pdf" target="_blank"> GTC </a>and agree with them
+                                                </label>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Paymet-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Summary</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div id="dvcardMessage" class="card text-white bg-info mb-3">
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <b> FORM PAYMENT </b>
+                                                        <br />
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-success ml-auto js-btn-next" type="button" title="Next">Save form</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- partial -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'></script>
+    <script src="~/script.js"></script>
+    <script src="~/Bootstrap/js/jquery-1.8.3.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript">
+
+                            //$(document).ready(function () {
+
+                            //    //$("#sponsorA").hide();
+                            //    //$("#dvSponsoredB").hide();
+                            //    //$("#dvApply3Country").hide();
+
+
+
+                            //    $('#checkCriminal').change(function () {
+                            //        if (this.checked)
+                            //            $('#dvCriminal').fadeIn('slow');
+                            //        else
+                            //            $('#dvCriminal').fadeOut('slow');
+
+                            //    });
+
+
+                            //});
+    </script>
+    <script>
+                            //$('#dtPickerBirht').datetimepicker({
+                            //    weekStart: 1,
+                            //    todayBtn: 1,
+                            //    autoclose: 1,
+                            //    todayHighlight: 1,
+                            //    startView: 2,
+                            //    minView: 2,
+                            //    forceParse: 0
+                            //});
+
+
+
+                            //function onlyOne(checkbox) {
+                            //    var checkboxes = document.getElementsByName('check');
+                            //    checkboxes.forEach((item) => {
+                            //        if (item !== checkbox) item.checked = false
+                            //    });
+                            //}
+
+                            //function onlyCheckMarried(checkbox) {
+                            //    var checkMarried = document.getElementsByName('checkMarr');
+                            //    checkMarried.forEach((item) => {
+                            //        if (item !== checkbox) item.checked = false
+                            //    });
+
+                            //}
+
+                            //$('#btnsaveForm').click(function () {
+                            //    alert('Form saved successfuly!');
+                            //    location.reload();
+                            //});
+
+    </script>
+</body>
+</html>
