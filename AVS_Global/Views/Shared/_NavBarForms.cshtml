@@ -1,4 +1,24 @@
-﻿
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+
+@using AVS_Global.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<FormulariesController> Localizer
+
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    string returnUrl = ViewContext.HttpContext.Request.Path;
+
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,18 +34,37 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">AVS</a>
+           
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse" style="position:absolute;right:50px;">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <br />
+                        <label style="color:white">Id Form : 000-@ViewData["Form"]</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <li class="nav-item">
                         <label style="color:white">@ViewData["User"]</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </li>
+                    <li class="nav-item">
+                        <label style="color:white">@Localizer["navBar.lan"]</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <li class="nav-item">
+                        <form asp-action="ChangeLanguage" asp-controller="Formularies" method="post">
+                            <input type="hidden" id="returnUrl" name="returnUrl" value="@returnUrl" />
+                            <select id="culture"
+                                    name="culture"
+                                    class="form-control"
+                                    onchange="this.form.submit();"
+                                    asp-items="cultureItems"
+                                    asp-for="@requestCulture.RequestCulture.UICulture.Name">
+                            </select>
+                        </form>
+                    </li>
                 </ul>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <form class="d-flex float-right">
-                    <button class="btn btn-outline-danger" type="submit">Log out</button>
+                    <button id="btnLogOut" class="btn btn-outline-danger">Log out</button>
                 </form>
             </div>
         </div>
@@ -38,7 +77,30 @@
     @RenderBody()
 
 
+    <script>
 
+        $("#btnLogOut").click(function () {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: '/Account/logOutSesession',
+                    data: {
+                    },
+                    error: function (result) {
+                        alert("There is a Problem, Try Again!");
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        if (result.message == 'OK') {
+                            window.location.href = '/Account/Login';
+                        }
+                        else {
+                            alert(result.message);
+                        }
+                    }
+                });
+        });
+    </script>
     <script src="https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

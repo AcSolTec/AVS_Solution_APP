@@ -1,41 +1,9 @@
 ﻿$(document).ready(function () {
 
-    $("#RegisterInto").hide();
-    $("#dvcardMessage").hide()
-    
 
-    $("#btnDontAccount").click(function () {
-        $('#RegisterInto').show();
-        $('#LoginInto').hide();
-    });
+    $("#btnPersonalDet").click(function () {
 
-    $("#btnLoginPage").click(function () {
-        $('#LoginInto').show();
-        $('#RegisterInto').hide();
-    });
-
-    $("#btnRegister").click(function () {
-
-        var user = $('#userReg').val();
-        var pass = $('#passReg').val();
-        var idCountry = $('#ddCountry').val();
-
-        if (user == '' && pass == '') {
-            alert('Please capture user and password.');
-            return;
-        }
-
-        if (user == '') {
-            alert('Please capture user.');
-            return;
-        }
-
-
-        if (pass == '') {
-            alert('Please capture password.');
-            return;
-        }
-
+     //Pendiente *recuperar los values para el step personal info.
 
         $.ajax(
             {
@@ -45,7 +13,7 @@
                     RegisteredMail: user,
                     Pass: pass,
                     IdCountry: idCountry
-                   
+
                 },
                 error: function (result) {
                     alert("There is a Problem, Try Again!");
@@ -115,17 +83,3 @@ function Validate() {
         });
 }
 
-//function dontAccount() {
-//    $("#LoginInto").hide();
-//    $('#RegisterInto').show();
-    
-//}
-
-//function LoginIntoData() {
-//    $("#RegisterInto").fadeOut('slow');
-//    $('#LoginInto').fadeIn('slow');
-//}
-
-//function Register() {
-
-//}

@@ -13,6 +13,25 @@ namespace AVS_Global_API.Controllers
     public class PakistanController : ControllerBase
     {
 
+        [HttpPost]
+        [Route("SavePersonalDetails")]
+        public IActionResult SavePersonalData(Entities.enpkSavePersonalData model)
+        {
+
+            var result = Data.Pakistan.PersonalData.InsertPeronalDetails(model);
+            string msjeOut = string.Empty;
+            if (result == "OK")
+            {
+                msjeOut = "Personal data saved";
+            }
+            else
+            {
+                msjeOut = "Personal data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
 
         [HttpGet]
         public IEnumerable<Models.TbCountry> Get()

@@ -32,7 +32,12 @@ namespace AVS_Global_API.Controllers
                             where country.RegisteredMail == model.Mail
                             select new { Country = countries.Name }).ToList();
 
-               
+                var queryGetForm = (from customers in db.TbCustomersAvs
+                             join formularies in db.TbFormularies on customers.IdCustomer equals formularies.IdCustomer
+                             where customers.RegisteredMail == model.Mail
+                             select new { IdForm = formularies.IdForm }).ToList();
+
+
 
                 if (Key == model.Pass)
                 {
@@ -40,6 +45,7 @@ namespace AVS_Global_API.Controllers
                     response.loginSuccess = true;
                     response.Message = "Login Successfull!";
                     response.CountryLog = query[0].Country.ToString();
+                    response.IdForm = queryGetForm[0].IdForm.ToString();
 
                     return Ok(response);
                 }

@@ -8,11 +8,15 @@ using RestSharp.Authenticators;
 using RestSharp.Deserializers;
 using System.Net;
 using RestSharp.Serialization.Json;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace AVS_Global.Controllers
 {
     public class AccountController : Controller
     {
+        const string SessionName = "_Name";
+        const string SessionForm = "_Form";
         public IActionResult Login()
         {
             const string urlApiCatCustomers = "https://localhost:44330/api/Account/";
@@ -59,7 +63,7 @@ namespace AVS_Global.Controllers
             //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
 
-
+       
         public ActionResult Validate(string user, string pass)
         {
             var client = new RestClient("https://localhost:44330/api/Account");
@@ -76,15 +80,19 @@ namespace AVS_Global.Controllers
             string content = response.Content.Replace("\"", "");
             string dataMessa = string.Empty;
             string countryLogOn = string.Empty;
+            string idForm = string.Empty;
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 Models.responseCustomersLog responseAPI = new JsonDeserializer().Deserialize<Models.responseCustomersLog>(response);
 
                 if (responseAPI.loginSuccess)
                 {
-                    ViewData["User"] = dataAccount.Mail;
+                    HttpContext.Session.SetString(SessionName, dataAccount.Mail);
                     dataMessa = "OK";
                     countryLogOn = responseAPI.CountryLog.ToString();
+                    idForm = responseAPI.IdForm.ToString();
+                    HttpContext.Session.SetString(SessionForm, idForm);
+
                 }
                 else
                 {
@@ -94,6 +102,12 @@ namespace AVS_Global.Controllers
             }
             return Json(new { status = true, message = dataMessa, countrylog = countryLogOn });
             
+        }
+
+        public ActionResult logOutSesession()
+        {
+            HttpContext.Session.Remove(SessionName);
+            return Json(new { status = true, message = "OK"});
         }
     }
 }

@@ -1,4 +1,9 @@
-﻿
+﻿@using AVS_Global.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<FormulariesController> Localizer
+@inject IHtmlLocalizer<FormulariesController> HtmlLocalizer
 
 @{
     Layout = "~/Views/Shared/_NavBarForms.cshtml";
@@ -39,10 +44,10 @@
                     <div class="row">
                         <div class="col-12 col-lg-7 ml-auto mr-auto mb-4">
                             <div class="multisteps-form__progress">
-                                <button class="multisteps-form__progress-btn js-active" type="button" title="contact">Contact Details</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="travShipp">Travel & Shipping Details</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Summary">Summary</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Payment">Payment</button>
+                                <button class="multisteps-form__progress-btn js-active" type="button" title="contact">@Localizer["steps.cd"]</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="travShipp">@Localizer["steps.ts"]</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Summary">@Localizer["steps.sum"]</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Payment">@Localizer["steps.pay"]</button>
                             </div>
                         </div>
                     </div>
@@ -364,57 +369,57 @@
     <script src="~/Bootstrap/js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript">
 
-                            //$(document).ready(function () {
+                                //$(document).ready(function () {
 
-                            //    //$("#sponsorA").hide();
-                            //    //$("#dvSponsoredB").hide();
-                            //    //$("#dvApply3Country").hide();
-
-
-
-                            //    $('#checkCriminal').change(function () {
-                            //        if (this.checked)
-                            //            $('#dvCriminal').fadeIn('slow');
-                            //        else
-                            //            $('#dvCriminal').fadeOut('slow');
-
-                            //    });
+                                //    //$("#sponsorA").hide();
+                                //    //$("#dvSponsoredB").hide();
+                                //    //$("#dvApply3Country").hide();
 
 
-                            //});
+
+                                //    $('#checkCriminal').change(function () {
+                                //        if (this.checked)
+                                //            $('#dvCriminal').fadeIn('slow');
+                                //        else
+                                //            $('#dvCriminal').fadeOut('slow');
+
+                                //    });
+
+
+                                //});
     </script>
     <script>
-                            //$('#dtPickerBirht').datetimepicker({
-                            //    weekStart: 1,
-                            //    todayBtn: 1,
-                            //    autoclose: 1,
-                            //    todayHighlight: 1,
-                            //    startView: 2,
-                            //    minView: 2,
-                            //    forceParse: 0
-                            //});
+                                //$('#dtPickerBirht').datetimepicker({
+                                //    weekStart: 1,
+                                //    todayBtn: 1,
+                                //    autoclose: 1,
+                                //    todayHighlight: 1,
+                                //    startView: 2,
+                                //    minView: 2,
+                                //    forceParse: 0
+                                //});
 
 
 
-                            //function onlyOne(checkbox) {
-                            //    var checkboxes = document.getElementsByName('check');
-                            //    checkboxes.forEach((item) => {
-                            //        if (item !== checkbox) item.checked = false
-                            //    });
-                            //}
+                                //function onlyOne(checkbox) {
+                                //    var checkboxes = document.getElementsByName('check');
+                                //    checkboxes.forEach((item) => {
+                                //        if (item !== checkbox) item.checked = false
+                                //    });
+                                //}
 
-                            //function onlyCheckMarried(checkbox) {
-                            //    var checkMarried = document.getElementsByName('checkMarr');
-                            //    checkMarried.forEach((item) => {
-                            //        if (item !== checkbox) item.checked = false
-                            //    });
+                                //function onlyCheckMarried(checkbox) {
+                                //    var checkMarried = document.getElementsByName('checkMarr');
+                                //    checkMarried.forEach((item) => {
+                                //        if (item !== checkbox) item.checked = false
+                                //    });
 
-                            //}
+                                //}
 
-                            //$('#btnsaveForm').click(function () {
-                            //    alert('Form saved successfuly!');
-                            //    location.reload();
-                            //});
+                                //$('#btnsaveForm').click(function () {
+                                //    alert('Form saved successfuly!');
+                                //    location.reload();
+                                //});
 
     </script>
 </body>

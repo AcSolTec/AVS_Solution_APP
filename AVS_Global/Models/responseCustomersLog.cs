@@ -10,5 +10,6 @@ namespace AVS_Global.Models
         public bool loginSuccess { get; set; }
         public string Message { get; set; }
         public string CountryLog { get; set; }
+        public string IdForm { get; set; }
     }
 }
