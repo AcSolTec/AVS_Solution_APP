@@ -55,7 +55,7 @@ namespace AVS_Global
 
             services.AddSession(op =>
             {
-                op.IdleTimeout = TimeSpan.FromMinutes(1);
+                op.IdleTimeout = TimeSpan.FromMinutes(60);
             });
 
             services.AddMvc();

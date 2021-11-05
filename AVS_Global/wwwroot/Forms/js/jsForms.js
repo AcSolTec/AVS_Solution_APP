@@ -3,16 +3,37 @@
 
     $("#btnPersonalDet").click(function () {
 
-     //Pendiente *recuperar los values para el step personal info.
+
+        var idForm = $('#lblidForm').text();
+
+        var ddlVisaAp = $('#ddVisaApp').val();
+        var ddlPurpose = $('#ddPurpose').val();
+        var durationStay = $('#txtDurationStay').val();
+        var ddVisasTime = $('#ddVisasTime').val();
+        var ddTypeVisa = $('#ddTypeVisa').val();
+        var ddPortIn = $('#ddPortIn').val();
+        var ddPortOut = $('#ddPortOut').val();
+        var PlacesVisited = $('#txtPlacesVisited').val();
+        var DetProfesion = $('#txtDetailsProfesion').val();
+
+
+
 
         $.ajax(
             {
                 type: "POST",
-                url: '/Account/SaveCustomer',
+                url: '/Formularies/SavePersonalDetPakistan',
                 data: {
-                    RegisteredMail: user,
-                    Pass: pass,
-                    IdCountry: idCountry
+                    idForm: idForm,
+                    idVisaAp: ddlVisaAp,
+                    idPurpose: ddlPurpose,
+                    durationStay: durationStay,
+                    idVisasTime: ddVisasTime,
+                    idTypeVisa: ddTypeVisa,
+                    idPortsIn: ddPortIn,
+                    idPortsOut: ddPortOut,
+                    pvPakistan: PlacesVisited,
+                    dOfProfesion: DetProfesion
 
                 },
                 error: function (result) {
@@ -21,15 +42,11 @@
                 success: function (result) {
                     console.log(result);
                     if (result.message == 'OK') {
-                        window.location.href = '/Account/Login';
+                        //window.location.href = '/Formularies/Login';
                     }
                     else {
-                        $('#pMeesage').text(result.messagePage);
-                        $("#dvcardMessage").show();
-                        $('#userReg').val('');
-                        $('#passReg').val('');
-                        $('#ddCountry').val(0);
-                        //alert(result.messagePage);
+
+                        alert(result.messagePage);
                     }
                 }
             });
