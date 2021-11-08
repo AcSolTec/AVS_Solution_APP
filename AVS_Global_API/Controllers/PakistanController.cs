@@ -91,6 +91,25 @@ namespace AVS_Global_API.Controllers
             return Ok(msjeOut);
         }
 
+        [HttpPost]
+        [Route("SavePastJobs")]
+        public IActionResult SavePastJobs(Entities.enpkSavePastJobs model)
+        {
+
+            var result = Data.Pakistan.PastJobs.InsertPastJobs(model);
+            string msjeOut = string.Empty;
+            if (result == "OK")
+            {
+                msjeOut = "PastJobs data saved";
+            }
+            else
+            {
+                msjeOut = "PastJobs data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
 
         [HttpGet]
         public IEnumerable<Models.TbCountry> Get()

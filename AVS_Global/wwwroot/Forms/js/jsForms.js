@@ -304,7 +304,64 @@
 
     });
 
+    $("#btnAddPastJobs").click(function () {
 
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+        var designation = $('#txtDesignation').val();
+        var depto = $('#txtDepartament').val();
+        var dateStart = $('#dtp_durFrom').val();
+        var dateFinish = $('#dtp_durTo').val();
+        var duties = $('#txtDuties').val();
+        var nameHead = $('#txtNameHead').val();
+        var address = $('#txtAdressJobs').val();
+        var phoneHead = $('#txtPhoneHead').val();
+        var descrip = $('#txtProvideRes').val();
+
+        var applyVisa = false;
+
+        if ($('#chekApp3Country').is(":checked")) {
+            applyVisa = true;
+        }
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SavePastJobs',
+                data: {
+                    idForm: idForm,
+                    designation: designation,
+                    depto: depto,
+                    dateStart: dateStart,
+                    dateFinish: dateFinish,
+                    duties: duties,
+                    address: address,
+                    phone: phoneHead,
+                    descp: descrip,
+                    bitApply: applyVisa,
+                    name: nameHead
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+    });
 
 });
 

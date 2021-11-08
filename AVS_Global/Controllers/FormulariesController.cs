@@ -322,6 +322,52 @@ namespace AVS_Global.Controllers
             return Json(new { status = true, message = dataMessa, messagePage = "Conctact data saved" });
         }
 
+
+        public ActionResult SavePastJobs(int idForm, string designation, string depto, string dateStart, string dateFinish, string duties, string address,
+                                       string phone, string descp, bool bitApply, string name)
+        {
+
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SavePastJobs");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkPastJobs dataAccount = new Models.pkPastJobs();
+            dataAccount.IdForm = idForm;
+            dataAccount.Designation = designation;
+            dataAccount.Depto = depto;
+            dataAccount.DateStart = dateStart;
+            dataAccount.DateFinish = dateFinish;
+            dataAccount.Duties = duties;
+            dataAccount.Address = address;
+            dataAccount.Phone = phone;
+            dataAccount.DescAddContr = descp;
+            dataAccount.BitApply = bitApply;
+            dataAccount.Name = name;
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "PastJobs data saved")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+
+            return Json(new { status = true, message = dataMessa, messagePage = "PastJobs data saved" });
+        }
+
         #endregion
 
 
