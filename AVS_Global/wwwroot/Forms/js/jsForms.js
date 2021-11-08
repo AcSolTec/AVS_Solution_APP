@@ -225,6 +225,13 @@
             visitSponsored = true;
         }
 
+
+        var OtherSponsored = false;
+
+        if ($('#chekSponOther').is(":checked")) {
+            OtherSponsored = true;
+        }
+
     
         var nameSpon = $('#txtNameSponsorA').val();
         var addSpon = $('#txtAddressA').val();
@@ -270,6 +277,7 @@
                     citySponA: citySpon,
                     zipCodSponA: zipCoSpon,
 
+                    bitSponsorB: OtherSponsored,
                     nameSponB: nameSponB,
                     addSponB: addSponB,
                     telHomeSponB: telPhoneSponB,

@@ -260,7 +260,7 @@ namespace AVS_Global.Controllers
         public ActionResult SaveConctactDetails(int idForm, int idContry, string telHome, string telWork, string telCell, string inPakistan,
                                                 string telHomeb, string telWorkb, string telCellb, string email, bool bitSponsor,
                               string nameSponA, string addSponA,  string telHomeSponA, string telWorkSponA, string telCellSponA, string citySponA, string zipCodSponA,
-                              string nameSponB, string addSponB,  string telHomeSponB, string telWorkSponB, string telCellSponB, string citySponB, string zipCodSponB)
+                       bool bitSponsorB,  string nameSponB, string addSponB,  string telHomeSponB, string telWorkSponB, string telCellSponB, string citySponB, string zipCodSponB)
         {
 
 
@@ -289,6 +289,7 @@ namespace AVS_Global.Controllers
             dataAccount.citySpon = citySponA;
             dataAccount.zipCodeSpon = zipCodSponA;
             //Sponsor B
+            dataAccount.bitSponsorB = bitSponsorB;
             dataAccount.nameSponB = nameSponB;
             dataAccount.addSponsorB = addSponB;
             dataAccount.telHomeSponB = telHomeSponB;

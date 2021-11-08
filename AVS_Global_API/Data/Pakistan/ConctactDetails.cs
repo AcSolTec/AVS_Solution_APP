@@ -171,6 +171,11 @@ namespace AVS_Global_API.Data.Pakistan
                       Direction = ParameterDirection.Input,
                       Value = model.zipCodeSpon
                     },
+                    new SqlParameter("@BitSponsorB", SqlDbType.Bit)
+                    {
+                      Direction = ParameterDirection.Input,
+                      Value = model.bitSponsorB
+                    },
                     new SqlParameter("@NameSponsorB", SqlDbType.VarChar)
                     {
                       Direction = ParameterDirection.Input,
@@ -212,7 +217,7 @@ namespace AVS_Global_API.Data.Pakistan
                 context.Database.ExecuteSqlRaw(
                   "exec sp_pk_SaveContactDetails @IdForm, @IdCountry, @TelHome, @TelWork, @TelCell, @Email, @TelHomeb, @TelWorkb, @TelCellb, @InPaikistan, @BitSponsor," +
                   "@NameSponsor, @AddrSponsor,  @TelHomeSpon, @TelWorkSpon, @TelCellSpon, @CitySpon, @ZipCodeSpon, " +
-                  "@NameSponsorB, @AddrSponsorB,  @TelHomeSponB, @TelWorkSponB, @TelCellSponB, @CitySponB, @ZipCodeSponB", parameters:
+                  "@BitSponsorB, @NameSponsorB, @AddrSponsorB,  @TelHomeSponB, @TelWorkSponB, @TelCellSponB, @CitySponB, @ZipCodeSponB", parameters:
                   parameters);
 
                 msjeOut = "OK";

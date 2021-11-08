@@ -26,6 +26,7 @@ namespace AVS_Global.Models
         public string citySpon { get; set; }
         public string zipCodeSpon { get; set; }
 
+        public bool bitSponsorB { get; set; }
         public string nameSponB { get; set; }
         public string addSponsorB { get; set; }
         public string telHomeSponB { get; set; }
