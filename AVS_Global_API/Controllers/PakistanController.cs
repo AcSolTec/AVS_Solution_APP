@@ -32,6 +32,65 @@ namespace AVS_Global_API.Controllers
             return Ok(msjeOut);
         }
 
+        [HttpPost]
+        [Route("SaveAppDetails")]
+        public IActionResult SaveApplicantsData(Entities.enpkSaveAppDetails model)
+        {
+
+            var result = Data.Pakistan.AppDetails.InsertAppDetails(model);
+            string msjeOut = string.Empty;
+            if (result == "OK")
+            {
+                msjeOut = "Applicants data saved";
+            }
+            else
+            {
+                msjeOut = "Applicants data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
+
+        [HttpPost]
+        [Route("SavePassportDetails")]
+        public IActionResult SavePassportData(Entities.enpkSavePassportData model)
+        {
+
+            var result = Data.Pakistan.PassportDetails.InsertPassportDetails(model);
+            string msjeOut = string.Empty;
+            if (result == "OK")
+            {
+                msjeOut = "Passport data saved";
+            }
+            else
+            {
+                msjeOut = "Passport data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
+
+        [HttpPost]
+        [Route("SaveContactDetails")]
+        public IActionResult SaveContactData(Entities.enpkSaveConctactDetails model)
+        {
+
+            var result = Data.Pakistan.ConctactDetails.InsertConctactDetails(model);
+            string msjeOut = string.Empty;
+            if (result == "OK")
+            {
+                msjeOut = "Conctact data saved";
+            }
+            else
+            {
+                msjeOut = "Conctact data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
 
         [HttpGet]
         public IEnumerable<Models.TbCountry> Get()

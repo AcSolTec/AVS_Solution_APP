@@ -35,7 +35,10 @@ namespace AVS_Global.Controllers
             return View();
         }
 
- 
+
+        #region FormPakistan
+
+
         public IActionResult FormPakistan()
         {
             const string urlApiPakistan = "https://localhost:44330/api/Pakistan/";
@@ -115,8 +118,8 @@ namespace AVS_Global.Controllers
             }
         }
 
-        public ActionResult SavePersonalDetPakistan(int idForm, int idVisaAp, int idPurpose, string durationStay, int idVisasTime, int idTypeVisa, 
-                int idPortsIn, int idPortsOut, string pvPakistan, string dOfProfesion)
+        public ActionResult SavePersonalDetPakistan(int idForm, int idVisaAp, int idPurpose, string durationStay, int idVisasTime, int idTypeVisa,
+        int idPortsIn, int idPortsOut, string pvPakistan, string dOfProfesion)
         {
             var client = new RestClient("https://localhost:44330/api/Pakistan/SavePersonalDetails");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
@@ -157,6 +160,169 @@ namespace AVS_Global.Controllers
             return Json(new { status = true, message = dataMessa, messagePage = "Personal data saved" });
             //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
+
+
+        public ActionResult SaveApplicantsDetPakistan(int idForm, string name, string middleName, string lastName, string dateBirth, string cityBirth,
+            int idCountry, bool bitSex, bool bitMarital, string bloodGroup, string idMark, string natLanguage, string religion, string natPresent,
+            string natPrevious, string natDual)
+        {
+
+
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveAppDetails");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkApplicantsData dataAccount = new Models.pkApplicantsData();
+            dataAccount.idForm = idForm;
+            dataAccount.name = name;
+            dataAccount.middleName = middleName;
+            dataAccount.lastName = lastName;
+            dataAccount.dateBirth = dateBirth;
+            dataAccount.cityBirth = cityBirth;
+            dataAccount.idCountry = idCountry;
+            dataAccount.bitSex = bitSex;
+            dataAccount.bitMarital = bitMarital;
+            dataAccount.bloodGroup = bloodGroup;
+            dataAccount.idMark = idMark;
+            dataAccount.natLanguage = natLanguage;
+            dataAccount.religion = religion;
+            dataAccount.natPresent = natPresent;
+            dataAccount.natPrevious = natPrevious;
+            dataAccount.natDual = natDual;
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "Applicants data saved")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+
+
+            return Json(new { status = true, message = dataMessa, messagePage = "Applicants data saved" });
+        }
+
+
+        public ActionResult SavePassportPakistan(int idForm, int idTypePass, bool bitTravelDocs, string passportNum, string placeIssue, string dateIssue,
+                         string dateExpiry, string issueAuht)
+        {
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SavePassportDetails");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkPassportData dataAccount = new Models.pkPassportData();
+            dataAccount.idForm = idForm;
+            dataAccount.idTypePass = idTypePass;
+            dataAccount.travelDocs = bitTravelDocs;
+            dataAccount.passportNumber = passportNum;
+            dataAccount.placeOfIssue = placeIssue;
+            dataAccount.dateOfIssue = dateIssue;
+            dataAccount.dateOfExpiry = dateExpiry;
+            dataAccount.issuingAuth = issueAuht;
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "Passport data saved")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Passport data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+        public ActionResult SaveConctactDetails(int idForm, int idContry, string telHome, string telWork, string telCell, string inPakistan,
+                                                string telHomeb, string telWorkb, string telCellb, string email, bool bitSponsor,
+                              string nameSponA, string addSponA,  string telHomeSponA, string telWorkSponA, string telCellSponA, string citySponA, string zipCodSponA,
+                              string nameSponB, string addSponB,  string telHomeSponB, string telWorkSponB, string telCellSponB, string citySponB, string zipCodSponB)
+        {
+
+
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveContactDetails");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkContactData dataAccount = new Models.pkContactData();
+            dataAccount.idForm = idForm;
+            dataAccount.idCountry = idContry;
+            dataAccount.telHome = telHome;
+            dataAccount.telWork = telWork;
+            dataAccount.telCell = telCell;
+            dataAccount.inPakistan = inPakistan;
+            dataAccount.telHomeb = telHomeb;
+            dataAccount.telWorkb = telWorkb;
+            dataAccount.telCellb = telCellb;
+            dataAccount.email = email;
+            dataAccount.bitSponsor = bitSponsor;
+            //Sponsor A
+            dataAccount.nameSpon = nameSponA;
+            dataAccount.addSponsor = addSponA;
+            dataAccount.telHomeSpon = telHomeSponA;
+            dataAccount.telWorkSpon = telWorkSponA;
+            dataAccount.telCellSpon = telCellSponA;
+            dataAccount.citySpon = citySponA;
+            dataAccount.zipCodeSpon = zipCodSponA;
+            //Sponsor B
+            dataAccount.nameSponB = nameSponB;
+            dataAccount.addSponsorB = addSponB;
+            dataAccount.telHomeSponB = telHomeSponB;
+            dataAccount.telWorkSponB = telWorkSponB;
+            dataAccount.telCellSponB = telCellSponB;
+            dataAccount.citySponB = citySponB;
+            dataAccount.zipCodeSponB = zipCodSponB;
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "Conctact data saved")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+
+            return Json(new { status = true, message = dataMessa, messagePage = "Conctact data saved" });
+        }
+
+        #endregion
+
 
         public IActionResult FormCuba()
         {
