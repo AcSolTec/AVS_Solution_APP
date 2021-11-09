@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,6 +106,65 @@ namespace AVS_Global_API.Controllers
             else
             {
                 msjeOut = "PastJobs data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
+        [HttpPost]
+        [Route("SaveFamilyData")]
+        public IActionResult SaveFamilyData(Entities.enpkSaveFamilyData model)
+        {
+
+            var result = Data.Pakistan.FamilyData.InsertFamilyDetails(model);
+            string msjeOut = string.Empty;
+
+            if (result == "OK")
+            {
+                msjeOut = "Family data saved";
+            }
+            else
+            {
+                msjeOut = "PastJobs data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
+
+        [HttpPost]
+        [Route("SaveFamilyChildrens")]
+        [EnableCors("AllowOrigin")]
+        public IActionResult SaveFamilyChildrensData(List<Models.TbChildrensFamiliy> model)
+        {
+
+            //var result = Data.Pakistan.FamilyData.InsertFamilyDetails(model);
+            string msjeOut = string.Empty;
+
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                //var query = (from familiy in context.TbFamilyDetails
+                //             where familiy.IdForm == idForm
+                //             select new { idFam = familiy.IdFam }).ToList();
+
+                List<Models.TbChildrensFamiliy> childrens = new List<Models.TbChildrensFamiliy>();
+
+                foreach (var item in model)
+                {
+                    var children = new Models.TbChildrensFamiliy();
+
+                    children.IdFam = item.idForm;
+                    children.NameChild = item.NameChild;
+                    children.DateOfBith = item.DateOfBith;
+
+                    childrens.Add(children);
+                }
+
+                context.TbChildrensFamiliys.AddRange(childrens);
+                context.SaveChanges();
+                msjeOut = "OK";
+
             }
 
             return Ok(msjeOut);

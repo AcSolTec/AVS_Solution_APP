@@ -142,9 +142,6 @@
             });
     });
 
-
-
-
     $("#btnPassportDet").click(function () {
 
 
@@ -197,9 +194,6 @@
             });
 
     });
-
-
-
 
     $("#btnAddDetails").click(function () {
 
@@ -363,8 +357,171 @@
 
     });
 
+    $("#btnAddFamilySec1").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+        var nMother = $('#txtNameMother').val();
+        var nFather = $('#txtNameFatherr').val();
+        var IdNatMother = $('#ddlNatMother').val();
+        var IdNatFather = $('#ddlNatFather').val();
+        var SpouseName = $('#txtNameSpouse').val();
+        var IdNatSpouse = $('#ddlNatSpouse').val();
+        var dateBirth = $('#dtp_BirthSpo').val();
+        var placeBirth = $('#txtPlaceBirth').val();
+        var profesion = $('#txtProfesion').val();
+        var nameEmpSpouse = $('#txtNameEmployer').val();
+        var addresEmpSpuse = $('#txtAddEmp').val();
+        var telEmpSpouse = $('#txtPhoneEmp').val();
+
+        var bitChildrens = false;
+
+        if ($('#checkChildren').is(":checked")) {
+            bitChildrens = true;
+        }
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SaveFamilyData',
+                data: {
+                    idForm: idForm,
+                    nMother: nMother,
+                    nFather: nFather,
+                    idNatMother: IdNatMother,
+                    idNatFather: IdNatFather,
+                    spouseName: SpouseName,
+                    idNatSpouse: IdNatSpouse,
+                    dateBirth: dateBirth,
+                    placeBirth: placeBirth,
+                    profesion: profesion,
+                    bitChildrens: bitChildrens,
+                    nameEmpSpouse: nameEmpSpouse,
+                    addresEmpSpuse: addresEmpSpuse,
+                    telEmpSpouse: telEmpSpouse
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+        
+        if (bitChildrens == true) {
+            var model = [];
+            //Loop through the Table rows and build a JSON array.
+            $("#tblChildrens TBODY TR").each(function () {
+                var row = $(this);
+                dataToSend = {
+                    idForm: $('#lblidForm').text(), nameChild: row.find("TD").eq(0).html(), dateOfBirth: row.find("TD").eq(1).html()
+                };
+
+                model.push(dataToSend);
+            });
+            //Send the JSON array to Controller using AJAX.
+            console.log(JSON.stringify(model));
+            $.ajax({
+                type: "POST",
+                url: "/Formularies/SaveChildrens",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    alert(r + " record(s) inserted.");
+                }
+            });
+        }
+
+    });
+
+    $("body").on("click", "#btnSave", function () {
+        var model = [];
+        var dataToSend;
+        //Loop through the Table rows and build a JSON array.
+        $("#tblChildrens TBODY TR").each(function () {
+            var row = $(this);
+             dataToSend = {
+                 idForm: $('#lblidForm').text(), nameChild: row.find("TD").eq(0).html(), dateOfBirth: row.find("TD").eq(1).html() 
+            };
+
+            model.push(dataToSend);
+        });
+        //Send the JSON array to Controller using AJAX.
+        console.log(dataToSend);
+        console.log(JSON.stringify(model));
+        $.ajax({
+            type: "POST",
+            url: "/Formularies/SaveChildrens",
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                alert(r + " record(s) inserted.");
+            }
+        });
+    });
+
+    $("body").on("click", "#btnAdd", function () {
+        //Reference the Name and Country TextBoxes.
+        var txtName = $("#txtNameChild");
+        var txtCountry = $("#txtBirthChild");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblChildrens > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Name cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtName.val());
+
+        //Add Country cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtCountry.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.attr("class", "btn-danger")
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtName.val("");
+        txtCountry.val("");
+    });
+
+
 });
 
+
+function Remove(button) {
+    //Determine the reference of the Row using the Button.
+    var row = $(button).closest("TR");
+    var name = $("TD", row).eq(0).html();
+    if (confirm("Do you want to delete: " + name)) {
+        //Get the reference of the Table.
+        var table = $("#tblChildrens")[0];
+
+        //Delete the Table row using it's Index.
+        table.deleteRow(row[0].rowIndex);
+    }
+};
 
 function Validate() {
 

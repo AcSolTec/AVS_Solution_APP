@@ -9,6 +9,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AVS_Global.Models;
 
 namespace AVS_Global.Controllers
 {
@@ -367,6 +368,101 @@ namespace AVS_Global.Controllers
 
             return Json(new { status = true, message = dataMessa, messagePage = "PastJobs data saved" });
         }
+
+
+        public ActionResult SaveFamilyData(int idForm, string nMother, string nFather, int idNatMother, int idNatFather, string spouseName, int idNatSpouse,
+                                string dateBirth, string placeBirth, string profesion, bool bitChildrens, string nameEmpSpouse, string addresEmpSpuse, string telEmpSpouse)
+        {
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyData");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkFamilyData dataAccount = new Models.pkFamilyData();
+            dataAccount.IdForm = idForm;
+            dataAccount.Nmother = nMother;
+            dataAccount.Npather = nFather;
+            dataAccount.IdNatMother = idNatMother;
+            dataAccount.IdNatFather = idNatFather;
+            dataAccount.SpouseName = spouseName;
+            dataAccount.IdNatSpouse = idNatSpouse;
+            dataAccount.DateBirth = dateBirth;
+            dataAccount.PlaceBirth = placeBirth;
+            dataAccount.Profesion = profesion;
+            dataAccount.BitChildrens = bitChildrens;
+            dataAccount.NameEmployerSpouse = nameEmpSpouse;
+            dataAccount.AddressEmployerSpouse = addresEmpSpuse;
+            dataAccount.TelEmployerSpouse = telEmpSpouse;
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "Family data saved")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Family data saved" });
+        }
+
+
+        public JsonResult SaveChildrens([FromBody]List<pkChildrensFamily> model)
+        {
+
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyChildrens");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            List<Models.pkChildrensFamily> dataAccount = new List<Models.pkChildrensFamily>();
+
+            for (int i = 0; i < model.Count; i++)
+            {
+
+                var children = new Models.pkChildrensFamily();
+
+                children.idForm = model[i].idForm;
+                children.nameChild = model[i].nameChild;
+                children.dateOfBirth = model[i].dateOfBirth;
+
+                dataAccount.Add(children);
+            }
+
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty; 
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+
+            return Json(new { status = true, message = dataMessa, messagePage = "Family data saved" });
+        }
+
 
         #endregion
 

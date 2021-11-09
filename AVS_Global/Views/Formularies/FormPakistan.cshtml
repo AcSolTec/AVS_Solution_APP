@@ -573,7 +573,7 @@
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Nationality of Mother:</label>
-                                                <input id="txtNatMother" class="multisteps-form__input form-control" type="text" />
+                                                <select id="ddlNatMother" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))"></select>
                                             </div>
                                             <div class="col-12 col-sm-6">
                                                 <label>Name of Father:</label>
@@ -581,7 +581,7 @@
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Nationality of Father:</label>
-                                                <input id="txtNatFatherr" class="multisteps-form__input form-control" type="text" />
+                                                <select id="ddlNatFather" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))"></select>
                                             </div>
                                             <br />
                                             <div class="col-12 col-sm-6">
@@ -596,7 +596,9 @@
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Nationality:</label>
-                                                <input id="txtNatSpouse" class="multisteps-form__input form-control" type="text" />
+                                                <select id="ddlNatSpouse" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))">
+                                                    <option value="0">Choose nationality</option>
+                                                </select>
                                             </div>
                                             <div class="col-12 col-sm-6">
                                                 <label class="control-label">Date Birth</label>
@@ -647,14 +649,6 @@
                                                         <input id="txtPhoneEmp" class="multisteps-form__input form-control" type="text" />
                                                     </div>
                                                     <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                        <label>Place of Birth:</label>
-                                                        <input id="txtPlaceBirth" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <label>Profesion</label>
-                                                        <input id="txtProfesion" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
 
                                                     </div>
                                                 </div>
@@ -673,28 +667,31 @@
                                             </div>
                                             <div id="dvChil1">
                                                 <div class="form-row mt-4">
-                                                    <div class="col-12 col-sm-6">
-                                                        <label>Name:</label>
-                                                        <input id="txtChildren1" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                        <label class="control-label">Date Birth</label>
-                                                        <div class="controls input-append date form_date" id="dtBirthChil1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Chil1" data-link-format="dd/mm/yy">
-                                                            <input class="form-control" size="16" type="text" value="" readonly>
-                                                            <span class="add-on"><i class="icon-remove"></i></span>
-                                                            <span class="add-on"><i class="icon-th"></i></span>
-                                                        </div>
-                                                        <input type="hidden" id="dtp_Chil1" value="" /><br />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <label class="checkbox-wrap checkbox-primary">
-                                                            Other Children?
-                                                            <input id="checkChildren1" type="checkbox">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
+                                                    <table id="tblChildrens" class="table" cellpadding="0" cellspacing="0">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Name</td>
+                                                                <td>Date Birth</td>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td><input class="form-control" type="text" id="txtNameChild" /></td>
+                                                                <td><input class="form-control" type="text" id="txtBirthChild" placeholder="dd/MM/yyyy" /></td>
+                                                                <td><input class="btn-success" type="button" id="btnAdd" value="Add" /></td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                    <br />
+                                                    <input type="button" id="btnSave" value="Save All" />
                                                 </div>
+
+
                                             </div>
+
                                             <div id="dvChil2">
                                                 <div class="form-row mt-4">
                                                     <div class="col-12 col-sm-6 mt-4 mt-sm-0">
@@ -722,7 +719,7 @@
                                         </div>
                                         <div class="button-row d-flex mt-4">
                                             <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                            <button id="btnAddFamilySec1" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1470,7 +1467,11 @@
 
 
             });
+
+
         });
+
+
     </script>
     <script>
         $('#dtPickerBirht').datetimepicker({
