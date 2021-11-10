@@ -4,7 +4,7 @@
     $("#btnPersonalDet").click(function () {
 
 
-         //Validation data 
+        //Validation data 
 
         var idForm = $('#lblidForm').text();
 
@@ -175,7 +175,7 @@
                     dateIssue: dateIssue,
                     dateExpiry: dateExpiry,
                     issueAuht: issueAuht
-    
+
 
                 },
                 error: function (result) {
@@ -226,7 +226,7 @@
             OtherSponsored = true;
         }
 
-    
+
         var nameSpon = $('#txtNameSponsorA').val();
         var addSpon = $('#txtAddressA').val();
         var citySpon = $('#txtCityA').val();
@@ -243,7 +243,7 @@
         var telPhoneSponB = $('#txtPHomeSponsorB').val();
         var telWorkSponB = $('#txtPWorkSponsorB').val();
         var telCellSponB = $('#txtPCellSponsorB').val();
-     
+
 
         $.ajax(
             {
@@ -418,9 +418,10 @@
                     }
                 }
             });
-        
+
         if (bitChildrens == true) {
             var model = [];
+            var dataToSend;
             //Loop through the Table rows and build a JSON array.
             $("#tblChildrens TBODY TR").each(function () {
                 var row = $(this);
@@ -431,6 +432,7 @@
                 model.push(dataToSend);
             });
             //Send the JSON array to Controller using AJAX.
+            console.log(dataToSend);
             console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
@@ -439,39 +441,310 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (r) {
-                    alert(r + " record(s) inserted.");
+                    //alert(r + " record(s) inserted.");
                 }
             });
         }
 
     });
 
-    $("body").on("click", "#btnSave", function () {
+    $("#btnAddFamilySec2").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+        var _nameBank = $('#txtBankName').val();
+        var _branch = $('#txtBranch').val();
+        var _acNumber = $('#txtAcNumber').val();
+        var _address = $('#txtAddressBank').val();
+        var _verifier = $('#txtVerifier').val();
+
+        //var nMother = $('#txtNameMother').val();
+        //var nFather = $('#txtNameFatherr').val();
+        //var IdNatMother = $('#ddlNatMother').val();
+
+        var checkAccomp = false;
+        var checkBank = false;
+
+        if ($('#checkAccomp').is(":checked")) {
+            checkAccomp = true;
+        }
+
+        if ($('#checkBank').is(":checked")) {
+            checkBank = true;
+        }
+
+        if (checkAccomp == true) {
+            var model = [];
+            var dataToSend;
+            //Loop through the Table rows and build a JSON array.
+            $("#tblAccompany TBODY TR").each(function () {
+                var row = $(this);
+                dataToSend = {
+                    idForm: $('#lblidForm').text(), accompName: row.find("TD").eq(0).html(), dateOfBirth: row.find("TD").eq(1).html(), passportNumber: row.find("TD").eq(2).html(), address: row.find("TD").eq(3).html()
+                };
+
+                model.push(dataToSend);
+            });
+            //Send the JSON array to Controller using AJAX.
+            //console.log(dataToSend);
+            //console.log(JSON.stringify(model));
+            $.ajax({
+                type: "POST",
+                url: "/Formularies/SaveAccompanying",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    //alert(r + " record(s) inserted.");
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                }
+            });
+        }
+
+        if (checkBank == true) {
+
+
+            $.ajax(
+                {
+                    type: "POST",
+                    url: '/Formularies/SaveBankData',
+                    data: {
+                        idForm: idForm,
+                        nameBank: _nameBank,
+                        branch: _branch,
+                        acNumber: _acNumber,
+                        address: _address,
+                        veriefer: _verifier
+
+                    },
+                    error: function (result) {
+                        alert("There is a Problem, Try Again!");
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        if (result.message == 'OK') {
+                            //window.location.href = '/Formularies/Login';
+                        }
+                        else {
+
+                            alert(result.messagePage);
+                        }
+                    }
+                });
+
+        }
+
+
+    });
+
+    $("#btnsaveForm").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+
+        var bRefused = false;
+        if ($('#checkRefused').is(":checked")) {
+            bRefused = true;
+        }
+
+        var bRefusedEntry = false;
+        if ($('#checkRefusedEntry').is(":checked")) {
+            bRefusedEntry = true;
+        }
+
+        var detRefusal = $('#txtDetailsRefusal').val();
+
+        var bDeported = false;
+
+        if ($('#checkDeported').is(":checked")) {
+            bDeported = true;
+        }
+
+
+        var datDeport = $('#dtp_Deported').val();
+        var ddCountryDeport = $('#ddCountryDeport').val();
+        var reasonDep = $('#txtReasonDepo').val();
+        var refenceNumber = $('#txtrefNumberDepo').val();
+
+        if (bDeported == true) {
+
+            //call deported data 
+            $.ajax(
+                {
+                    type: "POST",
+                    url: '/Formularies/SaveTravelDeported',
+                    data: {
+                        idForm: idForm,
+                        dateDeport: datDeport,
+                        idCountry: ddCountryDeport,
+                        reason: reasonDep,
+                        referenceNum: refenceNumber
+                    },
+                    error: function (result) {
+                        alert("There is a Problem, Try Again!");
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        if (result.message == 'OK') {
+                            //window.location.href = '/Formularies/Login';
+                        }
+                        else {
+
+                            alert(result.messagePage);
+                        }
+                    }
+                });
+        }
+
+        var bCriminal = false;
+        if ($('#checkCriminal').is(":checked")) {
+            bCriminal = true;
+        }
+
+        var datConviction = $('#dtp_Criminal').val();
+        var ddCountryConvic = $('#ddCountryConviction').val();
+        var offen = $('#txtOffenceCriminal').val();
+        var sentence = $('#txtSentence').val();
+
+        if (bCriminal == true) {
+
+            //call conviction data 
+            $.ajax(
+                {
+                    type: "POST",
+                    url: '/Formularies/SaveTravelConviction',
+                    data: {
+                        idForm: idForm,
+                        dateConviction: datConviction,
+                        idCountry: ddCountryConvic,
+                        offence: offen,
+                        sentence: sentence
+
+                    },
+                    error: function (result) {
+                        alert("There is a Problem, Try Again!");
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        if (result.message == 'OK') {
+                            //window.location.href = '/Formularies/Login';
+                        }
+                        else {
+
+                            alert(result.messagePage);
+                        }
+                    }
+                });
+        }
+
+
+        //call travel data 
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SaveBitsTravles',
+                data: {
+                    idForm: idForm,
+                    bitRefused: bRefused,
+                    bitRefusedPakistan: bRefusedEntry,
+                    bitRemoveCountry: bDeported,
+                    bitConviction: bCriminal,
+                    detailRefusal: detRefusal
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+
+        var visited5years = false;
+
+        if ($('#checkLast5Years').is(":checked")) {
+            visited5years = true;
+        }
+
+
+        if (visited5years == true) {
+            var model = [];
+            var dataToSend;
+            //Loop through the Table rows and build a JSON array.
+            $("#tblVisitedLast5 TBODY TR").each(function () {
+                var row = $(this);
+                dataToSend = {
+                    idForm: $('#lblidForm').text(), dateTravel: row.find("TD").eq(0).html(), address: row.find("TD").eq(1).html(), purpose: row.find("TD").eq(2).html(), duration: row.find("TD").eq(3).html()
+                };
+
+                model.push(dataToSend);
+            });
+            //Send the JSON array to Controller using AJAX.
+            //console.log(dataToSend);
+            //console.log(JSON.stringify(model));
+            $.ajax({
+                type: "POST",
+                url: "/Formularies/SaveTravelLast5",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    //alert(r + " record(s) inserted.");
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                }
+            });
+        }
+
+
         var model = [];
         var dataToSend;
         //Loop through the Table rows and build a JSON array.
-        $("#tblChildrens TBODY TR").each(function () {
+        $("#tblVisitedLast2 TBODY TR").each(function () {
             var row = $(this);
-             dataToSend = {
-                 idForm: $('#lblidForm').text(), nameChild: row.find("TD").eq(0).html(), dateOfBirth: row.find("TD").eq(1).html() 
+            dataToSend = {
+                idForm: $('#lblidForm').text(), dateTravel: row.find("TD").eq(0).html(), address: row.find("TD").eq(1).html(), purpose: row.find("TD").eq(2).html(), duration: row.find("TD").eq(3).html()
             };
 
             model.push(dataToSend);
         });
         //Send the JSON array to Controller using AJAX.
-        console.log(dataToSend);
-        console.log(JSON.stringify(model));
+        //console.log(dataToSend);
+        //console.log(JSON.stringify(model));
         $.ajax({
             type: "POST",
-            url: "/Formularies/SaveChildrens",
+            url: "/Formularies/SaveTravelLast2",
             data: JSON.stringify(model),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (r) {
-                alert(r + " record(s) inserted.");
+                //alert(r + " record(s) inserted.");
+            },
+            error: function (result) {
+                alert("There is a Problem, Try Again!");
             }
         });
+
+        //location.reload();
+
     });
+
 
     $("body").on("click", "#btnAdd", function () {
         //Reference the Name and Country TextBoxes.
@@ -497,7 +770,7 @@
         var btnRemove = $("<input />");
         btnRemove.attr("type", "button");
         btnRemove.attr("onclick", "Remove(this);");
-        btnRemove.attr("class", "btn-danger")
+        btnRemove.attr("class", "btn btn-danger")
         btnRemove.val("Remove");
         cell.append(btnRemove);
 
@@ -506,6 +779,134 @@
         txtCountry.val("");
     });
 
+    //Accompanying's
+    $("body").on("click", "#btnAddAccomp", function () {
+        //Reference the Name and Country TextBoxes.
+        var txtName = $("#txtNameAccom");
+        var txtBirhtA = $("#txtBirthAccom");
+        var txtPassNum = $("#txtPassportNumAccom");
+        var txtAddressAccomp = $("#txtAddressAccom");
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblAccompany > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Name cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtName.val());
+
+        //Add Country cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtBirhtA.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtPassNum.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtAddressAccomp.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "RemoveAccom(this);");
+        btnRemove.attr("class", "btn btn-danger")
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtName.val("");
+        txtBirhtA.val("");
+        txtPassNum.val("");
+        txtAddressAccomp.val("");
+    });
+
+    //Visited pakistan last 5 years
+    $("body").on("click", "#btnAddVisitedL5", function () {
+        //Reference the Name and Country TextBoxes.
+        var txtdateLast5 = $("#txtDateLast5");
+        var txtdestinLast5 = $("#txtDestinLast5");
+        var txtpurposeLast5 = $("#txtPurposeLast5");
+        var txtdurationLast5 = $("#txtDurationLast5");
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblVisitedLast5 > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Name cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtdateLast5.val());
+
+        //Add Country cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtdestinLast5.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtpurposeLast5.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtdurationLast5.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "RemoveLast5(this);");
+        btnRemove.attr("class", "btn btn-danger")
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtdateLast5.val("");
+        txtdestinLast5.val("");
+        txtpurposeLast5.val("");
+        txtdurationLast5.val("");
+    });
+
+    //Visited pakistan last 2 years
+    $("body").on("click", "#btnAddVisitedL2", function () {
+        //Reference the Name and Country TextBoxes.
+        var txtdateLast2 = $("#txtDateLast2");
+        var txtdestinLast2 = $("#txtDestinLast2");
+        var txtpurposeLast2 = $("#txtPurposeLast2");
+        var txtdurationLast2 = $("#txtDurationLast2");
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblVisitedLast2 > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Name cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtdateLast2.val());
+
+        //Add Country cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtdestinLast2.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtpurposeLast2.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtdurationLast2.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "RemoveLast2(this);");
+        btnRemove.attr("class", "btn btn-danger")
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtdateLast2.val("");
+        txtdestinLast2.val("");
+        txtpurposeLast2.val("");
+        txtdurationLast2.val("");
+    });
 
 });
 
@@ -517,6 +918,45 @@ function Remove(button) {
     if (confirm("Do you want to delete: " + name)) {
         //Get the reference of the Table.
         var table = $("#tblChildrens")[0];
+
+        //Delete the Table row using it's Index.
+        table.deleteRow(row[0].rowIndex);
+    }
+};
+
+function RemoveAccom(button) {
+    //Determine the reference of the Row using the Button.
+    var row = $(button).closest("TR");
+    var name = $("TD", row).eq(0).html();
+    if (confirm("Do you want to delete: " + name)) {
+        //Get the reference of the Table.
+        var table = $("#tblAccompany")[0];
+
+        //Delete the Table row using it's Index.
+        table.deleteRow(row[0].rowIndex);
+    }
+};
+
+function RemoveLast5(button) {
+    //Determine the reference of the Row using the Button.
+    var row = $(button).closest("TR");
+    var name = $("TD", row).eq(0).html();
+    if (confirm("Do you want to delete: " + name)) {
+        //Get the reference of the Table.
+        var table = $("#tblVisitedLast5")[0];
+
+        //Delete the Table row using it's Index.
+        table.deleteRow(row[0].rowIndex);
+    }
+};
+
+function RemoveLast2(button) {
+    //Determine the reference of the Row using the Button.
+    var row = $(button).closest("TR");
+    var name = $("TD", row).eq(0).html();
+    if (confirm("Do you want to delete: " + name)) {
+        //Get the reference of the Table.
+        var table = $("#tblVisitedLast2")[0];
 
         //Delete the Table row using it's Index.
         table.deleteRow(row[0].rowIndex);

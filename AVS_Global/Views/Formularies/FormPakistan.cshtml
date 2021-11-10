@@ -681,12 +681,11 @@
                                                             <tr>
                                                                 <td><input class="form-control" type="text" id="txtNameChild" /></td>
                                                                 <td><input class="form-control" type="text" id="txtBirthChild" placeholder="dd/MM/yyyy" /></td>
-                                                                <td><input class="btn-success" type="button" id="btnAdd" value="Add" /></td>
+                                                                <td><input class="btn btn-success" type="button" id="btnAdd" value="Add" /></td>
                                                             </tr>
                                                         </tfoot>
                                                     </table>
                                                     <br />
-                                                    <input type="button" id="btnSave" value="Save All" />
                                                 </div>
 
 
@@ -732,128 +731,48 @@
                                                 <label>Please list any of accompanying person / family member(include children) traveling with you to Pakistan:</label>
 
                                             </div>
-                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>Full Name:</label>
-                                                <input id="txtFullname" class="multisteps-form__input form-control" type="text" />
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <label class="control-label">Date of Birth</label>
-                                                <div class="controls input-append date form_date" id="dtBirthAccomp" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_BirthAccomp" data-link-format="dd/mm/yy">
-                                                    <input class="form-control" size="16" type="text" value="" readonly>
-                                                    <span class="add-on"><i class="icon-remove"></i></span>
-                                                    <span class="add-on"><i class="icon-th"></i></span>
-                                                </div>
-                                                <input type="hidden" id="dtp_BirthAccomp" value="" /><br />
-                                            </div>
-                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>Passport Number(if Any):</label>
-                                                <input id="txtPassNumAccomp" class="multisteps-form__input form-control" type="text" />
-                                            </div>
-                                            <br />
-                                            <div class="col-12 col-sm-6">
-                                                <label>Address:</label>
-                                                <input id="txtAddressAccomp" class="multisteps-form__input form-control" type="text" />
-                                            </div>
 
                                             <div class="col-12 col-sm-6">
                                                 <br />
                                                 <br />
                                                 <label class="checkbox-wrap checkbox-primary">
-                                                    Other Accompanying?
-                                                    <input id="checkAccompanying" type="checkbox">
+                                                    Do you have any accompanying?
+                                                    <input id="checkAccomp" type="checkbox">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-
                                             </div>
 
-                                            @* Accompanying details *@
-                                            <div id="dvAccompanying">
+
+                                            <div id="dvAccomp">
                                                 <div class="form-row mt-4">
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                        <label>Full Name:</label>
-                                                        <input id="txtFullname1" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <label class="control-label">Date of Birth</label>
-                                                        <div class="controls input-append date form_date" id="dtBirthAccomp1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_BirthAccomp1" data-link-format="dd/mm/yy">
-                                                            <input class="form-control" size="16" type="text" value="" readonly>
-                                                            <span class="add-on"><i class="icon-remove"></i></span>
-                                                            <span class="add-on"><i class="icon-th"></i></span>
-                                                        </div>
-                                                        <input type="hidden" id="dtp_BirthAccomp1" value="" /><br />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                        <label>Passport Number(if Any):</label>
-                                                        <input id="txtPassNumAccomp1" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
+                                                    <table id="tblAccompany" class="table" cellpadding="0" cellspacing="0">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Fulla Name</td>
+                                                                <td>Date Birth</td>
+                                                                <th>Passport Number</th>
+                                                                <th>Address</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td><input class="form-control" type="text" id="txtNameAccom" /></td>
+                                                                <td><input class="form-control" type="text" id="txtBirthAccom" placeholder="dd/MM/yyyy" /></td>
+                                                                <td><input class="form-control" type="text" id="txtPassportNumAccom" /></td>
+                                                                <td><input class="form-control" type="text" id="txtAddressAccom" /></td>
+                                                                <td><input class="btn btn-success" type="button" id="btnAddAccomp" value="Add" /></td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
                                                     <br />
-                                                    <div class="col-12 col-sm-6">
-                                                        <label>Address:</label>
-                                                        <input id="txtAddressAccomp1" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6">
-                                                        <br />
-                                                        <br />
-                                                        <label class="checkbox-wrap checkbox-primary">
-                                                            Other Accompanying?
-                                                            <input id="checkAccompanying1" type="checkbox">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-
-                                                    </div>
                                                 </div>
                                             </div>
 
-                                            @* Accompanying details 1' *@
-
-                                            <div id="dvAccompanying1">
-                                                <div class="form-row mt-4">
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                        <label>Full Name:</label>
-                                                        <input id="txtFullname2" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <label class="control-label">Date of Birth</label>
-                                                        <div class="controls input-append date form_date" id="dtBirthAccomp2" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_BirthAccomp2" data-link-format="dd/mm/yy">
-                                                            <input class="form-control" size="16" type="text" value="" readonly>
-                                                            <span class="add-on"><i class="icon-remove"></i></span>
-                                                            <span class="add-on"><i class="icon-th"></i></span>
-                                                        </div>
-                                                        <input type="hidden" id="dtp_BirthAccomp2" value="" /><br />
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                        <label>Passport Number(if Any):</label>
-                                                        <input id="txtPassNumAccomp2" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-                                                    <br />
-                                                    <div class="col-12 col-sm-6">
-                                                        <label>Address:</label>
-                                                        <input id="txtAddressAccomp2" class="multisteps-form__input form-control" type="text" />
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6">
-                                                        <br />
-                                                        <br />
-                                                        <label class="checkbox-wrap checkbox-primary">
-                                                            Other Accompanying?
-                                                            <input id="checkAccompanying2" type="checkbox">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            @* Children's panel' *@
+                                            @* bank account panel' *@
                                             <div class="col-12 col-sm-6">
                                                 <br />
                                                 <br />
@@ -878,7 +797,7 @@
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <label>A/c Number:</label>
-                                                        <input id="txtBranch" class="multisteps-form__input form-control" type="text" />
+                                                        <input id="txtAcNumber" class="multisteps-form__input form-control" type="text" />
                                                     </div>
                                                     <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                         <label>Address:</label>
@@ -895,7 +814,7 @@
                                         </div>
                                         <div class="button-row d-flex mt-4">
                                             <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                            <button id="btnAddFamilySec2" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -906,142 +825,42 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label class="checkbox-wrap checkbox-primary">
-                                                    Have you ever visited Pakistan during last live years?:
+                                                    Have you ever visited Pakistan during last five years?:
                                                     <input id="checkLast5Years" name="check" type="checkbox">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                         </div>
                                         <!--Visited last 5 years pakistan-->
+
                                         <div id="dvVisitedLast5Ye">
                                             <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisited" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_Visited" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestination" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurpose" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDuration" class="multisteps-form__input form-control" type="text" />
-                                                </div>
+                                                <table id="tblVisitedLast5" class="table" cellpadding="0" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Date</td>
+                                                            <td>Destination/Addresss</td>
+                                                            <th>Purpose</th>
+                                                            <th>Duration</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td><input class="form-control" type="text" id="txtDateLast5" placeholder="dd/MM/yyyy" /></td>
+                                                            <td><input class="form-control" type="text" id="txtDestinLast5"  /></td>
+                                                            <td><input class="form-control" type="text" id="txtPurposeLast5" /></td>
+                                                            <td><input class="form-control" type="text" id="txtDurationLast5" /></td>
+                                                            <td><input class="btn btn-success" type="button" id="btnAddVisitedL5" value="Add" /></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                                <br />
                                             </div>
                                         </div>
 
-                                        <div id="dvVisitedLast5Y1">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisited1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited1" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_Visited1" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestination1" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurpose1" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDuration1" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="dvVisitedLast5Y2">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisited2" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited2" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_Visited2" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestination2" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurpose2" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDuration2" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="dvVisitedLast5Y3">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisited3" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited3" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_Visited3" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestination3" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurpose3" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDuration3" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="dvVisitedLast5Y4">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisited4" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Visited4" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_Visited4" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestination4" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurpose4" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDuration4" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
+  
                                         <!--End form Visited last 5 years pakistan-->
 
                                         <div class="form-row mt-4">
@@ -1053,133 +872,31 @@
                                         <!--Visited last 2 years pakistan-->
                                         <div id="dvVisitedLast2Ye">
                                             <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTwo" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_VisitedTwo" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestinationTwo" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurposeTwo" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDurationTwo" class="multisteps-form__input form-control" type="text" />
-                                                </div>
+                                                <table id="tblVisitedLast2" class="table" cellpadding="0" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Date</td>
+                                                            <td>Destination/Addresss</td>
+                                                            <th>Purpose</th>
+                                                            <th>Duration</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td><input class="form-control" type="text" id="txtDateLast2" placeholder="dd/MM/yyyy" /></td>
+                                                            <td><input class="form-control" type="text" id="txtDestinLast2" /></td>
+                                                            <td><input class="form-control" type="text" id="txtPurposeLast2" /></td>
+                                                            <td><input class="form-control" type="text" id="txtDurationLast2" /></td>
+                                                            <td><input class="btn btn-success" type="button" id="btnAddVisitedL2" value="Add" /></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                                <br />
                                             </div>
                                         </div>
 
-                                        <div id="dvVisitedLast2Ye1">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo1" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw1" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_VisitedTwo1" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestinationTwo1" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurposeTwo1" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDurationTwo1" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="dvVisitedLast2Ye2">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo2" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw2" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_VisitedTwo2" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestinationTwo2" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurposeTwo2" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDurationTwo2" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="dvVisitedLast2Ye3">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo3" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw3" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_VisitedTwo3" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestinationTwo3" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurposeTwo3" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDurationTwo3" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div id="dvVisitedLast2Ye4">
-                                            <div class="form-row mt-4">
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label class="control-label">Date</label>
-                                                    <div class="controls input-append date form_date" id="dtDateVisitedTwo4" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_VisitedTw4" data-link-format="dd/mm/yy">
-                                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                                        <span class="add-on"><i class="icon-th"></i></span>
-                                                    </div>
-                                                    <input type="hidden" id="dtp_VisitedTwo4" value="" /><br />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Destination/Address</label>
-                                                    <input id="txtDestinationTwo4" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Purpose</label>
-                                                    <input id="txtPurposeTwo4" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                                <div class="col-6 col-sm-3 mt-4 mt-sm-0">
-                                                    <label>Duration</label>
-                                                    <input id="txtDurationTwo4" class="multisteps-form__input form-control" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
                                         <!--End form Visited last 2 years pakistan-->
 
                                         <div class="form-row mt-4">
@@ -1235,7 +952,9 @@
                                                 </div>
                                                 <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                     <label>Country</label>
-                                                    <input id="txtCountryDepo" class="multisteps-form__input form-control" type="text" />
+                                                    <select id="ddCountryDeport" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))">
+                                                        <option value="0">Choose Country</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                     <label>Reason</label>
@@ -1271,7 +990,9 @@
                                                 </div>
                                                 <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                     <label>Country</label>
-                                                    <input id="txtCountryCriminal" class="multisteps-form__input form-control" type="text" />
+                                                    <select id="ddCountryConviction" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))">
+                                                        <option value="0">Choose Country</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                     <label>Offence</label>
@@ -1337,13 +1058,21 @@
             $("#dvDeported").hide();
             $("#dvCriminal").hide();
 
+            $("#dvAccomp").hide();
+
             //$("#dvVisitedLast2Ye").hide();
             //$("#dvVisitedLast2Ye1").hide();
             //$("#dvVisitedLast2Ye2").hide();
             //$("#dvVisitedLast2Ye3").hide();
             //$("#dvVisitedLast2Ye4").hide();
 
+            $('#checkAccomp').change(function () {
+                if (this.checked)
+                    $('#dvAccomp').fadeIn('slow');
+                else
+                    $('#dvAccomp').fadeOut('slow');
 
+            });
 
             $('#checkCriminal').change(function () {
                 if (this.checked)
@@ -1474,6 +1203,29 @@
 
     </script>
     <script>
+        $('#dtDateDeported').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+        $('#dtDateCriminal').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+
+
         $('#dtPickerBirht').datetimepicker({
             weekStart: 1,
             todayBtn: 1,
@@ -1710,10 +1462,6 @@
 
         }
 
-        $('#btnsaveForm').click(function () {
-            alert('Form saved successfuly!');
-            location.reload();
-        });
 
     </script>
     <script src="~/Forms/js/jsForms.js"></script>

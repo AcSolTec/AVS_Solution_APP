@@ -134,8 +134,7 @@ namespace AVS_Global_API.Controllers
 
         [HttpPost]
         [Route("SaveFamilyChildrens")]
-        [EnableCors("AllowOrigin")]
-        public IActionResult SaveFamilyChildrensData(List<Models.TbChildrensFamiliy> model)
+        public IActionResult SaveFamilyChildrensData(List<Entities.enpkChildrensFamily> model)
         {
 
             //var result = Data.Pakistan.FamilyData.InsertFamilyDetails(model);
@@ -144,24 +143,29 @@ namespace AVS_Global_API.Controllers
             using (var context = new Models.AVS_DBContext())
             {
 
-                //var query = (from familiy in context.TbFamilyDetails
-                //             where familiy.IdForm == idForm
-                //             select new { idFam = familiy.IdFam }).ToList();
+                var query = (from familiy in context.TbFamilyDetails
+                             where familiy.IdForm == model[0].idForm
+                             select new { idFam = familiy.IdFam }).ToList();
 
                 List<Models.TbChildrensFamiliy> childrens = new List<Models.TbChildrensFamiliy>();
+
+                //validate if exists
+                
 
                 foreach (var item in model)
                 {
                     var children = new Models.TbChildrensFamiliy();
 
-                    children.IdFam = item.idForm;
-                    children.NameChild = item.NameChild;
-                    children.DateOfBith = item.DateOfBith;
+                    children.IdFam = query[0].idFam;
+                    children.NameChild = item.nameChild;
+                    children.DateOfBith = item.dateOfBirth;
 
                     childrens.Add(children);
                 }
 
                 context.TbChildrensFamiliys.AddRange(childrens);
+                var entity = context.TbFamilyDetails.FirstOrDefault(x => x.IdForm == model[0].idForm);
+                entity.BitChildrens = true;
                 context.SaveChanges();
                 msjeOut = "OK";
 
@@ -169,6 +173,323 @@ namespace AVS_Global_API.Controllers
 
             return Ok(msjeOut);
         }
+
+        [HttpPost]
+        [Route("SaveFamilyAccomp")]
+        public IActionResult SaveFamilyAccompData(List<Entities.enpkSaveFamilySec2> model)
+        {
+
+            //var result = Data.Pakistan.FamilyData.InsertFamilyDetails(model);
+            string msjeOut = string.Empty;
+
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                var query = (from familiy in context.TbFamilyDetails
+                             where familiy.IdForm == model[0].idForm
+                             select new { idFam = familiy.IdFam }).ToList();
+
+                List<Models.TbAcompanyingFamily> accompLst = new List<Models.TbAcompanyingFamily>();
+
+                //validate if exists
+
+                var accom = context.TbAcompanyingFamilies.Where(x => x.IdFam == query[0].idFam).ToList();
+
+                if (accom.Count > 0)
+                {
+
+                    for (int i = 0; i < accom.Count; i++)
+                    {
+                        accom[i].FullName = model[i].accompName;
+                        accom[i].DateOfBirth = model[i].dateOfBirth;
+                        accom[i].PassportNumber = model[i].passportNumber;
+                        accom[i].Address = model[i].address;
+                    }
+                }
+                else
+                {
+                    foreach (var item in model)
+                    {
+                        var accomp = new Models.TbAcompanyingFamily();
+
+                        accomp.IdFam = query[0].idFam;
+                        accomp.FullName = item.accompName;
+                        accomp.DateOfBirth = item.dateOfBirth;
+                        accomp.PassportNumber = item.passportNumber;
+                        accomp.Address = item.address;
+
+                        accompLst.Add(accomp);
+                    }
+
+                    context.TbAcompanyingFamilies.AddRange(accompLst);
+                    var entity = context.TbFamilyDetails.FirstOrDefault(x => x.IdForm == model[0].idForm);
+                    entity.BitAcompany = true;
+                }
+
+                context.SaveChanges();
+                msjeOut = "OK";
+
+            }
+
+            return Ok(msjeOut);
+        }
+
+
+        [HttpPost]
+        [Route("SaveFamilyBankData")]
+        public IActionResult SaveFamilyBankData(Entities.enpkSaveFamilyBank model)
+        {
+
+            var result = Data.Pakistan.FamilyBank.InsertFamilyBankData(model);
+            string msjeOut = string.Empty;
+
+            if (result == "OK")
+            {
+                msjeOut = "Bank data saved";
+            }
+            else
+            {
+                msjeOut = "Bank data failed";
+            }
+
+            return Ok(msjeOut);
+        }
+
+
+        [HttpPost]
+        [Route("SaveTravelData")]
+        public IActionResult SaveTravelData(Entities.enpkTravelBits model)
+        {
+
+            string msjeOut = string.Empty;
+
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                //validate if exists
+                var travelEntity = context.TbTravelHistoryData.FirstOrDefault(x => x.IdForm == model.idForm);
+
+                if (travelEntity != null)
+                {
+                    travelEntity.BitRefused = model.bitRefused;
+                    travelEntity.BitRefusedPakistan = model.bitRefusedPakistan;
+                    travelEntity.BitRemoveCountry = model.bitRemoveCountry;
+                    travelEntity.BitConviction = model.bitConviction;
+                    travelEntity.DetailRefusal = model.detailRefusal;
+                }
+                else
+                {
+                    var travel = new Models.TbTravelHistoryDatum();
+                    travel.IdForm = model.idForm;
+                    travel.BitRefusedPakistan = model.bitRefusedPakistan;
+                    travel.BitRemoveCountry = model.bitRemoveCountry;
+                    travel.BitConviction = model.bitConviction;
+                    travel.DetailRefusal = model.detailRefusal;
+                    context.TbTravelHistoryData.Add(travel);
+                }
+
+                
+                context.SaveChanges();
+
+
+
+                msjeOut = "OK";
+
+            }
+
+            return Ok(msjeOut);
+        }
+
+        [HttpPost]
+        [Route("SaveTravelDeported")]
+        public IActionResult SaveTravelDeported(Entities.enpkSaveTravelDeported model)
+        {
+
+            string msjeOut = string.Empty;
+
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                //validate if exists
+                var travelEntity = context.TbDeportedTravels.FirstOrDefault(x => x.IdForm == model.idForm);
+
+                if (travelEntity != null)
+                {
+                    travelEntity.DateDeport = model.dateDeport;
+                    travelEntity.IdCatCountry = model.idCountry;
+                    travelEntity.Reason = model.reason;
+                    travelEntity.ReferenceNum = model.referenceNum;
+                }
+                else
+                {
+                    var travel = new Models.TbDeportedTravel();
+                    travel.IdForm = model.idForm;
+                    travel.DateDeport = model.dateDeport;
+                    travel.IdCatCountry = model.idCountry;
+                    travel.Reason = model.reason;
+                    travel.ReferenceNum = model.referenceNum;
+                    context.TbDeportedTravels.Add(travel);
+                }
+
+                context.SaveChanges();
+                msjeOut = "OK";
+
+            }
+
+            return Ok(msjeOut);
+        }
+
+        [HttpPost]
+        [Route("SaveTravelConviction")]
+        public IActionResult SaveTravelConviction(Entities.enpkSaveTravelConviction model)
+        {
+
+            string msjeOut = string.Empty;
+
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                //validate if exists
+                var travelEntity = context.TbConvictionsTravels.FirstOrDefault(x => x.IdForm == model.idForm);
+
+                if (travelEntity != null)
+                {
+                    travelEntity.DateConvict = model.dateConvict;
+                    travelEntity.IdCatCountry = model.idCountry;
+                    travelEntity.Offence = model.offence;
+                    travelEntity.Sentence = model.sentence;
+                }
+                else
+                {
+                    var travel = new Models.TbConvictionsTravel();
+                    travel.IdForm = model.idForm;
+                    travel.DateConvict = model.dateConvict;
+                    travel.IdCatCountry = model.idCountry;
+                    travel.Offence = model.offence;
+                    travel.Sentence = model.sentence;
+                    context.TbConvictionsTravels.Add(travel);
+                }
+
+                context.SaveChanges();
+                msjeOut = "OK";
+
+            }
+
+            return Ok(msjeOut);
+        }
+
+
+        [HttpPost]
+        [Route("SaveTravel5Years")]
+        public IActionResult SaveTravel5years(List<Entities.enpkSaveTravelData> model)
+        {
+
+            string msjeOut = string.Empty;
+
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                List<Models.TbTravelHisVisitedPk> travelLst = new List<Models.TbTravelHisVisitedPk>();
+
+                //validate if exists
+
+                var travelEntity = context.TbTravelHisVisitedPks.Where(x => x.IdForm == model[0].idForm & x.BitVisPakistan == true).ToList();
+
+                if (travelEntity.Count > 0)
+                {
+
+                    for (int i = 0; i < travelEntity.Count; i++)
+                    {
+                        travelEntity[i].DateTravel = model[i].dateTravel;
+                        travelEntity[i].Address = model[i].address;
+                        travelEntity[i].Purpose = model[i].purpose;
+                        travelEntity[i].Duration = model[i].duration;
+                    }
+                }
+                else
+                {
+                    foreach (var item in model)
+                    {
+                        var travel = new Models.TbTravelHisVisitedPk();
+
+                        travel.IdForm = model[0].idForm;
+                        travel.DateTravel = item.dateTravel;
+                        travel.Address = item.address;
+                        travel.Purpose = item.purpose;
+                        travel.Duration = item.duration;
+                        travel.BitVisPakistan = true;
+                        travel.BitVisCountries = false;
+
+                        travelLst.Add(travel);
+                    }
+
+                    context.TbTravelHisVisitedPks.AddRange(travelLst);
+                }
+
+                context.SaveChanges();
+                msjeOut = "OK";
+
+            }
+
+            return Ok(msjeOut);
+        }
+
+        [HttpPost]
+        [Route("SaveTravel2Years")]
+        public IActionResult SaveTravel2years(List<Entities.enpkSaveTravelData> model)
+        {
+
+            string msjeOut = string.Empty;
+
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                List<Models.TbTravelHisVisitedPk> travelLst = new List<Models.TbTravelHisVisitedPk>();
+
+                //validate if exists
+
+                var travelEntity = context.TbTravelHisVisitedPks.Where(x => x.IdForm == model[0].idForm & x.BitVisCountries == true).ToList();
+
+                if (travelEntity.Count > 0)
+                {
+
+                    for (int i = 0; i < travelEntity.Count; i++)
+                    {
+                        travelEntity[i].DateTravel = model[i].dateTravel;
+                        travelEntity[i].Address = model[i].address;
+                        travelEntity[i].Purpose = model[i].purpose;
+                        travelEntity[i].Duration = model[i].duration;
+                    }
+                }
+                else
+                {
+                    foreach (var item in model)
+                    {
+                        var travel = new Models.TbTravelHisVisitedPk();
+
+                        travel.IdForm = model[0].idForm;
+                        travel.DateTravel = item.dateTravel;
+                        travel.Address = item.address;
+                        travel.Purpose = item.purpose;
+                        travel.Duration = item.duration;
+                        travel.BitVisCountries = true;
+                        travel.BitVisPakistan = false;
+                        
+
+                        travelLst.Add(travel);
+                    }
+
+                    context.TbTravelHisVisitedPks.AddRange(travelLst);
+                }
+
+                context.SaveChanges();
+                msjeOut = "OK";
+
+            }
+
+            return Ok(msjeOut);
+        }
+
 
 
         [HttpGet]

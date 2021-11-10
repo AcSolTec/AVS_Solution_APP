@@ -12,8 +12,6 @@ namespace AVS_Global_API.Models
         public string NameChild { get; set; }
         public string DateOfBith { get; set; }
 
-        public int idForm { get; set; }
-
         public virtual TbFamilyDetail IdFamNavigation { get; set; }
     }
 }

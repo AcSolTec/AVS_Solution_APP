@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AVS_Global.Models;
+using Newtonsoft.Json;
 
 namespace AVS_Global.Controllers
 {
@@ -419,32 +420,180 @@ namespace AVS_Global.Controllers
 
         public JsonResult SaveChildrens([FromBody]List<pkChildrensFamily> model)
         {
+            string dataMessa = string.Empty;
+            string message = string.Empty;
+            if (model.Count > 0)
+            {
+                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyChildrens");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.POST);
 
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyChildrens");
+                List<Models.pkChildrensFamily> dataAccount = new List<Models.pkChildrensFamily>();
+
+                for (int i = 0; i < model.Count; i++)
+                {
+
+                    var children = new Models.pkChildrensFamily();
+
+                    children.idForm = model[i].idForm;
+                    children.nameChild = model[i].nameChild;
+                    children.dateOfBirth = model[i].dateOfBirth;
+
+                    dataAccount.Add(children);
+                }
+
+                var jsonForm = JsonConvert.SerializeObject(dataAccount);
+
+                request.AddJsonBody(jsonForm);
+
+                var response = client.Execute(request);
+                string content = response.Content.Replace("\"", "");
+
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                    if (content == "OK")
+                    {
+                        dataMessa = "OK";
+                        message = "Family data saved";
+                    }
+                    else
+                    {
+                        dataMessa = response.Content;
+                    }
+
+                }
+
+            }
+            else
+            {
+                message = "List of childrens not data found";
+            }
+
+
+            return Json(new { status = true, message = dataMessa, messagePage = message});
+        }
+
+
+        public JsonResult SaveAccompanying([FromBody] List<pkFamilySec2> model)
+        {
+
+            string dataMessa = string.Empty;
+            string message = string.Empty;
+            if (model.Count > 0)
+            {
+                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyAccomp");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.POST);
+
+                List<Models.pkFamilySec2> dataAccount = new List<Models.pkFamilySec2>();
+
+                for (int i = 0; i < model.Count; i++)
+                {
+
+                    var accomp = new Models.pkFamilySec2();
+
+                    accomp.idForm = model[i].idForm;
+                    accomp.accompName = model[i].accompName;
+                    accomp.dateOfBirth = model[i].dateOfBirth;
+                    accomp.passportNumber = model[i].passportNumber;
+                    accomp.address = model[i].address;
+
+                    dataAccount.Add(accomp);
+                }
+
+                var jsonForm = JsonConvert.SerializeObject(dataAccount);
+
+                request.AddJsonBody(jsonForm);
+
+                var response = client.Execute(request);
+                string content = response.Content.Replace("\"", "");
+
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                    if (content == "OK")
+                    {
+                        dataMessa = "OK";
+                        message = "Family Accompanying data saved";
+                    }
+                    else
+                    {
+                        dataMessa = response.Content;
+                    }
+
+                }
+            }
+            else
+            {
+                message = "List of Accompanying not data found";
+            }
+
+
+            return Json(new { status = true, message = dataMessa, messagePage = message });
+        }
+
+
+        public ActionResult SaveBankData(int idForm, string nameBank, string branch, string acNumber, string address, string veriefer)
+        {
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyBankData");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
-            List<Models.pkChildrensFamily> dataAccount = new List<Models.pkChildrensFamily>();
-
-            for (int i = 0; i < model.Count; i++)
-            {
-
-                var children = new Models.pkChildrensFamily();
-
-                children.idForm = model[i].idForm;
-                children.nameChild = model[i].nameChild;
-                children.dateOfBirth = model[i].dateOfBirth;
-
-                dataAccount.Add(children);
-            }
-
+            Models.pkBankData dataAccount = new Models.pkBankData();
+            dataAccount.idForm = idForm;
+            dataAccount.bankName = nameBank;
+            dataAccount.branch = branch;
+            dataAccount.acNumber = acNumber;
+            dataAccount.addressBank = address;
+            dataAccount.verieferDet = veriefer;
 
 
             request.AddJsonBody(dataAccount);
 
             var response = client.Execute(request);
             string content = response.Content.Replace("\"", "");
-            string dataMessa = string.Empty; 
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "Bank data saved")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Bank data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+        public ActionResult SaveBitsTravles(int idForm, bool bitRefused, bool bitRefusedPakistan, bool bitRemoveCountry, bool bitConviction, string detailRefusal)
+        {
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravelData");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkTravelBits dataAccount = new Models.pkTravelBits();
+            dataAccount.idForm = idForm;
+            dataAccount.bitRefused = bitRefused;
+            dataAccount.bitRefusedPakistan = bitRefusedPakistan;
+            dataAccount.bitRemoveCountry = bitRemoveCountry;
+            dataAccount.bitConviction = bitConviction;
+            dataAccount.detailRefusal = detailRefusal;
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -459,10 +608,201 @@ namespace AVS_Global.Controllers
                 }
 
             }
-
-            return Json(new { status = true, message = dataMessa, messagePage = "Family data saved" });
+            return Json(new { status = true, message = dataMessa, messagePage = "Travel data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
 
+        public ActionResult SaveTravelDeported(int idForm, string dateDeport, int idCountry, string reason, string referenceNum)
+        {
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravelDeported");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkDeportedData dataAccount = new Models.pkDeportedData();
+            dataAccount.idForm = idForm;
+            dataAccount.dateDeport = dateDeport;
+            dataAccount.idCountry = idCountry;
+            dataAccount.reason = reason;
+            dataAccount.referenceNum = referenceNum;
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Travel deported data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+        public ActionResult SaveTravelConviction(int idForm, string dateConviction, int idCountry, string offence, string sentence)
+        {
+            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravelConviction");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.pkConvictionData dataAccount = new Models.pkConvictionData();
+            dataAccount.idForm = idForm;
+            dataAccount.dateConvict = dateConviction;
+            dataAccount.idCountry = idCountry;
+            dataAccount.offence = offence;
+            dataAccount.sentence = sentence;
+
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Travel conviction data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+        public JsonResult SaveTravelLast5([FromBody] List<pkTravelLast5> model)
+        {
+
+            string dataMessa = string.Empty;
+            string message = string.Empty;
+            if (model.Count > 0)
+            {
+                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravel5Years");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.POST);
+
+                List<Models.pkTravelLast5> dataAccount = new List<Models.pkTravelLast5>();
+
+                for (int i = 0; i < model.Count; i++)
+                {
+
+                    var travelEn = new Models.pkTravelLast5();
+
+                    travelEn.idForm = model[i].idForm;
+                    travelEn.dateTravel = model[i].dateTravel;
+                    travelEn.address = model[i].address;
+                    travelEn.purpose = model[i].purpose;
+                    travelEn.duration = model[i].duration;
+
+                    dataAccount.Add(travelEn);
+                }
+
+                var jsonForm = JsonConvert.SerializeObject(dataAccount);
+
+                request.AddJsonBody(jsonForm);
+
+                var response = client.Execute(request);
+                string content = response.Content.Replace("\"", "");
+
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                    if (content == "OK")
+                    {
+                        dataMessa = "OK";
+                        message = "Travel visited last 5 years data saved";
+                    }
+                    else
+                    {
+                        dataMessa = response.Content;
+                    }
+
+                }
+            }
+            else
+            {
+                message = "Travel visited last 5 not data found";
+            }
+
+
+            return Json(new { status = true, message = dataMessa, messagePage = message });
+        }
+
+        public JsonResult SaveTravelLast2([FromBody] List<pkTravelLast5> model)
+        {
+
+            string dataMessa = string.Empty;
+            string message = string.Empty;
+            if (model.Count > 0)
+            {
+                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravel2Years");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.POST);
+
+                List<Models.pkTravelLast5> dataAccount = new List<Models.pkTravelLast5>();
+
+                for (int i = 0; i < model.Count; i++)
+                {
+
+                    var travelEn = new Models.pkTravelLast5();
+
+                    travelEn.idForm = model[i].idForm;
+                    travelEn.dateTravel = model[i].dateTravel;
+                    travelEn.address = model[i].address;
+                    travelEn.purpose = model[i].purpose;
+                    travelEn.duration = model[i].duration;
+
+                    dataAccount.Add(travelEn);
+                }
+
+                var jsonForm = JsonConvert.SerializeObject(dataAccount);
+
+                request.AddJsonBody(jsonForm);
+
+                var response = client.Execute(request);
+                string content = response.Content.Replace("\"", "");
+
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                    if (content == "OK")
+                    {
+                        dataMessa = "OK";
+                        message = "Travel visited last 2 years data saved";
+                    }
+                    else
+                    {
+                        dataMessa = response.Content;
+                    }
+
+                }
+            }
+            else
+            {
+                message = "Travel visited last 2 not data found";
+            }
+
+
+            return Json(new { status = true, message = dataMessa, messagePage = message });
+        }
 
         #endregion
 

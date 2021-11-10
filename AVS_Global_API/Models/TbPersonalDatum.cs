@@ -19,7 +19,6 @@ namespace AVS_Global_API.Models
         public string BloodGroup { get; set; }
         public bool? MaritalStatus { get; set; }
         public string IdMark { get; set; }
-        public string TypeNationality { get; set; }
         public string DetailOfProfesion { get; set; }
         public string Religion { get; set; }
         public DateTime? DateOfChange { get; set; }
@@ -27,6 +26,14 @@ namespace AVS_Global_API.Models
         public int? IdPurpose { get; set; }
         public int? IdPortsIn { get; set; }
         public int? IdPortsOut { get; set; }
+        public int? IdVisaAp { get; set; }
+        public string DurationStay { get; set; }
+        public int? IdVisasTime { get; set; }
+        public int? IdTypeVisa { get; set; }
+        public string NativeLanguage { get; set; }
+        public string NationPresent { get; set; }
+        public string NationPrevious { get; set; }
+        public string NationDual { get; set; }
 
         public virtual TbCatCountry IdCatCountryNavigation { get; set; }
         public virtual TbFormulary IdFormNavigation { get; set; }

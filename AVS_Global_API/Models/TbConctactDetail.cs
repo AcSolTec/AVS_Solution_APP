@@ -19,6 +19,11 @@ namespace AVS_Global_API.Models
         public string TelWork { get; set; }
         public string Email { get; set; }
         public bool? BitSponsor { get; set; }
+        public string TelCell { get; set; }
+        public string TelHomeB { get; set; }
+        public string TelWorkB { get; set; }
+        public string TelCellB { get; set; }
+        public string InPakistan { get; set; }
 
         public virtual TbCatCountry IdCatCountryNavigation { get; set; }
         public virtual TbFormulary IdFormNavigation { get; set; }
