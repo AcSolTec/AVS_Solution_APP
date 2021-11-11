@@ -117,6 +117,123 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btn.next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="btn.prev" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="formCU.addr" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="formCU.bloq1" xml:space="preserve">
+    <value>Las tarjetas de turista para Cuba no se pueden cancelar ni devolver. La tarjeta cuesta 65 CHF para adultos y 50 CHF para niños de hasta 16 años. Los costos no son reembolsables. He leído y acepto estas condiciones</value>
+  </data>
+  <data name="formCU.bloq2" xml:space="preserve">
+    <value>Esta tarjeta de turista no será válida si viaja desde / hacia los EE. UU. a Cuba. En este caso, debe obtener la tarjeta directamente en los EE. UU.</value>
+  </data>
+  <data name="formCU.bloq3" xml:space="preserve">
+    <value>El pasaporte debe ser válido por al menos 6 meses después del regreso de Cuba.</value>
+  </data>
+  <data name="formCU.chf22" xml:space="preserve">
+    <value>Correo expreso suizo: 22.00 CHF</value>
+  </data>
+  <data name="formCU.chf5" xml:space="preserve">
+    <value>A-Post Plus (asegurado, entrega sin firma),: 5.00 CHF</value>
+  </data>
+  <data name="formCU.chf750" xml:space="preserve">
+    <value>Correo certificado Suizo: 7.50 CHF</value>
+  </data>
+  <data name="formCU.chfnatint" xml:space="preserve">
+    <value>Transporte nacional y internacional: Precio en solicitud</value>
+  </data>
+  <data name="formCU.dtDep" xml:space="preserve">
+    <value>Fecha de salida de Cuba</value>
+  </data>
+  <data name="formCU.dtEntry" xml:space="preserve">
+    <value>Fecha de entrada en Cuba</value>
+  </data>
+  <data name="formCU.emad" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="formCU.gtc1" xml:space="preserve">
+    <value>He leído </value>
+  </data>
+  <data name="formCU.gtc2" xml:space="preserve">
+    <value>y estoy de acuerdo con las condiciones </value>
+  </data>
+  <data name="formCU.mailestb" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="formCU.name" xml:space="preserve">
+    <value>Nombre(s)</value>
+  </data>
+  <data name="formCU.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="formCU.numAd" xml:space="preserve">
+    <value>Adultos</value>
+  </data>
+  <data name="formCU.numChi" xml:space="preserve">
+    <value>Menores de edad (0-16 años)</value>
+  </data>
+  <data name="formCU.numsAC" xml:space="preserve">
+    <value>Adultos</value>
+  </data>
+  <data name="formCU.pssAd" xml:space="preserve">
+    <value>Menores de edad (0-16 años)</value>
+  </data>
+  <data name="formCU.pssCh" xml:space="preserve">
+    <value>Pasaporte(s) para adultos</value>
+  </data>
+  <data name="formCU.reInf" xml:space="preserve">
+    <value>He leído esta información y confirmo que soy consciente de que cualquier error en los detalles del pasaporte proporcionados en mi solicitud resultará en la entrada de Cuba en un punto de cruce fronterizo.</value>
+  </data>
+  <data name="formCU.shipAd" xml:space="preserve">
+    <value>Pasaporte(s) para menores de edad</value>
+  </data>
+  <data name="formCU.shipTo" xml:space="preserve">
+    <value>¿Es la dirección de entrega diferente de la dirección de contacto?</value>
+  </data>
+  <data name="formCU.surname" xml:space="preserve">
+    <value>Apellido(s)</value>
+  </data>
+  <data name="formCU.tbDep" xml:space="preserve">
+    <value>Fec. Salida</value>
+  </data>
+  <data name="formCU.tbEntry" xml:space="preserve">
+    <value>Fec. Entrada</value>
+  </data>
+  <data name="formCU.tbName" xml:space="preserve">
+    <value>Nom(s)</value>
+  </data>
+  <data name="formCU.tbNumAdl" xml:space="preserve">
+    <value># Adultos</value>
+  </data>
+  <data name="formCU.tbNumChld" xml:space="preserve">
+    <value># Niños</value>
+  </data>
+  <data name="formCU.tbSure" xml:space="preserve">
+    <value>Ap(s)</value>
+  </data>
+  <data name="formCU.tbTel" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="formCU.TitSum" xml:space="preserve">
+    <value>Información importante</value>
+  </data>
+  <data name="formCU.tnum" xml:space="preserve">
+    <value>Número de teléfono</value>
+  </data>
+  <data name="formCU.twn" xml:space="preserve">
+    <value>Ciudad</value>
+  </data>
+  <data name="formCU.yes" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="formCU.zc" xml:space="preserve">
+    <value>Código Postal</value>
+  </data>
   <data name="navBar.lan" xml:space="preserve">
     <value>Elige un idioma</value>
   </data>

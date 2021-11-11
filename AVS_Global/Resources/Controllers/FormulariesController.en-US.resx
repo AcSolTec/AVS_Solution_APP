@@ -117,6 +117,123 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btn.next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="btn.prev" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="formCU.addr" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="formCU.bloq1" xml:space="preserve">
+    <value>Tourist cards for Cuba cannot be cancelled or returned. The card costs 65 CHF for adults and 50 CHF for children up to 16 years. The costs are non-refundable. I have read and agree to this conditions</value>
+  </data>
+  <data name="formCU.bloq2" xml:space="preserve">
+    <value>This tourist card will not be valid, if you travelling over/from the USA to Cuba.In this case, you need to obtain the card directly in the USA.</value>
+  </data>
+  <data name="formCU.bloq3" xml:space="preserve">
+    <value>The Passport has to be valid for at least 6 Months after return from Cuba</value>
+  </data>
+  <data name="formCU.chf22" xml:space="preserve">
+    <value>Express Switzerland: CHF 22.</value>
+  </data>
+  <data name="formCU.chf5" xml:space="preserve">
+    <value>A-Post-Plus (Insured, delivery without signature): CHF 5.</value>
+  </data>
+  <data name="formCU.chf750" xml:space="preserve">
+    <value>Registered Switzerland: CHF 7.50.</value>
+  </data>
+  <data name="formCU.chfnatint" xml:space="preserve">
+    <value>Courier national / international: Price on request.</value>
+  </data>
+  <data name="formCU.dtDep" xml:space="preserve">
+    <value>Date of departure from Cuba</value>
+  </data>
+  <data name="formCU.dtEntry" xml:space="preserve">
+    <value>Date of entry into Cuba</value>
+  </data>
+  <data name="formCU.emad" xml:space="preserve">
+    <value>E-Mail Address</value>
+  </data>
+  <data name="formCU.gtc1" xml:space="preserve">
+    <value>I have read </value>
+  </data>
+  <data name="formCU.gtc2" xml:space="preserve">
+    <value>y estoy de acuerdo con las condiciones </value>
+  </data>
+  <data name="formCU.mailestb" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="formCU.name" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="formCU.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="formCU.numAd" xml:space="preserve">
+    <value>Adults</value>
+  </data>
+  <data name="formCU.numChi" xml:space="preserve">
+    <value>Children (0-16 years)</value>
+  </data>
+  <data name="formCU.numsAC" xml:space="preserve">
+    <value>Enter the Number of Tourist Cards you require</value>
+  </data>
+  <data name="formCU.pssAd" xml:space="preserve">
+    <value>Passport for Adults</value>
+  </data>
+  <data name="formCU.pssCh" xml:space="preserve">
+    <value>Passport for Children</value>
+  </data>
+  <data name="formCU.reInf" xml:space="preserve">
+    <value>I have read this information and confirm that I am aware that any errors in the passport details provided in my application will result in entry into Cuba at a border crossing point.</value>
+  </data>
+  <data name="formCU.shipAd" xml:space="preserve">
+    <value>Is the shipping address diffrent as the contact adress?</value>
+  </data>
+  <data name="formCU.shipTo" xml:space="preserve">
+    <value>Shipping to you</value>
+  </data>
+  <data name="formCU.surname" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="formCU.tbDep" xml:space="preserve">
+    <value>Date Departure</value>
+  </data>
+  <data name="formCU.tbEntry" xml:space="preserve">
+    <value>Date Entry</value>
+  </data>
+  <data name="formCU.tbName" xml:space="preserve">
+    <value>Fisrt Name</value>
+  </data>
+  <data name="formCU.tbNumAdl" xml:space="preserve">
+    <value># Adults</value>
+  </data>
+  <data name="formCU.tbNumChld" xml:space="preserve">
+    <value># Chilren</value>
+  </data>
+  <data name="formCU.tbSure" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="formCU.tbTel" xml:space="preserve">
+    <value>Tel. Number</value>
+  </data>
+  <data name="formCU.TitSum" xml:space="preserve">
+    <value>Important informations</value>
+  </data>
+  <data name="formCU.tnum" xml:space="preserve">
+    <value>Telephone Number</value>
+  </data>
+  <data name="formCU.twn" xml:space="preserve">
+    <value>Town</value>
+  </data>
+  <data name="formCU.yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="formCU.zc" xml:space="preserve">
+    <value>Zip Code</value>
+  </data>
   <data name="navBar.lan" xml:space="preserve">
     <value>Choose a language</value>
   </data>

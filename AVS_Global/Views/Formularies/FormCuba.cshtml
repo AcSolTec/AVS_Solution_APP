@@ -1,6 +1,7 @@
 ﻿@using AVS_Global.Controllers
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Localization
+@model AVS_Global.Models.CubaModelView
 
 @inject IStringLocalizer<FormulariesController> Localizer
 @inject IHtmlLocalizer<FormulariesController> HtmlLocalizer
@@ -61,43 +62,43 @@
                                     <div class="multisteps-form__content">
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <label>First Name:</label>
-                                                <input id="txtName" class="multisteps-form__input form-control" type="text" />
+                                                <label>@Localizer["formCU.name"]:</label>
+                                                <input id="txtNameCu" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.firstName" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>Surname:</label>
-                                                <input id="txtSurname" class="multisteps-form__input form-control" type="text" />
+                                                <label>@Localizer["formCU.surname"]:</label>
+                                                <input id="txtSurname" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.surname" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <label>Address:</label>
-                                                <input id="txtAddress" class="multisteps-form__input form-control" type="text" />
+                                                <label>@Localizer["formCU.addr"]:</label>
+                                                <input id="txtAddressCu" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.address" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>Zip Code:</label>
-                                                <input id="txtZip" class="multisteps-form__input form-control" type="text" />
+                                                <label>@Localizer["formCU.zc"]:</label>
+                                                <input id="txtZipeCode" class="multisteps-form__input form-control" type="text" value="@ViewBag.zipCode" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <label>Town:</label>
-                                                <input id="txtTown" class="multisteps-form__input form-control" type="text" />
+                                                <label>@Localizer["formCU.twn"]:</label>
+                                                <input id="txtTownCu" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.town" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>E-Mail Address:</label>
-                                                <input id="txtMail" class="multisteps-form__input form-control" type="text" />
+                                                <label>@Localizer["formCU.emad"]:</label>
+                                                <input id="txtMailCu" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.email" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>Telephone Number:</label>
-                                                <input id="txtNumeroTel" class="multisteps-form__input form-control" type="text" />
+                                                <label>@Localizer["formCU.tnum"]:</label>
+                                                <input id="txtNumeroTel" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.telNumber" />
                                             </div>
 
                                         </div>
                                         <div class="button-row d-flex mt-4">
-                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                            <button id="btnAddCuContact" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">@Localizer["btn.next"]</button>
                                         </div>
                                     </div>
                                 </div>
@@ -107,18 +108,18 @@
                                     <div class="multisteps-form__content">
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <label class="control-label">Date of entry into cuba</label>
+                                                <label class="control-label">@Localizer["formCU.dtEntry"]</label>
                                                 <div class="controls input-append date form_date" id="dtEntry" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_EntryCuba" data-link-format="dd/mm/yy">
-                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <input class="form-control" size="16" type="text" value="@ViewBag.dateEntry" readonly>
                                                     <span class="add-on"><i class="icon-remove"></i></span>
                                                     <span class="add-on"><i class="icon-th"></i></span>
                                                 </div>
                                                 <input type="hidden" id="dtp_EntryCuba" value="" /><br />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label class="control-label">Date of departure from Cuba</label>
+                                                <label class="control-label">@Localizer["formCU.dtDep"]</label>
                                                 <div class="controls input-append date form_date" id="dtDeparture" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_DepartureCuba" data-link-format="dd/mm/yy">
-                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <input class="form-control" size="16" type="text" value="@ViewBag.dateDeparture" readonly>
                                                     <span class="add-on"><i class="icon-remove"></i></span>
                                                     <span class="add-on"><i class="icon-th"></i></span>
                                                 </div>
@@ -127,11 +128,11 @@
                                         </div>
 
                                         <div class="form-row mt-4">
-                                            <label>Enter the Number of Tourist Cards you require</label>
+                                            <label>@Localizer["formCU.numsAC"]</label>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <label>Adults</label>
+                                                <label>@Localizer["formCU.numAd"]</label>
                                                 <select id="ddAdults" class="multisteps-form__select form-control">
                                                     <option value="0">Select Adults</option>
                                                     <option value="1" selected>1</option>
@@ -143,10 +144,10 @@
                                                 </select>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>Children (0-16 years)</label>
+                                                <label>@Localizer["formCU.numChi"]</label>
                                                 <select id="ddChildren" class="multisteps-form__select form-control">
-                                                    <option value="0">Select Children</option>
-                                                    <option value="1" selected>1</option>
+                                                    <option value="0" selected>Select Children</option>
+                                                    <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
                                                     <option value="4">4</option>
@@ -157,68 +158,68 @@
 
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <label>Passport for Adults:</label>
-                                                <input id="File1" class="form-control" type="file" />
+                                                <label>@Localizer["formCU.pssAd"]</label>
+                                                <input id="fuPassAdult" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                                                <label>Passport for Children:</label>
-                                                <input id="File2" class="form-control" type="file" />
+                                                <label>@Localizer["formCU.pssCh"]</label>
+                                                <input id="fuPassChild" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
                                             </div>
                                         </div>
 
 
                                         <div class="form-row mt-4">
-                                            <label>Is the shipping address diffrent as the contact adress?</label>
+                                            <label>@Localizer["formCU.shipAd"]</label>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label class="checkbox-wrap checkbox-primary">
-                                                    Yes
-                                                    <input id="chekShipYes" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    @Localizer["formCU.Yes"]
+                                                    <input id="chekShipYes" name="checkShip" type="checkbox" onclick="onlyOneShip(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label class="checkbox-wrap checkbox-primary">
-                                                    No
-                                                    <input id="checkShipNo" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    @Localizer["formCU.No"]
+                                                    <input id="checkShipNo" name="checkShip" type="checkbox" onclick="onlyOneShip(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                         </div>
 
                                         <div class="form-row mt-4">
-                                            <label>Shipping to you</label>
+                                            <label>@Localizer["formCU.shipTo"]</label>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-10">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     <input id="chekch5" name="check" type="checkbox" onclick="onlyOne(this)">
                                                     <span class="checkmark"></span>
-                                                    A-Post-Plus (Insured, delivery without signature): CHF 5.
+                                                    @Localizer["formCU.chf5"]
                                                 </label>
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     <input id="chekch7" name="check" type="checkbox" onclick="onlyOne(this)">
                                                     <span class="checkmark"></span>
-                                                    Registered Switzerland: CHF 7.50.
+                                                    @Localizer["formCU.chf750"]
                                                 </label>
                                                 <br />
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     <input id="chek22" name="check" type="checkbox" onclick="onlyOne(this)">
                                                     <span class="checkmark"></span>
-                                                    Express Switzerland: CHF 22.
+                                                    @Localizer["formCU.chf22"]
                                                 </label>
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     <input id="chekNatInt" name="check" type="checkbox" onclick="onlyOne(this)">
                                                     <span class="checkmark"></span>
-                                                    Courier national / international: Price on request.
+                                                    @Localizer["formCU.chfnatint"]
                                                 </label>
                                             </div>
                                         </div>
 
                                         <div class="button-row d-flex mt-4">
-                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">@Localizer["btn.prev"]</button>
+                                            <button id="btnAddTripShip" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">@Localizer["btn.next"]</button>
                                         </div>
                                     </div>
                                 </div>
@@ -230,12 +231,12 @@
                                             <div id="dvcardMessage" class="card text-white bg-info mb-3">
                                                 <div class="card-body">
                                                     <p class="card-text">
-                                                        <b>Important informations</b>
+                                                        <b>@Localizer["formCU.TitSum"]</b>
                                                         <br />
                                                         <br />
-                                                        Tourist cards for Cuba cannot be cancelled or returned. The card costs 65 CHF for adults and 50 CHF for children up to 16 years. The costs are non-refundable. I have read and agree to this conditions<br /><br />
-                                                        This tourist card will not be valid, if you travelling over/from the USA to Cuba.In this case, you need to obtain the card directly in the USA.<br /><br />
-                                                        The Passport has to be valid for at least 6 Months after return from Cuba<br />
+                                                        @Localizer["formCU.bloq1"]<br /><br />
+                                                        @Localizer["formCU.bloq2"]<br /><br />
+                                                        @Localizer["formCU.bloq3"]<br />
                                                         <br />
                                                     </p>
                                                 </div>
@@ -250,25 +251,24 @@
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">First</th>
-                                                    <th scope="col">Last</th>
-                                                    <th scope="col">Handle</th>
+                                                    <th scope="col">@Localizer["formCU.tbName"]</th>
+                                                    <th scope="col">@Localizer["formCU.tbSure"]</th>
+                                                    <th scope="col">@Localizer["formCU.addr"]</th>
+                                                    <th scope="col">@Localizer["formCU.zc"]</th>
+                                                    <th scope="col">@Localizer["formCU.twn"]</th>
+                                                    <th scope="col">@Localizer["formCU.mailestb"]</th>
+                                                    <th scope="col">@Localizer["formCU.tbTel"]</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>fat</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">Larry the Bird</td>
-                                                    <td>twitter</td>
+                                                    <td>@ViewBag.firstName</td>
+                                                    <td>@ViewBag.surname</td>
+                                                    <td>@ViewBag.address</td>
+                                                    <td>@ViewBag.zipCode</td>
+                                                    <td>@ViewBag.town</td>
+                                                    <td>@ViewBag.telNumber</td>
+                                                    <td>@ViewBag.email</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -281,25 +281,18 @@
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">First</th>
-                                                    <th scope="col">Last</th>
-                                                    <th scope="col">Handle</th>
+                                                    <th scope="col">@Localizer["formCU.tbEntry"]</th>
+                                                    <th scope="col">@Localizer["formCU.tbDep"]</th>
+                                                    <th scope="col">@Localizer["formCU.tbNumAdl"]</th>
+                                                    <th scope="col">@Localizer["formCU.tbNumChld"]</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>fat</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">Larry the Bird</td>
-                                                    <td>twitter</td>
+                                                    <td>@ViewBag.dateEntry</td>
+                                                    <td>@ViewBag.dateDeparture</td>
+                                                    <td>@ViewBag.numAdults</td>
+                                                    <td>@ViewBag.numChild</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -314,21 +307,21 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-10">
                                                 <label class="checkbox-wrap checkbox-primary">
-                                                    <input id="chekch5" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <input id="checkRead" name="check" type="checkbox">
                                                     <span class="checkmark"></span>
-                                                    I have read this information and confirm that I am aware that any errors in the passport details provided in my application will result in entry into Cuba at a border crossing point.
+                                                    @Localizer["formCU.reInf"]
                                                 </label>
                                                 <label class="checkbox-wrap checkbox-primary">
-                                                    <input id="chekch7" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <input id="checkGTC" name="check" type="checkbox">
                                                     <span class="checkmark"></span>
-                                                    I have read <a href="http://allvisa.s213.sureserver.com/web/AGB_AVS.pdf" target="_blank"> GTC </a>and agree with them
+                                                    @Localizer["formCU.gtc1"] <a href="http://allvisa.s213.sureserver.com/web/AGB_AVS.pdf" target="_blank"> GTC </a>@Localizer["formCU.gtc2"]
                                                 </label>
                                                 <br />
                                             </div>
                                         </div>
                                         <div class="button-row d-flex mt-4">
-                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
-                                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">@Localizer["btn.prev"]</button>
+                                            <button id="btnAddSummary" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">@Localizer["btn.next"]</button>
                                         </div>
                                     </div>
                                 </div>
@@ -347,6 +340,7 @@
                                             </div>
                                         </div>
                                         <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
                                             <button class="btn btn-success ml-auto js-btn-next" type="button" title="Next">Save form</button>
                                         </div>
                                     </div>
@@ -369,58 +363,63 @@
     <script src="~/Bootstrap/js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript">
 
-                                //$(document).ready(function () {
+        //$(document).ready(function () {
 
-                                //    //$("#sponsorA").hide();
-                                //    //$("#dvSponsoredB").hide();
-                                //    //$("#dvApply3Country").hide();
-
-
-
-                                //    $('#checkCriminal').change(function () {
-                                //        if (this.checked)
-                                //            $('#dvCriminal').fadeIn('slow');
-                                //        else
-                                //            $('#dvCriminal').fadeOut('slow');
-
-                                //    });
+        //    //$("#sponsorA").hide();
+        //    //$("#dvSponsoredB").hide();
+        //    //$("#dvApply3Country").hide();
 
 
-                                //});
+
+        //    $('#checkCriminal').change(function () {
+        //        if (this.checked)
+        //            $('#dvCriminal').fadeIn('slow');
+        //        else
+        //            $('#dvCriminal').fadeOut('slow');
+
+        //    });
+
+
+        //});
     </script>
     <script>
-                                //$('#dtPickerBirht').datetimepicker({
-                                //    weekStart: 1,
-                                //    todayBtn: 1,
-                                //    autoclose: 1,
-                                //    todayHighlight: 1,
-                                //    startView: 2,
-                                //    minView: 2,
-                                //    forceParse: 0
-                                //});
+
+        $('#dtEntry').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
 
 
+        $('#dtDeparture').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
 
-                                //function onlyOne(checkbox) {
-                                //    var checkboxes = document.getElementsByName('check');
-                                //    checkboxes.forEach((item) => {
-                                //        if (item !== checkbox) item.checked = false
-                                //    });
-                                //}
+        function onlyOne(checkbox) {
+            var checkboxes = document.getElementsByName('check');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
 
-                                //function onlyCheckMarried(checkbox) {
-                                //    var checkMarried = document.getElementsByName('checkMarr');
-                                //    checkMarried.forEach((item) => {
-                                //        if (item !== checkbox) item.checked = false
-                                //    });
-
-                                //}
-
-                                //$('#btnsaveForm').click(function () {
-                                //    alert('Form saved successfuly!');
-                                //    location.reload();
-                                //});
+        function onlyOneShip(checkbox) {
+            var checkboxes = document.getElementsByName('checkShip');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
 
     </script>
+    <script src="~/Forms/js/jsForms.js"></script>
 </body>
 </html>

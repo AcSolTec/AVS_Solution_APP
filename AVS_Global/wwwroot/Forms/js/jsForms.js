@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
 
 
+    //PAKISTAN FORM
     $("#btnPersonalDet").click(function () {
 
 
@@ -907,6 +908,222 @@
         txtpurposeLast2.val("");
         txtdurationLast2.val("");
     });
+
+
+    //CUBA FORM
+    $("#btnAddCuContact").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+        var firstNameCu = $('#txtNameCu').val();
+        var surNameCu = $('#txtSurname').val();
+        var addressCu = $('#txtAddressCu').val();
+        var zipeCode = $('#txtZipeCode').val();
+        var townCu = $('#txtTownCu').val();
+        var mailCu = $('#txtMailCu').val();
+        var numeroTelCu = $('#txtNumeroTel').val();
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SaveConctactDetCuba',
+                data: {
+                    idForm: idForm,
+                    firstName: firstNameCu,
+                    surName: surNameCu,
+                    address: addressCu,
+                    zipCode: zipeCode,
+                    town: townCu,
+                    emailAddress: mailCu,
+                    telNum: numeroTelCu
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+    });
+
+
+    $("#btnAddTripShip").click(function () {
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+        var dateEntryCuba = $('#dtp_EntryCuba').val();
+        var dateDeparture = $('#dtp_DepartureCuba').val();
+        var ddlNumAdults = $('#ddAdults').val();
+        var ddlChildren = $('#ddChildren').val();
+        var bShipDiff = false;
+
+        if ($('#chekShipYes').is(":checked")) {
+            bShipDiff = true;
+        }
+        if ($('#checkShipNo').is(":checked")) {
+            bShipDiff = false;
+        }
+
+        var bppchf5 = false;
+        var brschf750 = false;
+        var beschf22 = false;
+        var bNatInt = false;
+
+        if ($('#chekch5').is(":checked")) {
+            bppchf5 = true;
+        }
+
+        if ($('#chekch7').is(":checked")) {
+            brschf750 = true;
+        }
+
+        if ($('#chek22').is(":checked")) {
+            beschf22 = true;
+        }
+
+        if ($('#chekNatInt').is(":checked")) {
+            bNatInt = true;
+        }
+
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SaveTripShippCuba',
+                data: {
+                    idForm: idForm,
+                    dateEntry: dateEntryCuba,
+                    dateDeparture: dateDeparture,
+                    numAdults: ddlNumAdults,
+                    numChildrens: ddlChildren,
+                    passportAdult: passportAdult,
+                    passportChil: passportChild,
+                    bitShippDifferent: bShipDiff,
+                    bitPPchf5: bppchf5,
+                    bitRSchf750: brschf750,
+                    bitESchf22: beschf22,
+                    bitCourrierNatInt: bNatInt
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+
+
+
+        var passportAdult;
+        var passportChild;
+
+       // var formData = new FormData();
+       // formData.append('files', $('#fuPassAdult')[0].files[0]);
+       // formData.append('files', $('#fuPassChild')[0].files[0]);
+       // formData.append('idForm', idForm);
+
+       //$.ajax(
+       //     {
+       //         type: "POST",
+       //         url: '/Formularies/sendImages',
+       //         data: formData,
+       //         processData: false,
+       //         contentType: false,
+       //         error: function (result) {
+       //             alert("There is a Problem, Try Again!");
+       //         },
+       //         success: function (result) {
+       //             console.log(result);
+       //             if (result.message == 'OK') {
+       //                 //window.location.href = '/Formularies/Login';
+       //             }
+       //             else {
+
+       //                 alert(result.messagePage);
+       //             }
+       //         }
+       //     });
+
+
+       
+    });
+
+    $("#btnAddSummary").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+        var comments = $('#txtComments').val();
+
+        var bitRead = false;
+
+        if ($('#checkRead').is(":checked")) {
+            bitRead = true;
+        }
+
+        var bitGTC = false;
+
+        if ($('#checkGTC').is(":checked")) {
+            bitGTC = true;
+        }
+
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SaveSummary',
+                data: {
+                    idForm: idForm,
+                    comments: comments,
+                    bitReadSuccess: bitRead,
+                    bitReadGTC: bitGTC
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+    });
+
 
 });
 

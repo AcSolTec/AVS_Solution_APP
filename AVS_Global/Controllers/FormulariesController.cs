@@ -11,6 +11,8 @@ using System.Net;
 using System.Threading.Tasks;
 using AVS_Global.Models;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.IO;
 
 namespace AVS_Global.Controllers
 {
@@ -36,9 +38,6 @@ namespace AVS_Global.Controllers
         {
             return View();
         }
-
-
-        #region FormPakistan
 
 
         public IActionResult FormPakistan()
@@ -119,6 +118,9 @@ namespace AVS_Global.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
+        #region FormPakistanData
+
 
         public ActionResult SavePersonalDetPakistan(int idForm, int idVisaAp, int idPurpose, string durationStay, int idVisasTime, int idTypeVisa,
         int idPortsIn, int idPortsOut, string pvPakistan, string dOfProfesion)
@@ -261,8 +263,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveConctactDetails(int idForm, int idContry, string telHome, string telWork, string telCell, string inPakistan,
                                                 string telHomeb, string telWorkb, string telCellb, string email, bool bitSponsor,
-                              string nameSponA, string addSponA,  string telHomeSponA, string telWorkSponA, string telCellSponA, string citySponA, string zipCodSponA,
-                       bool bitSponsorB,  string nameSponB, string addSponB,  string telHomeSponB, string telWorkSponB, string telCellSponB, string citySponB, string zipCodSponB)
+                              string nameSponA, string addSponA, string telHomeSponA, string telWorkSponA, string telCellSponA, string citySponA, string zipCodSponA,
+                       bool bitSponsorB, string nameSponB, string addSponB, string telHomeSponB, string telWorkSponB, string telCellSponB, string citySponB, string zipCodSponB)
         {
 
 
@@ -418,7 +420,7 @@ namespace AVS_Global.Controllers
         }
 
 
-        public JsonResult SaveChildrens([FromBody]List<pkChildrensFamily> model)
+        public JsonResult SaveChildrens([FromBody] List<pkChildrensFamily> model)
         {
             string dataMessa = string.Empty;
             string message = string.Empty;
@@ -472,7 +474,7 @@ namespace AVS_Global.Controllers
             }
 
 
-            return Json(new { status = true, message = dataMessa, messagePage = message});
+            return Json(new { status = true, message = dataMessa, messagePage = message });
         }
 
 
@@ -809,13 +811,245 @@ namespace AVS_Global.Controllers
 
         public IActionResult FormCuba()
         {
+            const string urlApiSummary = "https://localhost:44330/api/Cuba/";
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Session.GetString("_Form");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
 
+            if (ViewData["User"] != null)
+            {
+
+                #region CallContactDetails
+
+                #endregion
+
+                #region CallSummaryData
+                //Visa requiered
+                var clientContactDet = new RestClient(urlApiSummary + "cdCuIdForm?idForm="+ ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.GET);
+
+
+
+                var responseCD = clientContactDet.Execute<Models.cuConctacDetails>(request);
+
+                if (responseCD.StatusCode == HttpStatusCode.OK)
+                {
+
+                    ViewBag.firstName = responseCD.Data.firstName;
+                    ViewBag.surname = responseCD.Data.surName;
+                    ViewBag.address = responseCD.Data.address;
+                    ViewBag.zipCode = responseCD.Data.zipCode;
+                    ViewBag.town = responseCD.Data.town;
+                    ViewBag.telNumber = responseCD.Data.telNumber;
+                    ViewBag.email = responseCD.Data.emailAddress;
+
+                }
+
+                var clientTrip = new RestClient(urlApiSummary + "tsCuIdForm?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestTrip = new RestRequest(Method.GET);
+                var responseTrip = clientTrip.Execute<Models.cuTripShipp>(requestTrip);
+
+                if (responseTrip.StatusCode == HttpStatusCode.OK)
+                {
+                    ViewBag.dateEntry = responseTrip.Data.dateEntryCuba;
+                    ViewBag.dateDeparture = responseTrip.Data.dateDeparture;
+                    ViewBag.numAdults = responseTrip.Data.numsAdults;
+                    ViewBag.numChild = responseTrip.Data.numsChildrens;
+                }
+
+
+                #endregion
+            }
+
             return View();
         }
+
+        #region FormCubaData
+
+        public ActionResult SaveConctactDetCuba(int idForm, string firstName, string surName, string address, string zipCode, string town, string emailAddress, string telNum)
+        {
+            var client = new RestClient("https://localhost:44330/api/Cuba/SaveConctacDetails");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.cuConctacDetails dataAccount = new Models.cuConctacDetails();
+            dataAccount.idForm = idForm;
+            dataAccount.firstName = firstName;
+            dataAccount.surName = surName;
+            dataAccount.address = address;
+            dataAccount.zipCode = zipCode;
+            dataAccount.town = town;
+            dataAccount.emailAddress = emailAddress;
+            dataAccount.telNumber = telNum;
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Contact data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+        public ActionResult SaveTripShippCuba(int idForm, string dateEntry, string dateDeparture, int numAdults, int numChildrens, byte[] passportAdult, byte[] passportChil,
+            bool bitShippDifferent, bool bitPPchf5, bool bitRSchf750, bool bitESchf22, bool bitCourrierNatInt)
+        {
+            var client = new RestClient("https://localhost:44330/api/Cuba/SaveTripShipp");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+
+            Models.cuTripShipp dataAccount = new Models.cuTripShipp();
+            dataAccount.idForm = idForm;
+            dataAccount.dateEntryCuba = dateEntry;
+            dataAccount.dateDeparture = dateDeparture;
+            dataAccount.numsAdults = numAdults;
+            dataAccount.numsChildrens = numChildrens;
+            dataAccount.passportAdult = passportAdult;
+            dataAccount.passportChildren = passportChil;
+            dataAccount.bitShippDifferent = bitShippDifferent;
+            dataAccount.bitPpchf5 = bitPPchf5;
+            dataAccount.bitRschf750 = bitRSchf750;
+            dataAccount.bitEschf22 = bitESchf22;
+            dataAccount.bitCourierNatInt = bitCourrierNatInt;
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Trip and Shipp data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+        public ActionResult SaveSummary(int idForm, string comments, bool bitReadSuccess, bool bitReadGTC)
+        {
+            var client = new RestClient("https://localhost:44330/api/Cuba/SaveSummary");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.cuSummary dataAccount = new Models.cuSummary();
+            dataAccount.IdForm = idForm;
+            dataAccount.Comments = comments;
+            dataAccount.BitReadSucc = bitReadSuccess;
+            dataAccount.BitReadGtc = bitReadGTC;
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Summary data saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+
+
+        public ActionResult sendImages(IList<IFormFile> files, int idForm)
+        {
+
+            var req = files;
+
+            var client = new RestClient("https://localhost:44330/api/Cuba/recieveImagesCuba");
+            var request = new RestRequest(Method.POST);
+
+
+            byte[] passportAdult = null;
+            byte[] passportChild = null;
+            using (var ms = new MemoryStream())
+            {
+                files[0].CopyTo(ms);
+                var fileBytesAd = ms.ToArray();
+                passportAdult = fileBytesAd;
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                files[1].CopyTo(ms);
+                var fileBytesChi = ms.ToArray();
+                passportChild = fileBytesChi;
+            }
+
+
+            Models.cuSavePassports dataAccount = new Models.cuSavePassports();
+            dataAccount.idForm = idForm;
+            //dataAccount.pasportAdult = passportAdult;
+            //dataAccount.pasportChild = passportChild;
+            request.RequestFormat = DataFormat.None;
+            request.AddParameter("", passportAdult, ParameterType.RequestBody);
+            request.AddParameter("", passportChild, ParameterType.RequestBody);
+
+            request.AddJsonBody(dataAccount);
+
+            var response = client.Execute(request);
+
+
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = "", messagePage = "" });
+        }
+
+
+        #endregion
 
         public IActionResult catTypeVisasApplied()
         {

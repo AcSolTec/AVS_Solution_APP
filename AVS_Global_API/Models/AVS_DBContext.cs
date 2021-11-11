@@ -31,6 +31,9 @@ namespace AVS_Global_API.Models
         public virtual DbSet<TbConctactDetail> TbConctactDetails { get; set; }
         public virtual DbSet<TbConvictionsTravel> TbConvictionsTravels { get; set; }
         public virtual DbSet<TbCountry> TbCountries { get; set; }
+        public virtual DbSet<TbCuContactDetail> TbCuContactDetails { get; set; }
+        public virtual DbSet<TbCuSummary> TbCuSummaries { get; set; }
+        public virtual DbSet<TbCuTravShipDet> TbCuTravShipDets { get; set; }
         public virtual DbSet<TbCustomersAv> TbCustomersAvs { get; set; }
         public virtual DbSet<TbDeportedTravel> TbDeportedTravels { get; set; }
         public virtual DbSet<TbFamilyDetail> TbFamilyDetails { get; set; }
@@ -328,6 +331,78 @@ namespace AVS_Global_API.Models
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCuContactDetail>(entity =>
+            {
+                entity.HasKey(e => e.IdCuContact)
+                    .HasName("PK__tb_cu_co__7EC6553FB21A7DE7");
+
+                entity.ToTable("tb_cu_contact_details");
+
+                entity.Property(e => e.Address)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmailAddress)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SurName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TelNumber)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Town)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ZipCode)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCuSummary>(entity =>
+            {
+                entity.HasKey(e => e.IdSum)
+                    .HasName("PK__tb_cu_Su__2B03A0DDD27C2424");
+
+                entity.ToTable("tb_cu_Summary");
+
+                entity.Property(e => e.BitReadGtc).HasColumnName("BitReadGTC");
+
+                entity.Property(e => e.Comments)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCuTravShipDet>(entity =>
+            {
+                entity.HasKey(e => e.IdTravShip)
+                    .HasName("PK__tb_cu_tr__955FF9D861C7CD07");
+
+                entity.ToTable("tb_cu_trav_ship_det");
+
+                entity.Property(e => e.BitEschf22).HasColumnName("BitESCHF22");
+
+                entity.Property(e => e.BitPpchf5).HasColumnName("BitPPCHF5");
+
+                entity.Property(e => e.BitRschf750).HasColumnName("BitRSCHF750");
+
+                entity.Property(e => e.DateDeparture)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DateEntryCuba)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
             });
 
