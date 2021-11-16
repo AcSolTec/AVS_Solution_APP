@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AVS_Global_API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
     public class CubaController : ControllerBase
     {
         [HttpPost]
@@ -122,18 +122,18 @@ namespace AVS_Global_API.Controllers
 
         [HttpPost]
         [Route("recieveImagesCuba")]
-        public IActionResult RecieveImages(Entities.encuSavePassports files)
+        public IActionResult RecieveImages(byte[] pasportAdult, byte[] pasportChild, int idForm)
         {
 
             using (var context = new Models.AVS_DBContext())
             {
 
-                var tripShippEntity = context.TbCuTravShipDets.FirstOrDefault(x => x.IdForm == files.idForm);
+                var tripShippEntity = context.TbCuTravShipDets.FirstOrDefault(x => x.IdForm == idForm);
 
                 if (tripShippEntity != null)
                 {
-                    tripShippEntity.PassportAdult = files.pasportAdult;
-                    tripShippEntity.PassportChildren = files.pasportChild;
+                    tripShippEntity.PassportAdult = pasportAdult;
+                    tripShippEntity.PassportChildren = pasportChild;
                 }
 
 

@@ -1002,25 +1002,58 @@
 
 
 
-        $.ajax(
+        //$.ajax(
+        //    {
+        //        type: "POST",
+        //        url: '/Formularies/SaveTripShippCuba',
+        //        data: {
+        //            idForm: idForm,
+        //            dateEntry: dateEntryCuba,
+        //            dateDeparture: dateDeparture,
+        //            numAdults: ddlNumAdults,
+        //            numChildrens: ddlChildren,
+        //            passportAdult: passportAdult,
+        //            passportChil: passportChild,
+        //            bitShippDifferent: bShipDiff,
+        //            bitPPchf5: bppchf5,
+        //            bitRSchf750: brschf750,
+        //            bitESchf22: beschf22,
+        //            bitCourrierNatInt: bNatInt
+
+        //        },
+        //        error: function (result) {
+        //            alert("There is a Problem, Try Again!");
+        //        },
+        //        success: function (result) {
+        //            console.log(result);
+        //            if (result.message == 'OK') {
+        //                //window.location.href = '/Formularies/Login';
+        //            }
+        //            else {
+
+        //                alert(result.messagePage);
+        //            }
+        //        }
+        //    });
+
+
+
+
+        var passportAdult;
+        var passportChild;
+
+        var formData = new FormData();
+        formData.append('files', $('#fuPassAdult')[0].files[0]);
+        formData.append('files', $('#fuPassChild')[0].files[0]);
+        formData.append('idForm', idForm);
+
+       $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveTripShippCuba',
-                data: {
-                    idForm: idForm,
-                    dateEntry: dateEntryCuba,
-                    dateDeparture: dateDeparture,
-                    numAdults: ddlNumAdults,
-                    numChildrens: ddlChildren,
-                    passportAdult: passportAdult,
-                    passportChil: passportChild,
-                    bitShippDifferent: bShipDiff,
-                    bitPPchf5: bppchf5,
-                    bitRSchf750: brschf750,
-                    bitESchf22: beschf22,
-                    bitCourrierNatInt: bNatInt
-
-                },
+                url: '/Formularies/sendImages',
+                data: formData,
+                processData: false,
+                contentType: false,
                 error: function (result) {
                     alert("There is a Problem, Try Again!");
                 },
@@ -1035,39 +1068,6 @@
                     }
                 }
             });
-
-
-
-
-        var passportAdult;
-        var passportChild;
-
-       // var formData = new FormData();
-       // formData.append('files', $('#fuPassAdult')[0].files[0]);
-       // formData.append('files', $('#fuPassChild')[0].files[0]);
-       // formData.append('idForm', idForm);
-
-       //$.ajax(
-       //     {
-       //         type: "POST",
-       //         url: '/Formularies/sendImages',
-       //         data: formData,
-       //         processData: false,
-       //         contentType: false,
-       //         error: function (result) {
-       //             alert("There is a Problem, Try Again!");
-       //         },
-       //         success: function (result) {
-       //             console.log(result);
-       //             if (result.message == 'OK') {
-       //                 //window.location.href = '/Formularies/Login';
-       //             }
-       //             else {
-
-       //                 alert(result.messagePage);
-       //             }
-       //         }
-       //     });
 
 
        

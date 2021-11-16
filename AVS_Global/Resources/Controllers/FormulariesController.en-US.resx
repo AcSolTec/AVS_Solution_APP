@@ -234,6 +234,78 @@
   <data name="formCU.zc" xml:space="preserve">
     <value>Zip Code</value>
   </data>
+  <data name="formSK.add" xml:space="preserve">
+    <value>Enter the address and contact information of where you will stay during in visit in Korea (Required)</value>
+  </data>
+  <data name="formSK.bir" xml:space="preserve">
+    <value>Select your date birth as written on your passport (YYYY-MMM-DD) (Required)</value>
+  </data>
+  <data name="formSK.cat" xml:space="preserve">
+    <value>Select the category that best represents your current job (Required)</value>
+  </data>
+  <data name="formSK.cnt" xml:space="preserve">
+    <value>Select the nationality as written on your passport bio page (Required)</value>
+  </data>
+  <data name="formSK.cusu" xml:space="preserve">
+    <value>Are you currently suffering from any of the following diseases? (15 infectious Diseases) (Required)</value>
+  </data>
+  <data name="formSK.evbe" xml:space="preserve">
+    <value>Have you ever been arrested, charged, or convicted of a criminal offense in your country or abroad? (Requiered)</value>
+  </data>
+  <data name="formSK.expdate" xml:space="preserve">
+    <value>Select the expiration date of your passport in the order of year, month, day (Required)</value>
+  </data>
+  <data name="formSK.Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="formSK.hvisited" xml:space="preserve">
+    <value>Have your ever visited Korea before? (Required)</value>
+  </data>
+  <data name="formSK.infaddHave" xml:space="preserve">
+    <value>if the address itself does not have details, please enter 'NONE'.</value>
+  </data>
+  <data name="formSK.infChanges" xml:space="preserve">
+    <value>if there are any changes to your address in Korea or contact information before entering Korea, please update  such information through the K-ETA website 'Check K-ETA application result' - 'e-Arrival card' before entering Korea. Failure to do so may result in entry denial.</value>
+  </data>
+  <data name="formSK.infcount" xml:space="preserve">
+    <value>Countries under visa waiver agreements or designated visa-free entry</value>
+  </data>
+  <data name="formSK.infPurpose" xml:space="preserve">
+    <value>if your purpose of entry changes before entering Korea. please check and correct the information.</value>
+  </data>
+  <data name="formSK.Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="formSK.mob" xml:space="preserve">
+    <value>Enter you mobile phone number. (if you do not have a mobile phone, enter your contact number.) (Required)</value>
+  </data>
+  <data name="formSK.name" xml:space="preserve">
+    <value>Enter the given name in English as written on your passport bio page (Required)</value>
+  </data>
+  <data name="formSK.nameUk" xml:space="preserve">
+    <value>Give name Unknown</value>
+  </data>
+  <data name="formSK.plif" xml:space="preserve">
+    <value>Please select if you are  also a national or citizen of another country other than nationality of your passport (Required)</value>
+  </data>
+  <data name="formSK.pn" xml:space="preserve">
+    <value>Enter your passport number (Required)</value>
+  </data>
+  <data name="formSK.purp" xml:space="preserve">
+    <value>Select your purpose of entry (Required)</value>
+  </data>
+  <data name="formSK.sex" xml:space="preserve">
+    <value>Select the sex as written on your passport bio page (Required)</value>
+  </data>
+  <data name="formSK.sur" xml:space="preserve">
+    <value>Enter surname in English as written on your passport bio page (Required)</value>
+  </data>
+  <data name="formSK.surUk" xml:space="preserve">
+    <value>Surname Unknown</value>
+  </data>
+  <data name="formSK.ycont" xml:space="preserve">
+    <value>Please enter your contact number in Korea (Required)</value>
+  </data>
   <data name="navBar.lan" xml:space="preserve">
     <value>Choose a language</value>
   </data>
@@ -242,6 +314,15 @@
   </data>
   <data name="steps.pay" xml:space="preserve">
     <value>Payment</value>
+  </data>
+  <data name="steps.sk.pi" xml:space="preserve">
+    <value>Personal Information</value>
+  </data>
+  <data name="steps.sk.ri" xml:space="preserve">
+    <value>Required Information</value>
+  </data>
+  <data name="steps.sk.uf" xml:space="preserve">
+    <value>Upload Files</value>
   </data>
   <data name="steps.sum" xml:space="preserve">
     <value>Summary</value>

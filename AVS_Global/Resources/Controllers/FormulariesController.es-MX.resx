@@ -243,6 +243,15 @@
   <data name="steps.pay" xml:space="preserve">
     <value>Pago</value>
   </data>
+  <data name="steps.sk.pi" xml:space="preserve">
+    <value>Información Personal</value>
+  </data>
+  <data name="steps.sk.ri" xml:space="preserve">
+    <value>Información Requerida</value>
+  </data>
+  <data name="steps.sk.uf" xml:space="preserve">
+    <value>Carga de Archivos</value>
+  </data>
   <data name="steps.sum" xml:space="preserve">
     <value>Resumen</value>
   </data>

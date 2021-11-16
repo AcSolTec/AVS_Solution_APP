@@ -1,0 +1,319 @@
+﻿
+@using AVS_Global.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model AVS_Global.Models.CatModelsView
+
+@inject IStringLocalizer<FormulariesController> Localizer
+@inject IHtmlLocalizer<FormulariesController> HtmlLocalizer
+
+@{
+    Layout = "~/Views/Shared/_NavBarForms.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+
+    <link href="~/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/style.css" rel="stylesheet" />
+    <link href="~/Bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
+</head>
+<body>
+    <!--PEN CONTENT     -->
+    <div class="content">
+
+        <!--content inner-->
+        <div class="content__inner">
+            <div class="container">
+                <!--content title-->
+                <div class="content__title content__title--m-sm">
+
+                </div>
+            </div>
+            <div class="container overflow-hidden">
+                <!--multisteps-form-->
+                <div class="multisteps-form">
+                    <!--progress bar-->
+                    <div class="row">
+                        <div class="col-12 col-lg-7 ml-auto mr-auto mb-4">
+                            <div class="multisteps-form__progress">
+                                <button class="multisteps-form__progress-btn js-active" type="button" title="contact">@Localizer["steps.sk.pi"]</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="travShipp">@Localizer["steps.sk.ri"]</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Summary">@Localizer["steps.sk.uf"]</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--form panels-->
+                    <div class="row">
+                        <div class="col-12 col-lg-8 m-auto">
+                            <form class="multisteps-form__form">
+                                <!--Personal Information-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">@Localizer["steps.sk.pi"]</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>@Localizer["formSK.cnt"]:</label>
+                                                <select id="ddCountrySK" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries,"IdCatCountry", "Country"))">
+                                                </select>
+                                                <label style="color:red">@Localizer["formSK.infcount"]</label>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label>@Localizer["formSK.sex"]:</label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formSK.Male"]
+                                                    <input id="checkMale" name="checkMF" type="checkbox" onclick="onlyOneSex(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formSK.Female"]
+                                                    <input id="checkFemale" name="checkMF" type="checkbox" onclick="onlyOneSex(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label>@Localizer["formSK.sur"]:</label>
+                                                <input id="txtSurnameSK" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.surnameSK" />
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formSK.surUk"]
+                                                    <input id="checkSurUk" name="check" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>@Localizer["formSK.name"]:</label>
+                                                <input id="txtGiveName" class="multisteps-form__input form-control" type="text" value="@ViewBag.nameSK" />
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formSK.nameUk"]
+                                                    <input id="checkNameUk" name="check" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="control-label">@Localizer["formSK.bir"]</label>
+                                                <div class="controls input-append date form_date" id="dtDeparture" data-date="" data-date-format="YYYY-MMM-DD" data-link-field="dtp_dtSK" data-link-format="YYYY-MMM-DD">
+                                                    <input class="form-control" size="16" type="text" value="@ViewBag.dateBirthSK" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_dtSK" value="" /><br />
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label>@Localizer["formSK.pn"]:</label>
+                                                <input id="txtPassportNumber" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.psnum" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="control-label">@Localizer["formSK.expdate"]</label>
+                                                <div class="controls input-append date form_date" id="dtDeparture" data-date="" data-date-format="YYYY-MMM-DD" data-link-field="dtp_dtEXPSK" data-link-format="YYYY-MMM-DD">
+                                                    <input class="form-control" size="16" type="text" value="@ViewBag.expDateSK" readonly>
+                                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                                    <span class="add-on"><i class="icon-th"></i></span>
+                                                </div>
+                                                <input type="hidden" id="dtp_dtEXPSK" value="" /><br />
+                                            </div>
+
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button id="btnAddSKPI" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">@Localizer["btn.next"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Required Information-->
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">@Localizer["steps.sk.ri"]</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.plif"]:</label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.yes"]
+                                                    <input id="checkYesAn" name="checkAC" type="checkbox" onclick="onlyOneOtCo(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.No"]
+                                                    <input id="checkNoAn" name="checkAC" type="checkbox" onclick="onlyOneOtCo(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.mob"]:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-3">
+                                                <input id="txtDll" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.mob" />
+                                            </div>
+                                            <div class="col-12 col-sm-5">
+                                                <input id="txtMobNum" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.mob" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.hvisited"]:</label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.yes"]
+                                                    <input id="checkVisitedUkYes" name="checkhVisi" type="checkbox" onclick="onlyOneYesNop(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.No"]
+                                                    <input id="checkVisitedUkNo" name="checkhVisi" type="checkbox" onclick="onlyOneYesNop(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-9">
+                                                <label>@Localizer["formSK.purp"]:</label>
+                                                <input id="txtPurpose" maxlength="50" class="multisteps-form__input form-control" type="text" />
+                                                <label style="color:red">@Localizer["formSK.infPurpose"]</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.add"]:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-3">
+                                                <input id="txtZipCode" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.mob" />
+                                            </div>
+                                            <div class="col-12 col-sm-8">
+                                                <input id="txtAddWrit" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.mob" />
+                                            </div>
+                                            <div class="col-12 col-sm-12">
+                                                <br />
+                                                <input id="txtAddWrit2" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.mob" />
+                                                <label style="color:red">@Localizer["formSK.infaddHave"]</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.ycont"]:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-7">
+                                                <input id="txtNumberKorea" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.mob" />
+                                            </div>
+                                            <div class="col-12 col-sm-12"> 
+                                                <label style="color:red">@Localizer["formSK.infChanges"]</label>
+                                            </div>
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.cat"]:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-7">
+                                                <select>
+                                                    <option value="0">Choose</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.cusu"]:</label>
+                                                <div style="background-color: #d5d5d5;" class="card text-white mb-3">
+                                                    <div class="card-body">
+                                                        code here
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-7">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.yes"]
+                                                    <input id="checkVisitedUkYes" name="checkcusu" type="checkbox" onclick="onlyOneCUSU(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.No"]
+                                                    <input id="checkVisitedUkNo" name="checkcusu" type="checkbox" onclick="onlyOneCUSU(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label>@Localizer["formSK.evbe"]:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-8">
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.yes"]
+                                                    <input id="checkVisitedUkYes" name="checkhArres" type="checkbox" onclick="onlyOneArres(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="checkbox-wrap checkbox-primary">
+                                                    @Localizer["formCU.No"]
+                                                    <input id="checkVisitedUkNo" name="checkhArres" type="checkbox" onclick="onlyOneArres(this)">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button id="btnAddSKPI" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">@Localizer["btn.next"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'></script>
+    <script src="~/script.js"></script>
+    <script src="~/Bootstrap/js/jquery-1.8.3.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap-datetimepicker.js"></script>
+    <script src="~/Forms/js/jsForms.js"></script>
+    <script>
+
+
+        function onlyOneArres(checkbox) {
+            var checkboxes = document.getElementsByName('checkArres');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
+
+        function onlyOneCUSU(checkbox) {
+            var checkboxes = document.getElementsByName('checkcusu');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
+
+        function onlyOneYesNop(checkbox) {
+            var checkboxes = document.getElementsByName('checkhVisi');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
+
+        function onlyOneSex(checkbox) {
+            var checkboxes = document.getElementsByName('checkMF');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
+
+        function onlyOneOtCo(checkbox) {
+            var checkboxes = document.getElementsByName('checkAC');
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            });
+        }
+    </script>
+</body>
+</html>

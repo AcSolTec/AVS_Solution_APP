@@ -13,6 +13,7 @@ using AVS_Global.Models;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.IO;
+using System.Net.Http;
 
 namespace AVS_Global.Controllers
 {
@@ -1016,16 +1017,21 @@ namespace AVS_Global.Controllers
             }
 
 
-            Models.cuSavePassports dataAccount = new Models.cuSavePassports();
-            dataAccount.idForm = idForm;
+            //Models.cuSavePassports dataAccount = new Models.cuSavePassports();
+            //dataAccount.idForm = idForm;
             //dataAccount.pasportAdult = passportAdult;
             //dataAccount.pasportChild = passportChild;
-            request.RequestFormat = DataFormat.None;
-            request.AddParameter("", passportAdult, ParameterType.RequestBody);
-            request.AddParameter("", passportChild, ParameterType.RequestBody);
 
-            request.AddJsonBody(dataAccount);
+            request.AddHeader("Content-Type", "multipart/form-data");
+            //request.RequestFormat = DataFormat.None;
+            request.AddParameter("pasportAdult", passportAdult, ParameterType.RequestBody);
+            request.AddParameter("pasportChild", passportChild, ParameterType.RequestBody);
+            request.AddParameter("idForm", idForm, ParameterType.RequestBody);
 
+
+            //request.AddJsonBody(dataAccount);
+
+                
             var response = client.Execute(request);
 
 
@@ -1050,6 +1056,28 @@ namespace AVS_Global.Controllers
 
 
         #endregion
+
+
+        public IActionResult FormSouthKorea()
+        {
+            const string urlApiSK = "https://localhost:44330/api/SouthKorea/";
+            const string urlApiCatalogs = "https://localhost:44330/api/Catalogs/";
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
+            ViewBag.Form = HttpContext.Session.GetString("_Form");
+            ViewData["User"] = ViewBag.Name;
+            ViewData["Form"] = ViewBag.Form;
+
+            #region CallCatCountries
+            //Visa requiered
+            var clientCountry = new RestClient(urlApiCatalogs + "CatCountries");
+            var request = new RestRequest(Method.GET);
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var responseCtry = clientCountry.Execute<List<Models.CatCountries>>(request);
+            ViewBag.itemsCountries = responseCtry.Data;
+            #endregion
+
+            return View();
+    }
 
         public IActionResult catTypeVisasApplied()
         {
