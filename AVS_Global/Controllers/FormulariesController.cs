@@ -991,68 +991,71 @@ namespace AVS_Global.Controllers
 
 
 
-        public ActionResult sendImages(IList<IFormFile> files, int idForm)
-        {
+        //public ActionResult sendImages(IList<IFormFile> files, int idForm)
+        //{
 
-            var req = files;
+        //    var req = files;
 
-            var client = new RestClient("https://localhost:44330/api/Cuba/recieveImagesCuba");
-            var request = new RestRequest(Method.POST);
-
-
-            byte[] passportAdult = null;
-            byte[] passportChild = null;
-            using (var ms = new MemoryStream())
-            {
-                files[0].CopyTo(ms);
-                var fileBytesAd = ms.ToArray();
-                passportAdult = fileBytesAd;
-            }
-
-            using (var ms = new MemoryStream())
-            {
-                files[1].CopyTo(ms);
-                var fileBytesChi = ms.ToArray();
-                passportChild = fileBytesChi;
-            }
+        //    var client = new RestClient("https://localhost:44330/api/Cuba/recieveImagesCuba");
+        //    var request = new RestRequest(Method.POST);
 
 
-            //Models.cuSavePassports dataAccount = new Models.cuSavePassports();
-            //dataAccount.idForm = idForm;
-            //dataAccount.pasportAdult = passportAdult;
-            //dataAccount.pasportChild = passportChild;
-
-            request.AddHeader("Content-Type", "multipart/form-data");
-            //request.RequestFormat = DataFormat.None;
-            request.AddParameter("pasportAdult", passportAdult, ParameterType.RequestBody);
-            request.AddParameter("pasportChild", passportChild, ParameterType.RequestBody);
-            request.AddParameter("idForm", idForm, ParameterType.RequestBody);
+        //    byte[] passportAdult = null;
+        //    byte[] passportChild = null;
 
 
-            //request.AddJsonBody(dataAccount);
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        files[0].CopyTo(ms);
+        //        var fileBytesAd = ms.ToArray();
+        //        passportAdult = fileBytesAd;
+        //    }
+
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        files[1].CopyTo(ms);
+        //        var fileBytesChi = ms.ToArray();
+        //        passportChild = fileBytesChi;
+        //    }
+
+
+
+        //    //Models.cuSavePassports dataAccount = new Models.cuSavePassports();
+        //    //dataAccount.idForm = idForm;
+        //    //dataAccount.pasportAdult = passportAdult;
+        //    //dataAccount.pasportChild = passportChild;
+
+        //    request.AddHeader("Content-Type", "false");
+        //    request.AddHeader("processData", "false");
+        //    request.AddFile("files", passportAdult, "passportAdult");
+        //    request.AddFile("files", passportChild, "passportChild");
+        //    request.AddParameter("idForm", idForm, ParameterType.RequestBody);
+
+
+        //    //request.AddJsonBody(dataAccount);
 
                 
-            var response = client.Execute(request);
+        //    var response = client.Execute(request);
 
 
-            string content = response.Content.Replace("\"", "");
-            string dataMessa = string.Empty;
+        //    string content = response.Content.Replace("\"", "");
+        //    string dataMessa = string.Empty;
 
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
+        //    if (response.StatusCode == HttpStatusCode.OK)
+        //    {
 
-                if (content == "OK")
-                {
-                    dataMessa = "OK";
-                }
-                else
-                {
-                    dataMessa = response.Content;
-                }
+        //        if (content == "OK")
+        //        {
+        //            dataMessa = "OK";
+        //        }
+        //        else
+        //        {
+        //            dataMessa = response.Content;
+        //        }
 
-            }
-            return Json(new { status = true, message = "", messagePage = "" });
-        }
+        //    }
+        //    return Json(new { status = true, message = "", messagePage = "" });
+        //}
 
 
         #endregion

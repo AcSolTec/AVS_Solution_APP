@@ -1002,39 +1002,39 @@
 
 
 
-        //$.ajax(
-        //    {
-        //        type: "POST",
-        //        url: '/Formularies/SaveTripShippCuba',
-        //        data: {
-        //            idForm: idForm,
-        //            dateEntry: dateEntryCuba,
-        //            dateDeparture: dateDeparture,
-        //            numAdults: ddlNumAdults,
-        //            numChildrens: ddlChildren,
-        //            passportAdult: passportAdult,
-        //            passportChil: passportChild,
-        //            bitShippDifferent: bShipDiff,
-        //            bitPPchf5: bppchf5,
-        //            bitRSchf750: brschf750,
-        //            bitESchf22: beschf22,
-        //            bitCourrierNatInt: bNatInt
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SaveTripShippCuba',
+                data: {
+                    idForm: idForm,
+                    dateEntry: dateEntryCuba,
+                    dateDeparture: dateDeparture,
+                    numAdults: ddlNumAdults,
+                    numChildrens: ddlChildren,
+                    passportAdult: passportAdult,
+                    passportChil: passportChild,
+                    bitShippDifferent: bShipDiff,
+                    bitPPchf5: bppchf5,
+                    bitRSchf750: brschf750,
+                    bitESchf22: beschf22,
+                    bitCourrierNatInt: bNatInt
 
-        //        },
-        //        error: function (result) {
-        //            alert("There is a Problem, Try Again!");
-        //        },
-        //        success: function (result) {
-        //            console.log(result);
-        //            if (result.message == 'OK') {
-        //                //window.location.href = '/Formularies/Login';
-        //            }
-        //            else {
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
 
-        //                alert(result.messagePage);
-        //            }
-        //        }
-        //    });
+                        alert(result.messagePage);
+                    }
+                }
+            });
 
 
 
@@ -1050,7 +1050,7 @@
        $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/sendImages',
+                url: 'http://localhost/avs_api/api/cuba/recieveImagesCuba',
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -1058,12 +1058,11 @@
                     alert("There is a Problem, Try Again!");
                 },
                 success: function (result) {
-                    console.log(result);
+                    console.log('resultado ' + result);
                     if (result.message == 'OK') {
                         //window.location.href = '/Formularies/Login';
                     }
                     else {
-
                         alert(result.messagePage);
                     }
                 }

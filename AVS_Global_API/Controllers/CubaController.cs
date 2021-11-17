@@ -122,25 +122,47 @@ namespace AVS_Global_API.Controllers
 
         [HttpPost]
         [Route("recieveImagesCuba")]
-        public IActionResult RecieveImages(byte[] pasportAdult, byte[] pasportChild, int idForm)
+        public IActionResult RecieveImages(IList<IFormFile> files, int idForm)
         {
-
+            string message = string.Empty;
             using (var context = new Models.AVS_DBContext())
             {
-
+                byte[] passportAdult = null;
+                byte[] passportChild = null;
+                
                 var tripShippEntity = context.TbCuTravShipDets.FirstOrDefault(x => x.IdForm == idForm);
 
                 if (tripShippEntity != null)
                 {
-                    tripShippEntity.PassportAdult = pasportAdult;
-                    tripShippEntity.PassportChildren = pasportChild;
+
+                    using (var ms = new MemoryStream())
+                    {
+                        files[0].CopyTo(ms);
+                        var fileBytesAd = ms.ToArray();
+                        passportAdult = fileBytesAd;
+                    }
+
+                    using (var ms = new MemoryStream())
+                    {
+                        files[1].CopyTo(ms);
+                        var fileBytesChi = ms.ToArray();
+                        passportChild = fileBytesChi;
+                    }
+
+
+                    tripShippEntity.PassportAdult = passportAdult;
+                    tripShippEntity.PassportChildren = passportChild;
+                    context.SaveChanges();
+                    message = "OK";
+                }
+                else
+                {
+                    message = "Not idForm Provider";
                 }
 
 
-                context.SaveChanges();
-
             }
-            return Ok("OK");
+            return Ok(message);
         }
 
         [HttpPost]
