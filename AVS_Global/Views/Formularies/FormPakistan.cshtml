@@ -70,17 +70,20 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Type of visa applied for:</label>
-                                                <select id="ddVisaApp" class="multisteps-form__select form-control" asp-for="visasApplied.idVisaAp" asp-items="@(new SelectList(@ViewBag.items,"idVisaAp", "typeVisa"))"></select>
+                                                <select id="ddVisaApp" class="multisteps-form__select form-control" asp-for="visasApplied.idVisaAp" asp-items="@(new SelectList(@ViewBag.items,"idVisaAp", "typeVisa"))">
+                                                </select>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Purpose of Visit:</label>
-                                                <select id="ddPurpose" class="multisteps-form__select form-control" asp-for="purposes.IdPurpose" asp-items="@(new SelectList(@ViewBag.itemsPurposes,"IdPurpose", "DescPurpose"))"></select>
+                                                <select id="ddPurpose" class="multisteps-form__select form-control" asp-for="purposes.IdPurpose" asp-items="@(new SelectList(@ViewBag.itemsPurposes,"IdPurpose", "DescPurpose"))">
+                                                    
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Duration of Stay:</label>
-                                                <input id="txtDurationStay" class="multisteps-form__input form-control" maxlength="100" type="text" />
+                                                <input id="txtDurationStay" class="multisteps-form__input form-control" maxlength="100" type="text" value="@ViewBag.dStay" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Visa required for:</label>
@@ -104,13 +107,14 @@
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Places to be visited in pakistan:</label>
-                                                <input id="txtPlacesVisited" class="multisteps-form__input form-control" maxlength="200" type="text" />
+                                                <input id="txtPlacesVisited" class="multisteps-form__input form-control" maxlength="200" type="text" value="@ViewBag.pvPakistan" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-12">
                                                 <label>Details of profesional(Please specify Rank/Service, in case if Armed Forces/Uniform Personnel):</label>
-                                                <textarea id="txtDetailsProfesion" class="form-control" maxlength="200" rows="3" cols="75"></textarea>
+                                                <textarea id="txtDetailsProfesion" class="form-control" maxlength="200" rows="3" cols="75">@ViewBag.detProf</textarea>
+                                                
                                             </div>
 
                                         </div>
@@ -126,22 +130,22 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Name as In Passport:</label>
-                                                <input id="txtNamePassport" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtNamePassport" class="multisteps-form__input form-control" type="text" value="@ViewBag.namePass" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Middle Name:</label>
-                                                <input id="txtMiddleName" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtMiddleName" class="multisteps-form__input form-control" type="text" value="@ViewBag.midName" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Last Name:</label>
-                                                <input id="txtLastName" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtLastName" class="multisteps-form__input form-control" type="text" value="@ViewBag.lsName" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label class="control-label">Date of Birth</label>
                                                 <div class="controls input-append date form_date" id="dtPickerBirht" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_birht" data-link-format="dd/mm/yy">
-                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <input class="form-control" size="16" type="text" value="@ViewBag.dtBirth" readonly>
                                                     <span class="add-on"><i class="icon-remove"></i></span>
                                                     <span class="add-on"><i class="icon-th"></i></span>
                                                 </div>
@@ -154,7 +158,7 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>City</label>
-                                                <input id="txtCityBirth" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtCityBirth" class="multisteps-form__input form-control" type="text" value="@ViewBag.city" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Country</label>
@@ -164,22 +168,48 @@
                                         <div class="form-row mt-4">
                                             <label>Sex</label>
                                         </div>
+                                        @{
+                                            if (ViewBag.sex == true)
+                                            {
+                                                ViewBag.sexMan = true;
+                                                ViewBag.sexWMan = false;
+                                            }
+                                            else
+                                            {
+                                                ViewBag.sexMan = false;
+                                                ViewBag.sexWMan = true;
+                                            }
+
+                                        }
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     Male
-                                                    <input id="chekSexMen" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <input id="chekSexMen" name="check" type="checkbox" checked="@ViewBag.sexMan"  onclick="onlyOne(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     Female
-                                                    <input id="chekSexWom" name="check" type="checkbox" onclick="onlyOne(this)">
+                                                    <input id="chekSexWom" name="check" type="checkbox" checked="@ViewBag.sexWMan" onclick="onlyOne(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                         </div>
+                                       @{
+                                            if (ViewBag.marStat == true)
+                                            {
+                                                ViewBag.married = true;
+                                                ViewBag.Nommarried = false;
+                                            }
+                                            else
+                                            {
+                                                ViewBag.married = false;
+                                                ViewBag.Nommarried = true;
+                                            }
+
+                                        }
                                         <div class="form-row mt-4">
                                             <label>Marital status</label>
                                         </div>
@@ -187,14 +217,14 @@
                                             <div class="col-12 col-sm-6">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     Single
-                                                    <input id="chekMaritalSingle" name="checkMarr" type="checkbox" onclick="onlyCheckMarried(this)">
+                                                    <input id="chekMaritalSingle" name="checkMarr" checked="@ViewBag.Nommarried"  type="checkbox" onclick="onlyCheckMarried(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     Married
-                                                    <input id="chekMaritalMarried" name="checkMarr" type="checkbox" onclick="onlyCheckMarried(this)">
+                                                    <input id="chekMaritalMarried" name="checkMarr" checked="@ViewBag.married"  type="checkbox" onclick="onlyCheckMarried(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -202,21 +232,21 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Blood Group</label>
-                                                <input id="txtBlood" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtBlood" class="multisteps-form__input form-control" type="text" value="@ViewBag.blood" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Identification Mark</label>
-                                                <input id="txtIdMark" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtIdMark" class="multisteps-form__input form-control" type="text" value="@ViewBag.idMark" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Native Language:</label>
-                                                <input id="txtNatLan" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtNatLan" class="multisteps-form__input form-control" type="text" value="@ViewBag.natLan" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Religion:</label>
-                                                <input id="txtReligion" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtReligion" class="multisteps-form__input form-control" type="text" value="@ViewBag.rel"  />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
@@ -225,15 +255,15 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Present:</label>
-                                                <input id="txtPresentNat" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtPresentNat" class="multisteps-form__input form-control" type="text" value="@ViewBag.natPresent" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Previous:</label>
-                                                <input id="txtPreviousNat" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtPreviousNat" class="multisteps-form__input form-control" type="text" value="@ViewBag.natPrev" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Dual:</label>
-                                                <input id="txtDualNat" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtDualNat" class="multisteps-form__input form-control" type="text" value="@ViewBag.natDual" />
                                             </div>
                                         </div>
                                         <div class="button-row d-flex mt-4">
@@ -251,11 +281,12 @@
                                             <label>Type of Passport</label>
                                             <select id="ddTypePass" class="multisteps-form__select form-control" asp-for="typesPass.IdTypePass" asp-items="@(new SelectList(@ViewBag.itemsTypesPass,"IdTypePass", "TypePass"))"></select>
                                         </div>
+                                    
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     UN Travel documents
-                                                    <input id="chekUNTravel" type="checkbox">
+                                                    <input id="chekUNTravel" type="checkbox" checked="@ViewBag.unTravDoc">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -263,18 +294,18 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Passport Number</label>
-                                                <input id="passNum" class="multisteps-form__input form-control" type="text" />
+                                                <input id="passNum" class="multisteps-form__input form-control" type="text" value="@ViewBag.passNum" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                 <label>Place of Issue</label>
-                                                <input id="txtIssue" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtIssue" class="multisteps-form__input form-control" type="text" value="@ViewBag.plissue" />
                                             </div>
                                             <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                 <label class="control-label">Date of Issue</label>
                                                 <div class="controls input-append date form_date" id="dtPickerIssue" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_issue" data-link-format="dd/mm/yy">
-                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <input class="form-control" size="16" type="text" value="@ViewBag.dtIsse" readonly>
                                                     <span class="add-on"><i class="icon-remove"></i></span>
                                                     <span class="add-on"><i class="icon-th"></i></span>
                                                 </div>
@@ -283,7 +314,7 @@
                                             <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                 <label class="control-label">Date of Expiry</label>
                                                 <div class="controls input-append date form_date" id="dtPickerExpiry" data-date="" data-date-format="dd/mm/yy" data-link-field="dtp_Expiry" data-link-format="dd/mm/yy">
-                                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                                    <input class="form-control" size="16" type="text" value="@ViewBag.dtExp" readonly>
                                                     <span class="add-on"><i class="icon-remove"></i></span>
                                                     <span class="add-on"><i class="icon-th"></i></span>
                                                 </div>
@@ -291,7 +322,7 @@
                                             </div>
                                             <div class="col-6 col-sm-3 mt-4 mt-sm-0">
                                                 <label>Issuing Authority</label>
-                                                <input id="txtIsAuth" class="multisteps-form__input form-control" type="text" />
+                                                <input id="txtIsAuth" class="multisteps-form__input form-control" type="text" value="@ViewBag.issuAt" />
                                             </div>
                                         </div>
 

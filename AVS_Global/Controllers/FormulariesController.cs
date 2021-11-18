@@ -55,6 +55,8 @@ namespace AVS_Global.Controllers
             if (ViewData["User"] != null)
             {
 
+
+
                 #region CallCatVisasApplied
                 var client = new RestClient(urlApiPakistan + "CatVisasApplied");
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
@@ -110,6 +112,70 @@ namespace AVS_Global.Controllers
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var responsePortsInOut = clientPortsInOut.Execute<List<Models.CatsPortsInOut>>(request);
                 ViewBag.itemsPorts = responsePortsInOut.Data;
+                #endregion
+
+
+                #region getDataExists
+
+                //Visa requiered
+                var clientPD = new RestClient(urlApiPakistan + "getDataForm?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestget = new RestRequest(Method.GET);
+                var responsePD = clientPD.Execute<Models.personalData>(requestget);
+
+                if (responsePD.StatusCode == HttpStatusCode.OK)
+                {
+                   
+                    ViewBag.idVisaAp = responsePD.Data.IdVisaAp;
+                    ViewBag.idPurpose = responsePD.Data.IdPurpose;
+                    ViewBag.dStay = responsePD.Data.DurationStay;
+                    ViewBag.idVisaTime = responsePD.Data.IdVisasTime;
+                    ViewBag.idTypeVisa = responsePD.Data.IdTypeVisa;
+                    ViewBag.idPortIn = responsePD.Data.IdPortsIn;
+                    ViewBag.idPortOut = responsePD.Data.IdPortsOut;
+                    ViewBag.pvPakistan = responsePD.Data.Pvpakistan;
+                    ViewBag.detProf = responsePD.Data.DetailOfProfesion;
+
+                    // applicants details
+                    ViewBag.namePass = responsePD.Data.Name;
+                    ViewBag.midName = responsePD.Data.MiddleName;
+                    ViewBag.lsName = responsePD.Data.LastName;
+                    ViewBag.dtBirth = responsePD.Data.DateBirth;
+                    ViewBag.city = responsePD.Data.CityBirth;
+                    ViewBag.sex = responsePD.Data.TypeSex;
+                    ViewBag.marStat = responsePD.Data.MaritalStatus;
+                    ViewBag.blood = responsePD.Data.BloodGroup;
+                    ViewBag.idMark = responsePD.Data.IdMark;
+                    ViewBag.natLan = responsePD.Data.NativeLanguage;
+                    ViewBag.rel = responsePD.Data.Religion;
+                    ViewBag.natPresent = responsePD.Data.NationPresent;
+                    ViewBag.natPrev = responsePD.Data.NationPrevious;
+                    ViewBag.natDual = responsePD.Data.NationDual;
+
+
+                }
+
+                //Passport Details
+                var clientPassDet = new RestClient(urlApiPakistan + "getDataPassport?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestPass = new RestRequest(Method.GET);
+                var responsePass = clientPassDet.Execute<Models.pkPassportData>(requestPass);
+
+
+                if (responsePass.StatusCode == HttpStatusCode.OK)
+                {
+
+                    ViewBag.unTravDoc = responsePass.Data.travelDocs;
+                    ViewBag.passNum = responsePass.Data.passportNumber;
+                    ViewBag.plissue = responsePass.Data.placeOfIssue;
+                    ViewBag.dtIsse = responsePass.Data.dateOfIssue;
+                    ViewBag.dtExp = responsePass.Data.dateOfExpiry;
+                    ViewBag.issuAt = responsePass.Data.issuingAuth;
+
+                }
+
+                //Address & data
+
                 #endregion
 
                 return View();

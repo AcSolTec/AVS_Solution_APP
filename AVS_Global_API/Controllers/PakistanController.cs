@@ -538,5 +538,55 @@ namespace AVS_Global_API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("getDataForm")]
+        public Models.TbPersonalDatum GetDataForm(int idForm)
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                Models.TbPersonalDatum formPak = db.TbPersonalData.FirstOrDefault(d => d.IdForm == idForm);
+                return formPak;
+            }
+        }
+
+        [HttpGet]
+        [Route("getDataPassport")]
+        public Models.TbPassportDetail GetDataPassport(int idForm)
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                Models.TbPassportDetail passData = db.TbPassportDetails.FirstOrDefault(d => d.IdForm == idForm);
+                return passData;
+            }
+        }
+
+        [HttpGet]
+        [Route("getDataConctact")]
+        public Models.TbConctactDetail GetDataContact(int idForm)
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                Models.TbConctactDetail ConData = db.TbConctactDetails.FirstOrDefault(d => d.IdForm == idForm);
+                return ConData;
+            }
+        }
+
+        [HttpGet]
+        [Route("getDataSponsors")]
+        public IEnumerable<Models.TbSponsor> GetDataSponsors(int idForm)
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+
+                var modSponsors = (from cdetails in db.TbConctactDetails
+                             join spon in db.TbSponsors on cdetails.IdConctact equals spon.IdConctact
+                             where cdetails.IdForm == idForm
+                             select new { idContact = spon.IdConctact });
+
+               IEnumerable<Models.TbSponsor> ConDataSpon = db.TbSponsors.Where(d => d.IdConctact == modSponsors.FirstOrDefault().idContact).ToList();
+                return ConDataSpon;
+            }
+        }
+
     }
 }
