@@ -588,5 +588,43 @@ namespace AVS_Global_API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("getDataJobs")]
+        public Models.TbPastJob GetDataJobs(int idForm)
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                Models.TbPastJob ConData = db.TbPastJobs.FirstOrDefault(d => d.IdForm == idForm);
+                return ConData;
+            }
+        }
+
+        [HttpGet]
+        [Route("getDataFamilyDet")]
+        public Models.TbFamilyDetail GetDataFamilyDet(int idForm)
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                Models.TbFamilyDetail ConData = db.TbFamilyDetails.FirstOrDefault(d => d.IdForm == idForm);
+                return ConData;
+            }
+        }
+
+        [HttpGet]
+        [Route("getDataBank")]
+        public Models.TbBankFamily GetDataBank(int idForm)
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                var famData = (from familiy in db.TbFamilyDetails
+                             where familiy.IdForm == idForm
+                             select new { idFam = familiy.IdFam });
+
+
+                Models.TbBankFamily ConData = db.TbBankFamilies.FirstOrDefault(d => d.IdFam == famData.FirstOrDefault().idFam);
+                return ConData;
+            }
+        }
+
     }
 }

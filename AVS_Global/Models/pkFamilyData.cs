@@ -18,6 +18,8 @@ namespace AVS_Global.Models
         public string PlaceBirth { get; set; }
         public string Profesion { get; set; }
         public bool BitChildrens { get; set; }
+        public bool BitAcompany { get; set; }
+        public bool BitAccountBank { get; set; }
         public string NameEmployerSpouse { get; set; }
         public string AddressEmployerSpouse { get; set; }
         public string TelEmployerSpouse { get; set; }

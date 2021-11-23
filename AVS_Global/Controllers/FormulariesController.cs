@@ -175,6 +175,138 @@ namespace AVS_Global.Controllers
                 }
 
                 //Address & data
+                var clientAdDat = new RestClient(urlApiPakistan + "getDataConctact?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestAdDat = new RestRequest(Method.GET);
+                var responseAdDat = clientAdDat.Execute<Models.pkContactDetForm>(requestAdDat);
+
+
+                if (responseAdDat.StatusCode == HttpStatusCode.OK)
+                {
+
+                    ViewBag.telHomeA = responseAdDat.Data.telHome;
+                    ViewBag.telWorkA = responseAdDat.Data.telWork;
+                    ViewBag.telCellA = responseAdDat.Data.telCell;
+                    ViewBag.inPakis = responseAdDat.Data.inPakistan;
+                    ViewBag.telHomeB = responseAdDat.Data.telHomeB;
+                    ViewBag.telWorkB = responseAdDat.Data.telWorkB;
+                    ViewBag.telCellB = responseAdDat.Data.telCellB;
+                    ViewBag.emailB = responseAdDat.Data.email;
+                    ViewBag.bitSporsor = responseAdDat.Data.bitSponsor;
+
+                }
+
+                //Sponsors
+                var clientSpon = new RestClient(urlApiPakistan + "getDataSponsors?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestSpon = new RestRequest(Method.GET);
+                var responseSpon = clientSpon.Execute<List<Models.pkSponsors>>(requestSpon);
+
+                if (responseSpon.StatusCode == HttpStatusCode.OK)
+                {
+
+                    int haveSponsors = responseSpon.Data.Count;
+
+                    if (haveSponsors > 0)
+                    {
+
+                        if (haveSponsors == 2)
+                        {
+
+                            ViewBag.nameSponsor = responseSpon.Data[0].name;
+                            ViewBag.addressSpon = responseSpon.Data[0].address;
+                            ViewBag.citySponso = responseSpon.Data[0].city;
+                            ViewBag.ZipSpon = responseSpon.Data[0].zipCode;
+                            ViewBag.PhoneHome = responseSpon.Data[0].telHome;
+                            ViewBag.PhoneWork = responseSpon.Data[0].telWork;
+                            ViewBag.CellWork = responseSpon.Data[0].telCell;
+
+                            ViewBag.nameSponsor2 = responseSpon.Data[1].name;
+                            ViewBag.addressSpon2 = responseSpon.Data[1].address;
+                            ViewBag.citySponso2 = responseSpon.Data[1].city;
+                            ViewBag.ZipSpon2 = responseSpon.Data[1].zipCode;
+                            ViewBag.PhoneHome2 = responseSpon.Data[1].telHome;
+                            ViewBag.PhoneWork2 = responseSpon.Data[1].telWork;
+                            ViewBag.CellWork2 = responseSpon.Data[1].telCell;
+                        }
+                        else
+                        {
+                            ViewBag.nameSponsor = responseSpon.Data[0].name;
+                            ViewBag.addressSpon = responseSpon.Data[0].address;
+                            ViewBag.citySponso = responseSpon.Data[0].city;
+                            ViewBag.ZipSpon = responseSpon.Data[0].zipCode;
+                            ViewBag.PhoneHome = responseSpon.Data[0].telHome;
+                            ViewBag.PhoneWork = responseSpon.Data[0].telWork;
+                            ViewBag.CellWork = responseSpon.Data[0].telCell;
+                        }
+                    }
+
+                }
+
+
+
+                //Jobs past
+                var clientJobs = new RestClient(urlApiPakistan + "getDataJobs?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestJobs = new RestRequest(Method.GET);
+                var responseJObs = clientJobs.Execute<Models.pkPastJobs>(requestJobs);
+
+                if (responseJObs.StatusCode == HttpStatusCode.OK)
+                {
+                    ViewBag.designation = responseJObs.Data.Designation;
+                    ViewBag.dept = responseJObs.Data.Depto;
+                    ViewBag.durationFrom = responseJObs.Data.DateStart;
+                    ViewBag.durationTo = responseJObs.Data.DateFinish;
+                    ViewBag.duties = responseJObs.Data.Duties;
+                    ViewBag.nameJob = responseJObs.Data.Name;
+                    ViewBag.addressJob = responseJObs.Data.Address;
+                    ViewBag.phoneJob = responseJObs.Data.Phone;
+                    ViewBag.bitApplyVisa = responseJObs.Data.BitApply;
+                    ViewBag.descApply = responseJObs.Data.DescAddContr;
+                }
+
+
+                //Family details
+                var clientFam = new RestClient(urlApiPakistan + "getDataFamilyDet?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestFam = new RestRequest(Method.GET);
+                var responseFam = clientFam.Execute<Models.pkFamilyData>(requestFam);
+
+                if (responseFam.StatusCode == HttpStatusCode.OK)
+                {
+                    ViewBag.nMother = responseFam.Data.Nmother;
+                    ViewBag.nFather = responseFam.Data.Npather;
+                    ViewBag.NameSpose = responseFam.Data.SpouseName;
+                    ViewBag.dateBirthSpose = responseFam.Data.DateBirth;
+                    ViewBag.PlaceBirth = responseFam.Data.PlaceBirth;
+                    ViewBag.profesionSpo = responseFam.Data.Profesion;
+                    ViewBag.nameEmpSpose = responseFam.Data.NameEmployerSpouse;
+                    ViewBag.addSpose = responseFam.Data.AddressEmployerSpouse;
+                    ViewBag.telSpose = responseFam.Data.TelEmployerSpouse;
+                    ViewBag.bitChildren = responseFam.Data.BitChildrens;
+                    ViewBag.bitAccom = responseFam.Data.BitAcompany;
+                    ViewBag.bitBank = responseFam.Data.BitAccountBank;
+                }
+
+
+                //Bank Data
+                var clientBank = new RestClient(urlApiPakistan + "getDataBank?idForm=" + ViewData["Form"]);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var requestBank = new RestRequest(Method.GET);
+                var responseBank = clientBank.Execute<Models.pkBankData>(requestBank);
+
+                if (responseBank.StatusCode == HttpStatusCode.OK)
+                {
+                    ViewBag.bankName = responseBank.Data.nameBank;
+                    ViewBag.branch = responseBank.Data.branch;
+                    ViewBag.acNum = responseBank.Data.acNumber;
+                    ViewBag.addresBank = responseBank.Data.address;
+                    ViewBag.verDet = responseBank.Data.verifierDetails;
+
+                }
+
+
+
 
                 #endregion
 
@@ -613,11 +745,11 @@ namespace AVS_Global.Controllers
 
             Models.pkBankData dataAccount = new Models.pkBankData();
             dataAccount.idForm = idForm;
-            dataAccount.bankName = nameBank;
+            dataAccount.nameBank = nameBank;
             dataAccount.branch = branch;
             dataAccount.acNumber = acNumber;
-            dataAccount.addressBank = address;
-            dataAccount.verieferDet = veriefer;
+            dataAccount.address = address;
+            dataAccount.verifierDetails = veriefer;
 
 
             request.AddJsonBody(dataAccount);

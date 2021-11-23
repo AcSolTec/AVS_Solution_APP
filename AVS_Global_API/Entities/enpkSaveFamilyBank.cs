@@ -9,10 +9,10 @@ namespace AVS_Global_API.Entities
     {
         public int idForm { get; set; }
         public bool bitBank { get; set; }
-        public string bankName { get; set; }
+        public string nameBank { get; set; }
         public string branch { get; set; }
         public string acNumber { get; set; }
-        public string addressBank { get; set; }
-        public string verieferDet { get; set; }
+        public string address { get; set; }
+        public string verifierDetails { get; set; }
     }
 }

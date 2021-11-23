@@ -18,9 +18,9 @@ namespace AVS_Global_API.Data.Pakistan
             {
 
 
-                if (model.bankName == null)
+                if (model.nameBank == null)
                 {
-                    model.bankName = DBNull.Value.ToString();
+                    model.nameBank = DBNull.Value.ToString();
                 }
                 if (model.branch == null)
                 {
@@ -30,13 +30,13 @@ namespace AVS_Global_API.Data.Pakistan
                 {
                     model.acNumber = DBNull.Value.ToString();
                 }
-                if (model.addressBank == null)
+                if (model.address == null)
                 {
-                    model.addressBank = DBNull.Value.ToString();
+                    model.address = DBNull.Value.ToString();
                 }
-                if (model.verieferDet == null)
+                if (model.verifierDetails == null)
                 {
-                    model.verieferDet = DBNull.Value.ToString();
+                    model.verifierDetails = DBNull.Value.ToString();
                 }
 
 
@@ -49,7 +49,7 @@ namespace AVS_Global_API.Data.Pakistan
                     new SqlParameter("@nameBank", SqlDbType.VarChar)
                     {
                       Direction = ParameterDirection.Input,
-                      Value = model.bankName
+                      Value = model.nameBank
                     },
                     new SqlParameter("@branch", SqlDbType.VarChar)
                     {
@@ -64,12 +64,12 @@ namespace AVS_Global_API.Data.Pakistan
                     new SqlParameter("@address", SqlDbType.VarChar)
                     {
                       Direction = ParameterDirection.Input,
-                      Value = model.addressBank
+                      Value = model.address
                     },
                     new SqlParameter("@veriefer", SqlDbType.VarChar)
                     {
                       Direction = ParameterDirection.Input,
-                      Value = model.verieferDet
+                      Value = model.verifierDetails
                     }
 
                     };
