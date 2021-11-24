@@ -235,7 +235,10 @@
     <value>Zip Code</value>
   </data>
   <data name="formSK.add" xml:space="preserve">
-    <value>Enter the address and contact information of where you will stay during in visit in Korea (Required)</value>
+    <value>If your visit is sponsored please capture the following.</value>
+  </data>
+  <data name="formSK.AddNam" xml:space="preserve">
+    <value>Address and Number</value>
   </data>
   <data name="formSK.bir" xml:space="preserve">
     <value>Select your date birth as written on your passport (YYYY-MMM-DD) (Required)</value>
@@ -243,11 +246,17 @@
   <data name="formSK.cat" xml:space="preserve">
     <value>Select the category that best represents your current job (Required)</value>
   </data>
+  <data name="formSK.Cit" xml:space="preserve">
+    <value>City</value>
+  </data>
   <data name="formSK.cnt" xml:space="preserve">
     <value>Select the nationality as written on your passport bio page (Required)</value>
   </data>
   <data name="formSK.cusu" xml:space="preserve">
     <value>Are you currently suffering from any of the following diseases? (15 infectious Diseases) (Required)</value>
+  </data>
+  <data name="formSK.disess" xml:space="preserve">
+    <value>Cholera, Plague, Yellow fever, Severe Acute Respiratory Syndrome (SARS). Animal Influenza Infection in Humana, New Influenza, Middle East Respiratory Syndrome (MERS), Ebola Virus, Tuberculosis, Marburg Fever, Lassa Faver, Crimean Congo Hemorrhagic Fever, Smallpox Variola, Diphtheria, New Infectious syndrome</value>
   </data>
   <data name="formSK.evbe" xml:space="preserve">
     <value>Have you ever been arrested, charged, or convicted of a criminal offense in your country or abroad? (Requiered)</value>
@@ -297,6 +306,9 @@
   <data name="formSK.sex" xml:space="preserve">
     <value>Select the sex as written on your passport bio page (Required)</value>
   </data>
+  <data name="formSK.sponsor" xml:space="preserve">
+    <value>Sponsor Name</value>
+  </data>
   <data name="formSK.sur" xml:space="preserve">
     <value>Enter surname in English as written on your passport bio page (Required)</value>
   </data>
@@ -305,6 +317,9 @@
   </data>
   <data name="formSK.ycont" xml:space="preserve">
     <value>Please enter your contact number in Korea (Required)</value>
+  </data>
+  <data name="formSK.zpCod" xml:space="preserve">
+    <value>Zip Code</value>
   </data>
   <data name="navBar.lan" xml:space="preserve">
     <value>Choose a language</value>

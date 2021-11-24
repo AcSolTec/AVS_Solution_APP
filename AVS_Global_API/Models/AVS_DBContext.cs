@@ -780,8 +780,16 @@ namespace AVS_Global_API.Models
 
                 entity.ToTable("tb_sk_required_inf");
 
+                entity.Property(e => e.AddressNumber)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.AddressPostal)
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.City)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.MobileNumber)
@@ -794,6 +802,14 @@ namespace AVS_Global_API.Models
 
                 entity.Property(e => e.PostalCode)
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SponsorName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ZipCode)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 

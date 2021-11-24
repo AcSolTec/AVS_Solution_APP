@@ -105,7 +105,8 @@ namespace AVS_Global.Controllers
                 var clientPurpose = new RestClient(urlApiCatalogs + "CatPurposes");
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var responsePurpose = clientPurpose.Execute<List<Models.CatPurposes>>(request);
-                ViewBag.itemsPurposes = responsePurpose.Data;
+                int IdCountryPK = 1;
+                ViewBag.itemsPurposes = responsePurpose.Data.Where(x => x.IdCountry == IdCountryPK);
                 #endregion
 
                 #region CallCatPortsInOut
@@ -1289,6 +1290,16 @@ namespace AVS_Global.Controllers
                 ViewBag.itemsCountries = responseCtry.Data;
                 #endregion
 
+                #region CatPurposes
+                //Visa requiered
+                var clientPurpose = new RestClient(urlApiCatalogs + "CatPurposes");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                int idCountrySK = 3;
+                var responsePurpose = clientPurpose.Execute<List<Models.CatPurposes>>(request);
+                ViewBag.itemsPurposes = responsePurpose.Data.Where(x=>x.IdCountry == idCountrySK);
+                #endregion
+
+
                 #region getDataForm
                 var clientpi = new RestClient(urlApiSK + "getDataPersonalInfo?idForm=" + ViewData["Form"]);
                 var requestpi = new RestRequest(Method.GET);
@@ -1363,6 +1374,56 @@ namespace AVS_Global.Controllers
 
             }
             return Json(new { status = true, message = dataMessa, messagePage = "Personal Info saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+
+
+        public ActionResult SaveInformationReq(int idForm, bool bitOtherNat, string mobileNumber, bool bitVisitedKorea, int idCountry, string postalCode,
+                                                    string addressPostal, string numberContactKorea, int IdJob, bool BitInfectiuos15, bool BitArrested, string sponsorName,
+                                                    string addressNumber, string zipCode, string city)
+        {
+            var client = new RestClient("https://localhost:44330/api/SouthKorea/SaveInfoReq");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.skInformationReq pi = new Models.skInformationReq();
+            pi.IdForm = idForm;
+            pi.BitOtherNat = bitOtherNat;
+            pi.MobileNumber = mobileNumber;
+            pi.BitVisitedKorea = bitVisitedKorea;
+            pi.IdCountry = idCountry;
+            pi.PostalCode = postalCode;
+            pi.AddressPostal = addressPostal;
+            pi.NumberContactKorea = numberContactKorea;
+            pi.IdJob = IdJob;
+            pi.BitInfectiuos15 = BitInfectiuos15;
+            pi.BitArrested = BitArrested;
+            pi.SponsorName = sponsorName;
+            pi.AddressNumber = addressNumber;
+            pi.ZipCode = zipCode;
+            pi.City = city;
+
+            request.AddJsonBody(pi);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Info Required saved" });
             //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
 

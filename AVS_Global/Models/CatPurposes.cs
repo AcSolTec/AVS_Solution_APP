@@ -10,5 +10,7 @@ namespace AVS_Global.Models
         public int IdPurpose { get; set; }
         public string DescPurpose { get; set; }
         public bool? BitActive { get; set; }
+
+        public int? IdCountry { get; set; }
     }
 }

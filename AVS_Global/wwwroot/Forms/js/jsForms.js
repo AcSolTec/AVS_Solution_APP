@@ -1188,6 +1188,89 @@
 
     });
 
+    $("#btnAddSKIR").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+        var bitOther = false;
+        if ($('#checkYesAn').is(":checked")) {
+            bitOther = true;
+        }
+
+        var ddlCountryOther = $('#ddCountryOtherSK').val();
+
+        var mobNumber = $('#txtMobNum').val();
+
+        var bitVisitedKo = false;
+        if ($('#checkVisitedUkYes').is(":checked")) {
+            bitVisitedKo = true;
+        }
+
+        var ddlPurposeSK = $('#ddPurposeSK').val();
+
+        var sponsorName = $('#txtSponsorSK').val();
+        var AddNumSpon = $('#txtAddNumberSK').val();
+        var zipCodeSK = $('#txtZipCodeSK').val();
+        var citySK = $('#txtCitySK').val();
+        var numberKorea = $('#txtNumberKorea').val();
+        var ddlJobSK = $('#ddlCurrentJob').val();
+
+        var bitInfected = false;
+        if ($('#checkYesInfected').is(":checked")) {
+            bitInfected = true;
+        }
+
+        var bitArrested = false;
+        if ($('#checkArresYes').is(":checked")) {
+            bitArrested = true;
+        }
+
+        
+
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SaveInformationReq',
+                data: {
+                    idForm: idForm,
+                    bitOtherNat: bitOther,
+                    mobileNumber: mobileNumber,
+                    bitVisitedKorea: bitVisitedKo,
+                    idCountry: ddlCountryOther,
+                    postalCode: '',
+                    addressPostal: '',
+                    numberContactKorea: numberKorea,
+                    IdJob: ddlJobSK,
+                    BitInfectiuos15: bitInfected,
+                    BitArrested: bitArrested,
+                    sponsorName: sponsorName,
+                    addressNumber: AddNumSpon,
+                    zipCode: zipCodeSK,
+                    city: citySK
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+    });
+
 });
 
 

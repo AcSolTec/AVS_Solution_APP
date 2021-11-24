@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace AVS_Global_API.Models
+namespace AVS_Global.Models
 {
-    public partial class TbSkRequiredInf
+    public class skInformationReq
     {
-        public int IdReq { get; set; }
         public int? IdForm { get; set; }
         public bool? BitOtherNat { get; set; }
         public string MobileNumber { get; set; }
