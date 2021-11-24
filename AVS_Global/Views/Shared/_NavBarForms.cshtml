@@ -33,13 +33,19 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">AVS</a>
+            <img src="~/AVS_logo.png" width="120px;" height="40px;" />
            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse" style="position:absolute;right:50px;">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <img src="@ViewData["imgForm"]" width="30px;" height="20px;" />&nbsp;&nbsp;
+                    </li>
+                    <li class="nav-item">
+                        <label style="color:white">-&nbsp;@ViewBag.CountryName</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
                     <li class="nav-item">
                         <label style="color:white">Id Form : 000-<label id="lblidForm">@ViewData["Form"]</label></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </li>

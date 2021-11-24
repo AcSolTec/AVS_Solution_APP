@@ -42,6 +42,10 @@ namespace AVS_Global_API.Models
         public virtual DbSet<TbPastJob> TbPastJobs { get; set; }
         public virtual DbSet<TbPersonalDatum> TbPersonalData { get; set; }
         public virtual DbSet<TbRole> TbRoles { get; set; }
+        public virtual DbSet<TbSkCatJob> TbSkCatJobs { get; set; }
+        public virtual DbSet<TbSkFile> TbSkFiles { get; set; }
+        public virtual DbSet<TbSkPersonalInf> TbSkPersonalInfs { get; set; }
+        public virtual DbSet<TbSkRequiredInf> TbSkRequiredInfs { get; set; }
         public virtual DbSet<TbSponsor> TbSponsors { get; set; }
         public virtual DbSet<TbStatusForm> TbStatusForms { get; set; }
         public virtual DbSet<TbTravelHisVisitedPk> TbTravelHisVisitedPks { get; set; }
@@ -712,6 +716,84 @@ namespace AVS_Global_API.Models
 
                 entity.Property(e => e.NameRol)
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbSkCatJob>(entity =>
+            {
+                entity.HasKey(e => e.IdJob)
+                    .HasName("PK__tb_sk_ca__0CD8DCD714F09AD0");
+
+                entity.ToTable("tb_sk_cat_jobs");
+
+                entity.Property(e => e.NameJob)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbSkFile>(entity =>
+            {
+                entity.HasKey(e => e.IdFileSk)
+                    .HasName("PK__tb_sk_fi__0653096FA89A6E3D");
+
+                entity.ToTable("tb_sk_files");
+
+                entity.Property(e => e.IdFileSk).HasColumnName("IdFileSK");
+            });
+
+            modelBuilder.Entity<TbSkPersonalInf>(entity =>
+            {
+                entity.HasKey(e => e.IdPerson)
+                    .HasName("PK__tb_sk_pe__A5D4E15B62CC2CD4");
+
+                entity.ToTable("tb_sk_personal_Inf");
+
+                entity.Property(e => e.BitNameUknown).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.BitSurNamUknown).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.DateBirth)
+                    .HasMaxLength(12)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DateExpiredPassport)
+                    .HasMaxLength(12)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NamePassport)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PassportNum)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Surname)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbSkRequiredInf>(entity =>
+            {
+                entity.HasKey(e => e.IdReq)
+                    .HasName("PK__tb_sk_re__2A4A4C06DD786D55");
+
+                entity.ToTable("tb_sk_required_inf");
+
+                entity.Property(e => e.AddressPostal)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MobileNumber)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumberContactKorea)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PostalCode)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
             });
 

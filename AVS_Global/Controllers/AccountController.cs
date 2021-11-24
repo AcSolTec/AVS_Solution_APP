@@ -17,6 +17,7 @@ namespace AVS_Global.Controllers
     {
         const string SessionName = "_Name";
         const string SessionForm = "_Form";
+        const string SessionCountry = "_CountryName";
         public IActionResult Login()
         {
             const string urlApiCatCustomers = "https://localhost:44330/api/Account/";
@@ -91,6 +92,7 @@ namespace AVS_Global.Controllers
                     dataMessa = "OK";
                     countryLogOn = responseAPI.CountryLog.ToString();
                     idForm = responseAPI.IdForm.ToString();
+                    HttpContext.Session.SetString(SessionCountry, countryLogOn);
                     HttpContext.Session.SetString(SessionForm, idForm);
 
                 }

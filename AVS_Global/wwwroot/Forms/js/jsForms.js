@@ -959,7 +959,6 @@
 
     });
 
-
     $("#btnAddTripShip").click(function () {
 
         //Validation data 
@@ -1123,6 +1122,71 @@
 
     });
 
+
+    //FORM SOUTH KOREA
+    $("#btnAddSKPI").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+        var idCountrySK = $('#ddCountrySK').val();
+        var firstNamesk = $('#txtSurnameSK').val();
+        var surNamesk = $('#txtGiveName').val();
+        var bitSex = false;
+        if ($('#checkMale').is(":checked")) {
+            bitSex = true;
+        }
+
+        var bitSurUk = false;
+        if ($('#checkSurUk').is(":checked")) {
+            bitSurUk = true;
+        }
+
+        var bitNameUk = false;
+        if ($('#checkNameUk').is(":checked")) {
+            bitNameUk = true;
+        }
+
+        var passNumSK = $('#txtPassportNumber').val();
+        var dateBirthSK = $('#dtp_dtSK').val();
+        var dateExpiredSK = $('#dtp_dtEXPSK').val();
+
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '/Formularies/SavePersonalInfo',
+                data: {
+                    idForm: idForm,
+                    idCountry: idCountrySK,
+                    name: firstNamesk,
+                    surName: surNamesk,
+                    bitSex: bitSex,
+                    BitNameUk: bitNameUk,
+                    bitSurNamUk: bitSurUk,
+                    passNum: passNumSK,
+                    dateBirth: dateBirthSK,
+                    dateExpired: dateExpiredSK
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+    });
 
 });
 

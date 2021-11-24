@@ -48,8 +48,10 @@ namespace AVS_Global.Controllers
 
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Session.GetString("_Form");
+            ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
+            ViewData["imgForm"] = "/flags/PK.png";
 
 
             if (ViewData["User"] != null)
@@ -113,7 +115,6 @@ namespace AVS_Global.Controllers
                 var responsePortsInOut = clientPortsInOut.Execute<List<Models.CatsPortsInOut>>(request);
                 ViewBag.itemsPorts = responsePortsInOut.Data;
                 #endregion
-
 
                 #region getDataExists
 
@@ -1013,8 +1014,10 @@ namespace AVS_Global.Controllers
             const string urlApiSummary = "https://localhost:44330/api/Cuba/";
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Session.GetString("_Form");
+            ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
+            ViewData["imgForm"] = "/flags/CB.png";
 
             if (ViewData["User"] != null)
             {
@@ -1025,7 +1028,7 @@ namespace AVS_Global.Controllers
 
                 #region CallSummaryData
                 //Visa requiered
-                var clientContactDet = new RestClient(urlApiSummary + "cdCuIdForm?idForm="+ ViewData["Form"]);
+                var clientContactDet = new RestClient(urlApiSummary + "cdCuIdForm?idForm=" + ViewData["Form"]);
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var request = new RestRequest(Method.GET);
 
@@ -1050,17 +1053,22 @@ namespace AVS_Global.Controllers
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var requestTrip = new RestRequest(Method.GET);
                 var responseTrip = clientTrip.Execute<Models.cuTripShipp>(requestTrip);
+                var responseData = JsonConvert.DeserializeObject<Models.cuTripShipp>(responseTrip.Content);
 
                 if (responseTrip.StatusCode == HttpStatusCode.OK)
                 {
-                    ViewBag.dateEntry = responseTrip.Data.dateEntryCuba;
-                    ViewBag.dateDeparture = responseTrip.Data.dateDeparture;
-                    ViewBag.numAdults = responseTrip.Data.numsAdults;
-                    ViewBag.numChild = responseTrip.Data.numsChildrens;
+                    ViewBag.dateEntry = responseData.dateEntryCuba;
+                    ViewBag.dateDeparture = responseData.dateDeparture;
+                    ViewBag.numAdults = responseData.numsAdults;
+                    ViewBag.numChild = responseData.numsChildrens;
                 }
 
 
                 #endregion
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
             }
 
             return View();
@@ -1121,8 +1129,8 @@ namespace AVS_Global.Controllers
             dataAccount.dateDeparture = dateDeparture;
             dataAccount.numsAdults = numAdults;
             dataAccount.numsChildrens = numChildrens;
-            dataAccount.passportAdult = passportAdult;
-            dataAccount.passportChildren = passportChil;
+            dataAccount.PassportAdult = passportAdult;
+            dataAccount.PassportChildren = passportChil;
             dataAccount.bitShippDifferent = bitShippDifferent;
             dataAccount.bitPpchf5 = bitPPchf5;
             dataAccount.bitRschf750 = bitRSchf750;
@@ -1265,20 +1273,98 @@ namespace AVS_Global.Controllers
             const string urlApiCatalogs = "https://localhost:44330/api/Catalogs/";
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Session.GetString("_Form");
+            ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
+            ViewData["imgForm"] = "/flags/SK.png";
 
-            #region CallCatCountries
-            //Visa requiered
-            var clientCountry = new RestClient(urlApiCatalogs + "CatCountries");
-            var request = new RestRequest(Method.GET);
-            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
-            var responseCtry = clientCountry.Execute<List<Models.CatCountries>>(request);
-            ViewBag.itemsCountries = responseCtry.Data;
-            #endregion
+            if (ViewData["User"] != null)
+            {
+                #region CallCatCountries
+                //Visa requiered
+                var clientCountry = new RestClient(urlApiCatalogs + "CatCountries");
+                var request = new RestRequest(Method.GET);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var responseCtry = clientCountry.Execute<List<Models.CatCountries>>(request);
+                ViewBag.itemsCountries = responseCtry.Data;
+                #endregion
+
+                #region getDataForm
+                var clientpi = new RestClient(urlApiSK + "getDataPersonalInfo?idForm=" + ViewData["Form"]);
+                var requestpi = new RestRequest(Method.GET);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var responsepi = clientpi.Execute<Models.skPersonalInfo>(requestpi);
+
+                if (responsepi.StatusCode == HttpStatusCode.OK)
+                {
+
+                    ViewBag.nameSK = responsepi.Data.NamePassport;
+                    ViewBag.IdCountrySK = responsepi.Data.IdCountry;
+                    ViewBag.surNameSK = responsepi.Data.Surname;
+                    ViewBag.bitSex = responsepi.Data.BitSex;
+                    ViewBag.bitNameUk = responsepi.Data.BitNameUknown;
+                    ViewBag.bitSurNameUk = responsepi.Data.BitSurNamUknown;
+                    ViewBag.passNumSK = responsepi.Data.PassportNum;
+                    ViewBag.dateBirthSK = responsepi.Data.DateBirth;
+                    ViewBag.dateExpSK = responsepi.Data.DateExpiredPassport;
+
+                }
+
+
+                #endregion
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
 
             return View();
     }
+
+
+        public ActionResult SavePersonalInfo(int idForm, int idCountry, string name, string surName, bool bitSex, bool BitNameUk,
+                                                    bool bitSurNamUk, string passNum, string dateBirth, string dateExpired)
+        {
+            var client = new RestClient("https://localhost:44330/api/SouthKorea/SavePersonalInfo");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.skPersonalInfo pi = new Models.skPersonalInfo();
+            pi.IdForm = idForm;
+            pi.IdCountry = idCountry;
+            pi.NamePassport = name;
+            pi.BitSex = bitSex;
+            pi.BitNameUknown = BitNameUk;
+            pi.Surname = surName;
+            pi.BitSurNamUknown = bitSurNamUk;
+            pi.PassportNum = passNum;
+            pi.DateBirth = dateBirth;
+            pi.DateExpiredPassport = dateExpired;
+
+            request.AddJsonBody(pi);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Personal Info saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
 
         public IActionResult catTypeVisasApplied()
         {

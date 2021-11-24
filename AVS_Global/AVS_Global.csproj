@@ -16,4 +16,10 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\flags\CB.png" />
+    <None Include="wwwroot\flags\PK.png" />
+    <None Include="wwwroot\flags\SK.png" />
+  </ItemGroup>
+
 </Project>

@@ -12,8 +12,8 @@ namespace AVS_Global.Models
         public string dateDeparture { get; set; }
         public int? numsAdults { get; set; }
         public int? numsChildrens { get; set; }
-        public byte[] passportAdult { get; set; }
-        public byte[] passportChildren { get; set; }
+        public byte[] PassportAdult { get; set; }
+        public byte[] PassportChildren { get; set; }
         public bool? bitShippDifferent { get; set; }
         public bool? bitPpchf5 { get; set; }
         public bool? bitRschf750 { get; set; }
