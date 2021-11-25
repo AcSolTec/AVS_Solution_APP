@@ -23,5 +23,6 @@ namespace AVS_Global_API.Models
         public string AddressNumber { get; set; }
         public string ZipCode { get; set; }
         public string City { get; set; }
+        public int? IdPurpose { get; set; }
     }
 }

@@ -1251,7 +1251,8 @@
                     sponsorName: sponsorName,
                     addressNumber: AddNumSpon,
                     zipCode: zipCodeSK,
-                    city: citySK
+                    city: citySK,
+                    IdPurposeSK: ddlPurposeSK
 
                 },
                 error: function (result) {

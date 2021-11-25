@@ -1381,7 +1381,7 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveInformationReq(int idForm, bool bitOtherNat, string mobileNumber, bool bitVisitedKorea, int idCountry, string postalCode,
                                                     string addressPostal, string numberContactKorea, int IdJob, bool BitInfectiuos15, bool BitArrested, string sponsorName,
-                                                    string addressNumber, string zipCode, string city)
+                                                    string addressNumber, string zipCode, string city, int IdPurposeSK)
         {
             var client = new RestClient("https://localhost:44330/api/SouthKorea/SaveInfoReq");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
@@ -1403,6 +1403,7 @@ namespace AVS_Global.Controllers
             pi.AddressNumber = addressNumber;
             pi.ZipCode = zipCode;
             pi.City = city;
+            pi.IdPurpose = IdPurposeSK;
 
             request.AddJsonBody(pi);
 
