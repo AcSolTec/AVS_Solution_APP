@@ -20,7 +20,7 @@ namespace AVS_Global.Controllers
         const string SessionCountry = "_CountryName";
         public IActionResult Login()
         {
-            const string urlApiCatCustomers = "https://localhost:44330/api/Account/";
+            const string urlApiCatCustomers = "http://localhost/avs_api/api/Account/";
             #region CallCatVisasApplied
             var client = new RestClient(urlApiCatCustomers + "CatCountriesCustomer");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
@@ -34,7 +34,7 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveCustomer(string RegisteredMail, string pass, int IdCountry)
         {
-            var client = new RestClient("https://localhost:44330/api/Account/SaveAccount");
+            var client = new RestClient("http://localhost/avs_api/api/Account/SaveAccount");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -67,7 +67,7 @@ namespace AVS_Global.Controllers
        
         public ActionResult Validate(string user, string pass)
         {
-            var client = new RestClient("https://localhost:44330/api/Account");
+            var client = new RestClient("http://localhost/avs_api/api/Account");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -82,6 +82,7 @@ namespace AVS_Global.Controllers
             string dataMessa = string.Empty;
             string countryLogOn = string.Empty;
             string idForm = string.Empty;
+            string role = string.Empty;
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 Models.responseCustomersLog responseAPI = new JsonDeserializer().Deserialize<Models.responseCustomersLog>(response);
@@ -92,6 +93,7 @@ namespace AVS_Global.Controllers
                     dataMessa = "OK";
                     countryLogOn = responseAPI.CountryLog.ToString();
                     idForm = responseAPI.IdForm.ToString();
+                    role = responseAPI.rol.ToString();
                     HttpContext.Session.SetString(SessionCountry, countryLogOn);
                     HttpContext.Session.SetString(SessionForm, idForm);
 
@@ -102,7 +104,7 @@ namespace AVS_Global.Controllers
                 }
 
             }
-            return Json(new { status = true, message = dataMessa, countrylog = countryLogOn });
+            return Json(new { status = true, message = dataMessa, countrylog = countryLogOn, rol = role });
             
         }
 

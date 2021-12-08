@@ -1,10 +1,13 @@
 ﻿using AVS_Global.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace AVS_Global.Controllers
@@ -18,9 +21,62 @@ namespace AVS_Global.Controllers
             _logger = logger;
         }
 
+        const string urlApiAdmin = "http://localhost/avs_api/api/Admin/";
         public IActionResult Index()
         {
-            return View();
+            
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
+            ViewData["User"] = ViewBag.Name;
+
+
+            if (ViewData["User"] != null)
+            {
+
+                var client = new RestClient(urlApiAdmin + "getFormsAuth");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.GET);
+                var response = client.Execute<List<Models.FormsCap>>(request);
+                ViewBag.forms = response.Data;
+
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+        }
+
+   
+        public ActionResult Auth(int idform)
+        {
+
+
+            //Logic Here change to status 
+            var client = new RestClient(urlApiAdmin + "ReviewFormAccepted?idform=" + idform );
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult datatab()

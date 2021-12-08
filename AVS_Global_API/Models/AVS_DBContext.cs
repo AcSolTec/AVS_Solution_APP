@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -12,9 +13,11 @@ namespace AVS_Global_API.Models
         {
         }
 
+        private string connectionString;
         public AVS_DBContext(DbContextOptions<AVS_DBContext> options)
             : base(options)
         {
+           
         }
 
         public virtual DbSet<Nationality> Nationalities { get; set; }
@@ -59,8 +62,13 @@ namespace AVS_Global_API.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=LTW10JM3N493\\SQLEXPRESSEMG;Database=AVS_DB; User=sa;password=Xerox9010");
+                var builder = new ConfigurationBuilder();
+                builder.AddJsonFile("appsettings.json", optional: false);
+
+                var configuration = builder.Build();
+
+                connectionString = configuration.GetConnectionString("AVS_local").ToString();
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
@@ -989,6 +997,14 @@ namespace AVS_Global_API.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pass)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Seed)
                     .HasMaxLength(100)
                     .IsUnicode(false);
 

@@ -11,5 +11,6 @@ namespace AVS_Global.Models
         public string Message { get; set; }
         public string CountryLog { get; set; }
         public string IdForm { get; set; }
+        public string rol { get; set; }
     }
 }

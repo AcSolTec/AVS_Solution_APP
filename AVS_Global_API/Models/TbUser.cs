@@ -13,8 +13,8 @@ namespace AVS_Global_API.Models
         public string LastName { get; set; }
         public int? Age { get; set; }
         public string KeyAccess { get; set; }
-        public byte[] Seed { get; set; }
-        public byte[] Pass { get; set; }
+        public string Seed { get; set; }
+        public string Pass { get; set; }
         public DateTime? DateOfEntry { get; set; }
         public DateTime? DateValidity { get; set; }
 
