@@ -21,7 +21,7 @@ namespace AVS_Global.Controllers
             _logger = logger;
         }
 
-        const string urlApiAdmin = "http://localhost/avs_api/api/Admin/";
+        const string urlApiAdmin = "https://localhost:44330/api/Admin/";
         public IActionResult Index()
         {
             

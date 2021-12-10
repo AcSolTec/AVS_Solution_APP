@@ -10,17 +10,19 @@ using System.Net;
 using RestSharp.Serialization.Json;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace AVS_Global.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IConfiguration _configuration;
         const string SessionName = "_Name";
         const string SessionForm = "_Form";
         const string SessionCountry = "_CountryName";
         public IActionResult Login()
         {
-            const string urlApiCatCustomers = "http://localhost/avs_api/api/Account/";
+            const string urlApiCatCustomers = "https://localhost:44330/api/Account/";
             #region CallCatVisasApplied
             var client = new RestClient(urlApiCatCustomers + "CatCountriesCustomer");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
@@ -34,7 +36,7 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveCustomer(string RegisteredMail, string pass, int IdCountry)
         {
-            var client = new RestClient("http://localhost/avs_api/api/Account/SaveAccount");
+            var client = new RestClient("https://localhost:44330/api/Account/SaveAccount");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -67,7 +69,7 @@ namespace AVS_Global.Controllers
        
         public ActionResult Validate(string user, string pass)
         {
-            var client = new RestClient("http://localhost/avs_api/api/Account");
+            var client = new RestClient("https://localhost:44330/api/Account");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
