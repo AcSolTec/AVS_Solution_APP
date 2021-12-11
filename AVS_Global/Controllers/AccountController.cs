@@ -20,11 +20,20 @@ namespace AVS_Global.Controllers
         const string SessionName = "_Name";
         const string SessionForm = "_Form";
         const string SessionCountry = "_CountryName";
+        string urlApiAccount = string.Empty;
+
+        public AccountController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+       
         public IActionResult Login()
         {
-            const string urlApiCatCustomers = "https://localhost:44330/api/Account/";
+
+            urlApiAccount = _configuration.GetSection("UrlApiAccount").Value;
             #region CallCatVisasApplied
-            var client = new RestClient(urlApiCatCustomers + "CatCountriesCustomer");
+            var client = new RestClient(urlApiAccount + "CatCountriesCustomer");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Models.CatCountriesCustomers>>(request);
@@ -36,7 +45,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveCustomer(string RegisteredMail, string pass, int IdCountry)
         {
-            var client = new RestClient("https://localhost:44330/api/Account/SaveAccount");
+            urlApiAccount = _configuration.GetSection("UrlApiAccount").Value;
+            var client = new RestClient(urlApiAccount + "SaveAccount");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -69,7 +79,8 @@ namespace AVS_Global.Controllers
        
         public ActionResult Validate(string user, string pass)
         {
-            var client = new RestClient("https://localhost:44330/api/Account");
+            urlApiAccount = _configuration.GetSection("UrlApiAccount").Value;
+            var client = new RestClient(urlApiAccount);
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 

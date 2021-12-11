@@ -95,7 +95,7 @@ function Validate() {
     $.ajax(
         {
             type: "POST",
-            url: '/Account/Validate',
+            url: '/avs/Account/Validate',
             data: {
                 user: user,
                 pass: pass
@@ -112,14 +112,14 @@ function Validate() {
 
                 }
                 else if (result.rol == 'Auth') {
-                    linktoGo = '/Home/Index'
+                    linktoGo = '/avs/Home/Index'
 
                 }
                 else if (result.rol == 'Cap') {
 
                 }
                 else {
-                    linktoGo = '/Formularies/Form' + result.countrylog;
+                    linktoGo = '/avs/Formularies/Form' + result.countrylog;
                 }
 
 

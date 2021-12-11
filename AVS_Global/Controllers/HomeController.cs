@@ -1,6 +1,7 @@
 ﻿using AVS_Global.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RestSharp;
 using System;
@@ -15,16 +16,18 @@ namespace AVS_Global.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
-        const string urlApiAdmin = "https://localhost:44330/api/Admin/";
+
         public IActionResult Index()
         {
-            
+            string urlApiAdmin = _configuration.GetSection("ApiAdmin").Value;
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewData["User"] = ViewBag.Name;
 
@@ -52,7 +55,7 @@ namespace AVS_Global.Controllers
         public ActionResult Auth(int idform)
         {
 
-
+            string urlApiAdmin = _configuration.GetSection("ApiAdmin").Value;
             //Logic Here change to status 
             var client = new RestClient(urlApiAdmin + "ReviewFormAccepted?idform=" + idform );
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);

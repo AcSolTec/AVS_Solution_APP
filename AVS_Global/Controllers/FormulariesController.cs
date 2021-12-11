@@ -14,11 +14,18 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.IO;
 using System.Net.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace AVS_Global.Controllers
 {
     public class FormulariesController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public FormulariesController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         [HttpPost]
         public IActionResult ChangeLanguage(string culture, string returnUrl)
@@ -43,15 +50,15 @@ namespace AVS_Global.Controllers
 
         public IActionResult FormPakistan()
         {
-            const string urlApiPakistan = "https://localhost:44330/api/Pakistan/";
-            const string urlApiCatalogs = "https://localhost:44330/api/Catalogs/";
+             string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value; 
+             string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value; 
 
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Session.GetString("_Form");
             ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
-            ViewData["imgForm"] = "/flags/PK.png";
+            ViewData["imgForm"] = "~/flags/PK.png";
 
 
             if (ViewData["User"] != null)
@@ -326,7 +333,8 @@ namespace AVS_Global.Controllers
         public ActionResult SavePersonalDetPakistan(int idForm, int idVisaAp, int idPurpose, string durationStay, int idVisasTime, int idTypeVisa,
         int idPortsIn, int idPortsOut, string pvPakistan, string dOfProfesion)
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SavePersonalDetails");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SavePersonalDetails");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -372,8 +380,8 @@ namespace AVS_Global.Controllers
             string natPrevious, string natDual)
         {
 
-
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveAppDetails");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SaveAppDetails");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -424,7 +432,8 @@ namespace AVS_Global.Controllers
         public ActionResult SavePassportPakistan(int idForm, int idTypePass, bool bitTravelDocs, string passportNum, string placeIssue, string dateIssue,
                          string dateExpiry, string issueAuht)
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SavePassportDetails");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SavePassportDetails");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -468,8 +477,8 @@ namespace AVS_Global.Controllers
                        bool bitSponsorB, string nameSponB, string addSponB, string telHomeSponB, string telWorkSponB, string telCellSponB, string citySponB, string zipCodSponB)
         {
 
-
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveContactDetails");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SaveContactDetails");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -531,8 +540,8 @@ namespace AVS_Global.Controllers
         public ActionResult SavePastJobs(int idForm, string designation, string depto, string dateStart, string dateFinish, string duties, string address,
                                        string phone, string descp, bool bitApply, string name)
         {
-
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SavePastJobs");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SavePastJobs");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -577,7 +586,8 @@ namespace AVS_Global.Controllers
         public ActionResult SaveFamilyData(int idForm, string nMother, string nFather, int idNatMother, int idNatFather, string spouseName, int idNatSpouse,
                                 string dateBirth, string placeBirth, string profesion, bool bitChildrens, string nameEmpSpouse, string addresEmpSpuse, string telEmpSpouse)
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyData");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SaveFamilyData");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -627,7 +637,8 @@ namespace AVS_Global.Controllers
             string message = string.Empty;
             if (model.Count > 0)
             {
-                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyChildrens");
+                string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+                var client = new RestClient(urlApiPakistan + "SaveFamilyChildrens");
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var request = new RestRequest(Method.POST);
 
@@ -686,7 +697,8 @@ namespace AVS_Global.Controllers
             string message = string.Empty;
             if (model.Count > 0)
             {
-                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyAccomp");
+                string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+                var client = new RestClient(urlApiPakistan + "SaveFamilyAccomp");
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var request = new RestRequest(Method.POST);
 
@@ -741,7 +753,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveBankData(int idForm, string nameBank, string branch, string acNumber, string address, string veriefer)
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveFamilyBankData");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SaveFamilyBankData");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -779,7 +792,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveBitsTravles(int idForm, bool bitRefused, bool bitRefusedPakistan, bool bitRemoveCountry, bool bitConviction, string detailRefusal)
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravelData");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SaveTravelData");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -817,7 +831,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveTravelDeported(int idForm, string dateDeport, int idCountry, string reason, string referenceNum)
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravelDeported");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SaveTravelDeported");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -854,7 +869,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveTravelConviction(int idForm, string dateConviction, int idCountry, string offence, string sentence)
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravelConviction");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "SaveTravelConviction");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -896,7 +912,8 @@ namespace AVS_Global.Controllers
             string message = string.Empty;
             if (model.Count > 0)
             {
-                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravel5Years");
+                string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+                var client = new RestClient(urlApiPakistan + "SaveTravel5Years");
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var request = new RestRequest(Method.POST);
 
@@ -955,7 +972,8 @@ namespace AVS_Global.Controllers
             string message = string.Empty;
             if (model.Count > 0)
             {
-                var client = new RestClient("https://localhost:44330/api/Pakistan/SaveTravel2Years");
+                string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+                var client = new RestClient(urlApiPakistan + "SaveTravel2Years");
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var request = new RestRequest(Method.POST);
 
@@ -1012,13 +1030,13 @@ namespace AVS_Global.Controllers
 
         public IActionResult FormCuba()
         {
-            const string urlApiSummary = "https://localhost:44330/api/Cuba/";
+            string urlApiCuba = _configuration.GetSection("ApiCuba").Value; 
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Session.GetString("_Form");
             ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
-            ViewData["imgForm"] = "/flags/CB.png";
+            ViewData["imgForm"] = "~/flags/CB.png";
 
             if (ViewData["User"] != null)
             {
@@ -1029,7 +1047,7 @@ namespace AVS_Global.Controllers
 
                 #region CallSummaryData
                 //Visa requiered
-                var clientContactDet = new RestClient(urlApiSummary + "cdCuIdForm?idForm=" + ViewData["Form"]);
+                var clientContactDet = new RestClient(urlApiCuba + "cdCuIdForm?idForm=" + ViewData["Form"]);
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var request = new RestRequest(Method.GET);
 
@@ -1050,7 +1068,7 @@ namespace AVS_Global.Controllers
 
                 }
 
-                var clientTrip = new RestClient(urlApiSummary + "tsCuIdForm?idForm=" + ViewData["Form"]);
+                var clientTrip = new RestClient(urlApiCuba + "tsCuIdForm?idForm=" + ViewData["Form"]);
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 var requestTrip = new RestRequest(Method.GET);
                 var responseTrip = clientTrip.Execute<Models.cuTripShipp>(requestTrip);
@@ -1079,7 +1097,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveConctactDetCuba(int idForm, string firstName, string surName, string address, string zipCode, string town, string emailAddress, string telNum)
         {
-            var client = new RestClient("https://localhost:44330/api/Cuba/SaveConctacDetails");
+            string urlApiCuba = _configuration.GetSection("ApiCuba").Value;
+            var client = new RestClient(urlApiCuba + "SaveConctacDetails");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -1119,7 +1138,8 @@ namespace AVS_Global.Controllers
         public ActionResult SaveTripShippCuba(int idForm, string dateEntry, string dateDeparture, int numAdults, int numChildrens, byte[] passportAdult, byte[] passportChil,
             bool bitShippDifferent, bool bitPPchf5, bool bitRSchf750, bool bitESchf22, bool bitCourrierNatInt)
         {
-            var client = new RestClient("https://localhost:44330/api/Cuba/SaveTripShipp");
+            string urlApiCuba = _configuration.GetSection("ApiCuba").Value;
+            var client = new RestClient(urlApiCuba + "SaveTripShipp");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -1163,7 +1183,8 @@ namespace AVS_Global.Controllers
 
         public ActionResult SaveSummary(int idForm, string comments, bool bitReadSuccess, bool bitReadGTC)
         {
-            var client = new RestClient("https://localhost:44330/api/Cuba/SaveSummary");
+            string urlApiCuba = _configuration.GetSection("ApiCuba").Value;
+            var client = new RestClient(urlApiCuba + "SaveSummary");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -1270,14 +1291,15 @@ namespace AVS_Global.Controllers
 
         public IActionResult FormSouthKorea()
         {
-            const string urlApiSK = "https://localhost:44330/api/SouthKorea/";
-            const string urlApiCatalogs = "https://localhost:44330/api/Catalogs/";
+            string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
+            string urlApiSK = urlApiKorea;
+            string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Session.GetString("_Form");
             ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
-            ViewData["imgForm"] = "/flags/SK.png";
+            ViewData["imgForm"] = "~/flags/SK.png";
 
             if (ViewData["User"] != null)
             {
@@ -1338,7 +1360,8 @@ namespace AVS_Global.Controllers
         public ActionResult SavePersonalInfo(int idForm, int idCountry, string name, string surName, bool bitSex, bool BitNameUk,
                                                     bool bitSurNamUk, string passNum, string dateBirth, string dateExpired)
         {
-            var client = new RestClient("https://localhost:44330/api/SouthKorea/SavePersonalInfo");
+            string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
+            var client = new RestClient(urlApiKorea + "SavePersonalInfo");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -1383,7 +1406,8 @@ namespace AVS_Global.Controllers
                                                     string addressPostal, string numberContactKorea, int IdJob, bool BitInfectiuos15, bool BitArrested, string sponsorName,
                                                     string addressNumber, string zipCode, string city, int IdPurposeSK)
         {
-            var client = new RestClient("https://localhost:44330/api/SouthKorea/SaveInfoReq");
+            string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
+            var client = new RestClient(urlApiKorea + "SaveInfoReq");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.POST);
 
@@ -1430,7 +1454,8 @@ namespace AVS_Global.Controllers
 
         public IActionResult catTypeVisasApplied()
         {
-            var client = new RestClient("https://localhost:44330/api/Pakistan/CatVisasApplied");
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient( urlApiPakistan + "CatVisasApplied");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Models.CatVisasApplied>>(request);
