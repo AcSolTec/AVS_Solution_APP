@@ -25,7 +25,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePersonalDetPakistan',
+                url: '/avs/Formularies/SavePersonalDetPakistan',
                 data: {
                     idForm: idForm,
                     idVisaAp: ddlVisaAp,
@@ -107,7 +107,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveApplicantsDetPakistan',
+                url: '/avs/Formularies/SaveApplicantsDetPakistan',
                 data: {
                     idForm: idForm,
                     name: name,
@@ -166,7 +166,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePassportPakistan',
+                url: '/avs/Formularies/SavePassportPakistan',
                 data: {
                     idForm: idForm,
                     idTypePass: ddTypePass,
@@ -249,7 +249,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveConctactDetails',
+                url: '/avs/Formularies/SaveConctactDetails',
                 data: {
                     idForm: idForm,
                     idContry: ddCountryAdress,
@@ -326,7 +326,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePastJobs',
+                url: '/avs/Formularies/SavePastJobs',
                 data: {
                     idForm: idForm,
                     designation: designation,
@@ -387,7 +387,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveFamilyData',
+                url: '/avs/Formularies/SaveFamilyData',
                 data: {
                     idForm: idForm,
                     nMother: nMother,
@@ -437,7 +437,7 @@
             console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
-                url: "/Formularies/SaveChildrens",
+                url: "/avs/Formularies/SaveChildrens",
                 data: JSON.stringify(model),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -493,7 +493,7 @@
             //console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
-                url: "/Formularies/SaveAccompanying",
+                url: "/avs/Formularies/SaveAccompanying",
                 data: JSON.stringify(model),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -512,7 +512,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Formularies/SaveBankData',
+                    url: '/avs/Formularies/SaveBankData',
                     data: {
                         idForm: idForm,
                         nameBank: _nameBank,
@@ -580,7 +580,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Formularies/SaveTravelDeported',
+                    url: '/avs/Formularies/SaveTravelDeported',
                     data: {
                         idForm: idForm,
                         dateDeport: datDeport,
@@ -620,7 +620,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Formularies/SaveTravelConviction',
+                    url: '/avs/Formularies/SaveTravelConviction',
                     data: {
                         idForm: idForm,
                         dateConviction: datConviction,
@@ -650,7 +650,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveBitsTravles',
+                url: '/avs/Formularies/SaveBitsTravles',
                 data: {
                     idForm: idForm,
                     bitRefused: bRefused,
@@ -700,7 +700,7 @@
             //console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
-                url: "/Formularies/SaveTravelLast5",
+                url: "/avs/Formularies/SaveTravelLast5",
                 data: JSON.stringify(model),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -730,7 +730,7 @@
         //console.log(JSON.stringify(model));
         $.ajax({
             type: "POST",
-            url: "/Formularies/SaveTravelLast2",
+            url: "/avs/Formularies/SaveTravelLast2",
             data: JSON.stringify(model),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -930,7 +930,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveConctactDetCuba',
+                url: '/avs/Formularies/SaveConctactDetCuba',
                 data: {
                     idForm: idForm,
                     firstName: firstNameCu,
@@ -1004,7 +1004,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveTripShippCuba',
+                url: '/avs/Formularies/SaveTripShippCuba',
                 data: {
                     idForm: idForm,
                     dateEntry: dateEntryCuba,
@@ -1097,7 +1097,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveSummary',
+                url: '/avs/Formularies/SaveSummary',
                 data: {
                     idForm: idForm,
                     comments: comments,
@@ -1157,7 +1157,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePersonalInfo',
+                url: '/avs/Formularies/SavePersonalInfo',
                 data: {
                     idForm: idForm,
                     idCountry: idCountrySK,
@@ -1235,7 +1235,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveInformationReq',
+                url: '/avs/Formularies/SaveInformationReq',
                 data: {
                     idForm: idForm,
                     bitOtherNat: bitOther,
@@ -1362,7 +1362,7 @@ function Validate() {
             success: function (result) {
                 console.log(result);
                 if (result.message == 'OK') {
-                    window.location.href = '/Formularies/Form' + result.countrylog;
+                    window.location.href = '/avs/Formularies/Form' + result.countrylog;
                 }
                 else {
                     alert(result.message);
