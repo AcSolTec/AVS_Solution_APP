@@ -40,7 +40,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Account/SaveCustomer',
+                url: '/avs/Account/SaveCustomer',
                 data: {
                     RegisteredMail: user,
                     Pass: pass,
@@ -53,13 +53,13 @@
                 success: function (result) {
                     console.log(result);
                     if (result.message == 'OK') {
-                        window.location.href = '/Account/Login';
+                        window.location.href = '/avs/Account/Login';
                     }
                     else {
                         $('#pMeesage').text(result.messagePage);
                         $("#dvcardMessage").show();
                         $('#userReg').val('');
-                        $('#passReg').val('');
+                        $('#passConfirmReg').val('');
                         $('#ddCountry').val(0);
                         //alert(result.messagePage);
                     }

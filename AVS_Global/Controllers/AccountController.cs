@@ -27,7 +27,7 @@ namespace AVS_Global.Controllers
             _configuration = configuration;
         }
 
-       
+
         public IActionResult Login()
         {
 
@@ -64,6 +64,10 @@ namespace AVS_Global.Controllers
 
                 if (content == "Customer created!")
                 {
+
+                    //send email to customer
+
+
                     dataMessa = "OK";
                 }
                 else
@@ -76,7 +80,7 @@ namespace AVS_Global.Controllers
             //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
 
-       
+
         public ActionResult Validate(string user, string pass)
         {
             urlApiAccount = _configuration.GetSection("UrlApiAccount").Value;
@@ -118,13 +122,43 @@ namespace AVS_Global.Controllers
 
             }
             return Json(new { status = true, message = dataMessa, countrylog = countryLogOn, rol = role });
-            
+
         }
+
+   
+        public IActionResult validateEmail()
+        {
+
+            string valueEmail = HttpContext.Request.Query["v"].ToString();
+
+            if (string.IsNullOrEmpty(valueEmail))
+            {
+                return BadRequest();
+            }
+            else
+            {
+                urlApiAccount =  _configuration.GetSection("UrlApiAccount").Value;
+                var client = new RestClient(urlApiAccount + "validateMail/" + valueEmail);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.POST);
+                var response = client.Execute(request);
+                string content = response.Content.Replace("\"", "");
+
+                if (content != "e-mail confirmed")
+                {
+                    return BadRequest();
+                }
+
+            }
+
+            return View();
+        }
+
 
         public ActionResult logOutSesession()
         {
             HttpContext.Session.Remove(SessionName);
-            return Json(new { status = true, message = "OK"});
+            return Json(new { status = true, message = "OK" });
         }
     }
 }

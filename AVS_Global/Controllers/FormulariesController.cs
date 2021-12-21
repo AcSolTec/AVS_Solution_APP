@@ -58,7 +58,7 @@ namespace AVS_Global.Controllers
             ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
-            ViewData["imgForm"] = "~/flags/PK.png";
+            ViewData["imgForm"] = "flags/PK.png";
 
 
             if (ViewData["User"] != null)
@@ -1036,7 +1036,7 @@ namespace AVS_Global.Controllers
             ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
-            ViewData["imgForm"] = "~/flags/CB.png";
+            ViewData["imgForm"] = "flags/CB.png";
 
             if (ViewData["User"] != null)
             {
@@ -1299,7 +1299,7 @@ namespace AVS_Global.Controllers
             ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
-            ViewData["imgForm"] = "~/flags/SK.png";
+            ViewData["imgForm"] = "flags/SK.png";
 
             if (ViewData["User"] != null)
             {

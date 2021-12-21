@@ -1,3 +1,5 @@
+using AVS_Global_API.Helpers;
+using AVS_Global_API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,10 +31,14 @@ namespace AVS_Global_API
         {
             //services.AddDbContext<Models.AVS_DBContext>(options => options.UseSqlServer(Configuration["AVS:conAvsDb"]));
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AVS_Global_API", Version = "v1" });
             });
+
+            services.Configure<EmailSettings>(Configuration.GetSection("SmptSettings"));
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

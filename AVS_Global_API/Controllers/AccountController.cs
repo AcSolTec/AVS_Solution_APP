@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AVS_Global_API.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace AVS_Global_API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        IEmailService _emailService = null;
+        public AccountController(IEmailService emailService)
+        {
+            _emailService = emailService;
+        }
+
         Models.AVS_DBContext db = new Models.AVS_DBContext();
         [HttpPost]
         public IActionResult ValidateCustomer(Entities.enAccountsCustomerscs model)
@@ -134,8 +141,29 @@ namespace AVS_Global_API.Controllers
 
             var result = Data.CustomersData.InsertCustomer(model.IdCountry, model.RegisteredMail, passEncrypt);
             string msjeOut = string.Empty;
+
             if (result == "OK")
             {
+
+
+                Models.EmailData emailSet = new Models.EmailData();
+
+                var linkToMail = (from customers in db.TbCustomersAvs
+                                  join formularies in db.TbFormularies on customers.IdCustomer equals formularies.IdCustomer
+                                  join accounts in db.TbAccountsValidates on formularies.IdForm equals accounts.IdForm
+                                  where customers.RegisteredMail == model.RegisteredMail
+                                  select new { url = accounts.UrlDynamic }).ToList();
+
+
+
+                emailSet.EmailSubject = "Welcome AVS Forms";
+                emailSet.EmailToName = "AVS Forms";
+                emailSet.EmailToId = model.RegisteredMail;
+                emailSet.EmailBody = "Please click on the following link: " + linkToMail[0].url;
+
+                _emailService.SendEmail(emailSet);
+
+
                 msjeOut = "Customer created";
             }
             else
@@ -145,6 +173,30 @@ namespace AVS_Global_API.Controllers
 
             return Ok(msjeOut);
 
+        }
+
+        [HttpPost]
+        [Route("validateMail/{v}")]
+        public IActionResult ValidateMail(string v)
+        {
+            string msje = string.Empty;
+            using (var context = new Models.AVS_DBContext())
+            {
+
+                //validate if exists
+                var mailValidate = context.TbAccountsValidates.FirstOrDefault(x => x.ValueDynamic == v);
+
+                if (mailValidate != null)
+                {
+                    mailValidate.BitActive = true;
+                    msje = "e-mail confirmed";
+                }
+
+                context.SaveChanges();
+
+            }
+
+            return Ok(msje);
         }
 
         [HttpGet]

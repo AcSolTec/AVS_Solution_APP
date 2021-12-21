@@ -41,7 +41,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse" style="position:absolute;right:50px;">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <img src="@ViewData["imgForm"]" width="30px;" height="20px;" />&nbsp;&nbsp;
+                        <img src="~/@ViewData["imgForm"]" width="30px;" height="20px;" />&nbsp;&nbsp;
                     </li>
                     <li class="nav-item">
                         <label style="color:white">-&nbsp;@ViewBag.CountryName</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -89,7 +89,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Account/logOutSesession',
+                    url: '/avs/Account/logOutSesession',
                     data: {
                     },
                     error: function (result) {
@@ -98,7 +98,7 @@
                     success: function (result) {
                         console.log(result);
                         if (result.message == 'OK') {
-                            window.location.href = '/Account/Login';
+                            window.location.href = '/avs/Account/Login';
                         }
                         else {
                             alert(result.message);
