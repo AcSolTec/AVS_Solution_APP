@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AVS_Global_API.Controllers
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class CubaController : ControllerBase
     {
         [HttpPost]

@@ -89,7 +89,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/avs/Account/logOutSesession',
+                    url: '/Account/logOutSesession',
                     data: {
                     },
                     error: function (result) {
@@ -98,7 +98,7 @@
                     success: function (result) {
                         console.log(result);
                         if (result.message == 'OK') {
-                            window.location.href = '/avs/Account/Login';
+                            window.location.href = '/Account/Login';
                         }
                         else {
                             alert(result.message);
@@ -108,6 +108,7 @@
         });
     </script>
     <script src="https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

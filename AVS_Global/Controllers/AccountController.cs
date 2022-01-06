@@ -62,12 +62,8 @@ namespace AVS_Global.Controllers
             if (response.StatusCode == HttpStatusCode.OK)
             {
 
-                if (content == "Customer created!")
+                if (content == "Customer created")
                 {
-
-                    //send email to customer
-
-
                     dataMessa = "OK";
                 }
                 else
@@ -76,7 +72,7 @@ namespace AVS_Global.Controllers
                 }
 
             }
-            return Json(new { status = true, message = dataMessa, messagePage = "Customer created, Please log in with your crendenciales." });
+            return Json(new { status = true, message = dataMessa, messagePage = content });
             //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
 

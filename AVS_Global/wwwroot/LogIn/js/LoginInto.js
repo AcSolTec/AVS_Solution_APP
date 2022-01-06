@@ -40,7 +40,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Account/SaveCustomer',
+                url: '/Account/SaveCustomer',
                 data: {
                     RegisteredMail: user,
                     Pass: pass,
@@ -53,12 +53,13 @@
                 success: function (result) {
                     console.log(result);
                     if (result.message == 'OK') {
-                        window.location.href = '/avs/Account/Login';
+                        window.location.href = '/Account/Login';
                     }
                     else {
                         $('#pMeesage').text(result.messagePage);
                         $("#dvcardMessage").show();
                         $('#userReg').val('');
+                        $('#passReg').val('');
                         $('#passConfirmReg').val('');
                         $('#ddCountry').val(0);
                         //alert(result.messagePage);
@@ -95,7 +96,7 @@ function Validate() {
     $.ajax(
         {
             type: "POST",
-            url: '/avs/Account/Validate',
+            url: '/Account/Validate',
             data: {
                 user: user,
                 pass: pass
@@ -112,14 +113,15 @@ function Validate() {
 
                 }
                 else if (result.rol == 'Auth') {
-                    linktoGo = '/avs/Home/Index'
+                    linktoGo = '/Home/Index'
 
                 }
                 else if (result.rol == 'Cap') {
 
                 }
                 else {
-                    linktoGo = '/avs/Formularies/Form' + result.countrylog;
+                    //linktoGo = '/Formularies/Form' + result.countrylog;
+                    linktoGo = '/Formularies/Index';
                 }
 
 

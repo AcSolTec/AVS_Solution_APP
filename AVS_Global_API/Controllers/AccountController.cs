@@ -25,6 +25,7 @@ namespace AVS_Global_API.Controllers
 
             Entities.enResponseCustomers response = new Entities.enResponseCustomers();
             Helpers.EncryptingService encryptor = new Helpers.EncryptingService();
+
             //First to validate if user is admin..
             #region validateAdminUs
             var sesAdmin = db.TbUsers.Where(s => s.KeyAccess == model.Mail);
@@ -133,44 +134,58 @@ namespace AVS_Global_API.Controllers
         [Route("SaveAccount")]
         public IActionResult SaveCustomer(Entities.enTbCustomersAvs model)
         {
-
-
-            Helpers.EncryptingService encryptor = new Helpers.EncryptingService();
-
-            var passEncrypt = encryptor.EncryptString128Bit(model.Pass, "customerseed");
-
-            var result = Data.CustomersData.InsertCustomer(model.IdCountry, model.RegisteredMail, passEncrypt);
             string msjeOut = string.Empty;
 
-            if (result == "OK")
+            var _validateCountry = db.TbCustomersAvs.Where(s => s.RegisteredMail == model.RegisteredMail && s.IdCountry == model.IdCountry);
+
+            if (_validateCountry.Any())
             {
-
-
-                Models.EmailData emailSet = new Models.EmailData();
-
-                var linkToMail = (from customers in db.TbCustomersAvs
-                                  join formularies in db.TbFormularies on customers.IdCustomer equals formularies.IdCustomer
-                                  join accounts in db.TbAccountsValidates on formularies.IdForm equals accounts.IdForm
-                                  where customers.RegisteredMail == model.RegisteredMail
-                                  select new { url = accounts.UrlDynamic }).ToList();
-
-
-
-                emailSet.EmailSubject = "Welcome AVS Forms";
-                emailSet.EmailToName = "AVS Forms";
-                emailSet.EmailToId = model.RegisteredMail;
-                emailSet.EmailBody = "Please click on the following link: " + linkToMail[0].url;
-
-                _emailService.SendEmail(emailSet);
-
-
-                msjeOut = "Customer created";
+                msjeOut = "Customer already exists with that country";
             }
             else
             {
-                msjeOut = "Customer failed";
-            }
 
+                Helpers.EncryptingService encryptor = new Helpers.EncryptingService();
+
+                var passEncrypt = encryptor.EncryptString128Bit(model.Pass, "customerseed");
+
+                var result = Data.CustomersData.InsertCustomer(model.IdCountry, model.RegisteredMail, passEncrypt);
+
+
+                if (result == "OK")
+                {
+
+                    var _formsCustomer = db.TbCustomersAvs.Where(s => s.RegisteredMail == model.RegisteredMail);
+
+                    if (_formsCustomer.Count() == 0)
+                    {
+                        Models.EmailData emailSet = new Models.EmailData();
+
+                        var linkToMail = (from customers in db.TbCustomersAvs
+                                          join formularies in db.TbFormularies on customers.IdCustomer equals formularies.IdCustomer
+                                          join accounts in db.TbAccountsValidates on formularies.IdForm equals accounts.IdForm
+                                          where customers.RegisteredMail == model.RegisteredMail
+                                          select new { url = accounts.UrlDynamic }).ToList();
+
+
+
+                        emailSet.EmailSubject = "Welcome AVS Forms";
+                        emailSet.EmailToName = "AVS Forms";
+                        emailSet.EmailToId = model.RegisteredMail;
+                        emailSet.EmailBody = "Please click on the following link: " + linkToMail[0].url;
+
+                        _emailService.SendEmail(emailSet);
+                    }
+
+
+                    msjeOut = "Customer created";
+                }
+                else
+                {
+                    msjeOut = "Customer failed";
+                }
+
+            }
             return Ok(msjeOut);
 
         }

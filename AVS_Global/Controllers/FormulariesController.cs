@@ -44,18 +44,41 @@ namespace AVS_Global.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string urlApiForms = _configuration.GetSection("ApiForms").Value;
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
+
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
+            ViewData["User"] = ViewBag.Name;
+
+
+            if (ViewData["User"] != null)
+            {
+                var client = new RestClient(urlApiForms + "getFormsCustomers?mailAccount=" + ViewBag.Name);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var request = new RestRequest(Method.GET);
+                var response = client.Execute<List<Models.FormsCap>>(request);
+                ViewBag.forms = response.Data;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+        
         }
 
 
         public IActionResult FormPakistan()
         {
-             string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value; 
-             string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value; 
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
 
             ViewBag.Name = HttpContext.Session.GetString("_Name");
-            ViewBag.Form = HttpContext.Session.GetString("_Form");
-            ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
+            //ViewBag.Form = HttpContext.Session.GetString("_Form");
+            ViewBag.Form = HttpContext.Request.Query["idForm"].ToString();
+            ViewBag.CountryName = "Pakistan";
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
             ViewData["imgForm"] = "flags/PK.png";
@@ -134,7 +157,7 @@ namespace AVS_Global.Controllers
 
                 if (responsePD.StatusCode == HttpStatusCode.OK)
                 {
-                   
+
                     ViewBag.idVisaAp = responsePD.Data.IdVisaAp;
                     ViewBag.idPurpose = responsePD.Data.IdPurpose;
                     ViewBag.dStay = responsePD.Data.DurationStay;
@@ -1030,10 +1053,10 @@ namespace AVS_Global.Controllers
 
         public IActionResult FormCuba()
         {
-            string urlApiCuba = _configuration.GetSection("ApiCuba").Value; 
+            string urlApiCuba = _configuration.GetSection("ApiCuba").Value;
             ViewBag.Name = HttpContext.Session.GetString("_Name");
-            ViewBag.Form = HttpContext.Session.GetString("_Form");
-            ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
+            ViewBag.Form = HttpContext.Request.Query["idForm"].ToString();
+            ViewBag.CountryName = "Cuba";
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
             ViewData["imgForm"] = "flags/CB.png";
@@ -1132,7 +1155,7 @@ namespace AVS_Global.Controllers
 
             }
             return Json(new { status = true, message = dataMessa, messagePage = "Contact data saved" });
-            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+            
         }
 
         public ActionResult SaveTripShippCuba(int idForm, string dateEntry, string dateDeparture, int numAdults, int numChildrens, byte[] passportAdult, byte[] passportChil,
@@ -1262,7 +1285,7 @@ namespace AVS_Global.Controllers
 
         //    //request.AddJsonBody(dataAccount);
 
-                
+
         //    var response = client.Execute(request);
 
 
@@ -1295,8 +1318,8 @@ namespace AVS_Global.Controllers
             string urlApiSK = urlApiKorea;
             string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
             ViewBag.Name = HttpContext.Session.GetString("_Name");
-            ViewBag.Form = HttpContext.Session.GetString("_Form");
-            ViewBag.CountryName = HttpContext.Session.GetString("_CountryName");
+            ViewBag.Form = HttpContext.Request.Query["idForm"].ToString();
+            ViewBag.CountryName = "South Korea";
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
             ViewData["imgForm"] = "flags/SK.png";
@@ -1318,7 +1341,7 @@ namespace AVS_Global.Controllers
                 //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
                 int idCountrySK = 3;
                 var responsePurpose = clientPurpose.Execute<List<Models.CatPurposes>>(request);
-                ViewBag.itemsPurposes = responsePurpose.Data.Where(x=>x.IdCountry == idCountrySK);
+                ViewBag.itemsPurposes = responsePurpose.Data.Where(x => x.IdCountry == idCountrySK);
                 #endregion
 
 
@@ -1354,7 +1377,7 @@ namespace AVS_Global.Controllers
 
 
             return View();
-    }
+        }
 
 
         public ActionResult SavePersonalInfo(int idForm, int idCountry, string name, string surName, bool bitSex, bool BitNameUk,
@@ -1455,7 +1478,7 @@ namespace AVS_Global.Controllers
         public IActionResult catTypeVisasApplied()
         {
             string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
-            var client = new RestClient( urlApiPakistan + "CatVisasApplied");
+            var client = new RestClient(urlApiPakistan + "CatVisasApplied");
             //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Models.CatVisasApplied>>(request);
