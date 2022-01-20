@@ -1054,6 +1054,7 @@ namespace AVS_Global.Controllers
         public IActionResult FormCuba()
         {
             string urlApiCuba = _configuration.GetSection("ApiCuba").Value;
+            string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewBag.Form = HttpContext.Request.Query["idForm"].ToString();
             ViewBag.CountryName = "Cuba";
@@ -1064,7 +1065,8 @@ namespace AVS_Global.Controllers
             if (ViewData["User"] != null)
             {
 
-                #region CallContactDetails
+                #region catsFormCuba
+                
 
                 #endregion
 
@@ -1344,6 +1346,11 @@ namespace AVS_Global.Controllers
                 ViewBag.itemsPurposes = responsePurpose.Data.Where(x => x.IdCountry == idCountrySK);
                 #endregion
 
+
+                var clientCat = new RestClient(urlApiCatalogs + "CatCurrentJobs");
+                var requestCat = new RestRequest(Method.GET);
+                var responseCat = clientCat.Execute<List<Models.CatCurrentsJobs>>(requestCat);
+                ViewBag.itemsCuJobs = responseCat.Data;
 
                 #region getDataForm
                 var clientpi = new RestClient(urlApiSK + "getDataPersonalInfo?idForm=" + ViewData["Form"]);

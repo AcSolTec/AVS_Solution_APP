@@ -927,6 +927,13 @@
         var numeroTelCu = $('#txtNumeroTel').val();
 
 
+        if (firstNameCu == '' || surNameCu == '' || addressCu == '' || zipeCode == ''
+            || townCu == '' || mailCu == '' || numeroTelCu == '') {
+            alert('Please capture the required fields');
+            return;
+        }
+
+
         $.ajax(
             {
                 type: "POST",
@@ -959,6 +966,20 @@
 
     });
 
+    $('#dvformDifAddress').hide();
+
+    $('#chekShipYes').change(function () {
+        if (this.checked)
+            $('#dvformDifAddress').fadeIn('slow');
+
+    });
+
+    $('#checkShipNo').change(function () {
+        if (this.checked)
+            $('#dvformDifAddress').fadeOut('slow');
+
+    });
+
     $("#btnAddTripShip").click(function () {
 
         //Validation data 
@@ -973,10 +994,14 @@
 
         if ($('#chekShipYes').is(":checked")) {
             bShipDiff = true;
+            
         }
         if ($('#checkShipNo').is(":checked")) {
             bShipDiff = false;
+            
         }
+
+       
 
         var bppchf5 = false;
         var brschf750 = false;
@@ -1054,7 +1079,7 @@
                 processData: false,
                 contentType: false,
                 error: function (result) {
-                    alert("There is a Problem, Try Again!");
+                    //alert("There is a Problem, Try Again!");
                 },
                 success: function (result) {
                     console.log('resultado ' + result);

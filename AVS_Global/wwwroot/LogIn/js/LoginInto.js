@@ -1,5 +1,14 @@
 ﻿$(document).ready(function () {
 
+
+    function validateAccount(valor) {
+        if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)) {
+            console.log("La dirección de email " + valor + " es correcta!.");
+        } else {
+            console.log("La dirección de email es incorrecta!.");
+        }
+    }
+
     $("#RegisterInto").hide();
     $("#dvcardMessage").hide()
     
@@ -16,7 +25,19 @@
 
     $("#btnRegister").click(function () {
 
+
+
         var user = $('#userReg').val();
+
+
+        if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(user)) {
+            
+        } else {
+            $('#pMeesage').text('Incorrect account e-mail.');
+            $("#dvcardMessage").show();
+            return;
+        }
+
         var pass = $('#passReg').val();
         var idCountry = $('#ddCountry').val();
 
@@ -40,7 +61,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Account/SaveCustomer',
+                url: '',
                 data: {
                     RegisteredMail: user,
                     Pass: pass,
@@ -73,6 +94,10 @@
 
 
 function Validate() {
+
+
+
+    
 
     var user = $('#user').val();
     var pass = $('#pass').val();

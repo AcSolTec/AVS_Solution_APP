@@ -17,5 +17,7 @@ namespace AVS_Global.Models
         public CatsPortsInOut portsInOut { get; set; }
 
         public CatCountriesCustomers countriesCust { get; set; }
+
+        public CatCurrentsJobs currentjobs { get; set; }
     }
 }

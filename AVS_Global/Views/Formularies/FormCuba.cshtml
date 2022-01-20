@@ -171,10 +171,15 @@
                                         <div class="form-row mt-4">
                                             <label>@Localizer["formCU.shipAd"]</label>
                                         </div>
+                                        <br />
+                                        <br />
+                                        <div class="form-row mt-4">
+                                            <label>@Localizer["formCU.shipTo"]</label>
+                                        </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label class="checkbox-wrap checkbox-primary">
-                                                    @Localizer["formCU.Yes"]
+                                                    @Localizer["formCU.yes"]
                                                     <input id="chekShipYes" name="checkShip" type="checkbox" onclick="onlyOneShip(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
@@ -188,9 +193,33 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-row mt-4">
-                                            <label>@Localizer["formCU.shipTo"]</label>
+                                        <!--Form different address-->
+                                        <div id="dvformDifAddress">
+                                            <div class="form-row mt-4">
+                                                <div class="col-12 col-sm-6">
+                                                    <label>@Localizer["formCU.surname"]:</label>
+                                                    <input id="txtSurNameDifAdd" maxlength="50" class="multisteps-form__input form-control" type="text" value="" />
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <label>@Localizer["formCU.name"]:</label>
+                                                    <input id="txtNameDifAd" maxlength="50" class="multisteps-form__input form-control" type="text" value="" />
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <label>@Localizer["formCU.addr"]:</label>
+                                                    <input id="txtAddressDifAd" maxlength="50" class="multisteps-form__input form-control" type="text" value="" />
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <label>@Localizer["formCU.zc"]:</label>
+                                                    <input id="txtZPDifAd" maxlength="50" class="multisteps-form__input form-control" type="text" value="" />
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <label>@Localizer["formCU.twn"]:</label>
+                                                    <input id="txtZPDifAd" maxlength="50" class="multisteps-form__input form-control" type="text" value="" />
+                                                </div>
+                                            </div>
                                         </div>
+                                       
+
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-10">
                                                 <label class="checkbox-wrap checkbox-primary">

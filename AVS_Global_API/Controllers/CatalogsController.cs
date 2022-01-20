@@ -55,5 +55,16 @@ namespace AVS_Global_API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("CatCurrentJobs")]
+        public IEnumerable<Models.TbSkCatJob> GetCurrentJobs()
+        {
+            using (var db = new Models.AVS_DBContext())
+            {
+                IEnumerable<Models.TbSkCatJob> cuJobs = db.TbSkCatJobs.Where(d => d.BitActive == true).ToList();
+                return cuJobs;
+            }
+        }
+
     }
 }

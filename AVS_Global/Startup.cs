@@ -43,7 +43,7 @@ namespace AVS_Global
                     new CultureInfo("en-US"),
                     new CultureInfo("es-MX"),
                     
-                    new CultureInfo("de-DE")
+                    //new CultureInfo("de-DE")
                     
                 };
 

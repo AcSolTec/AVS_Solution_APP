@@ -238,7 +238,7 @@
                                                 <label>@Localizer["formSK.cat"]:</label>
                                             </div>
                                             <div class="col-12 col-sm-7">
-                                                <select id="ddlCurrentJob" class="multisteps-form__select form-control">
+                                                <select id="ddlCurrentJob" class="multisteps-form__select form-control" asp-for="currentjobs.IdJob" asp-items="@(new SelectList(@ViewBag.itemsCuJobs, "IdJob", "NameJob"))">
                                                     <option value="0">Choose</option>
                                                 </select>
                                             </div>
