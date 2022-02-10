@@ -89,7 +89,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Account/logOutSesession',
+                    url: '/avs/Account/logOutSesession',
                     data: {
                     },
                     error: function (result) {
@@ -98,7 +98,7 @@
                     success: function (result) {
                         console.log(result);
                         if (result.message == 'OK') {
-                            window.location.href = '/Account/Login';
+                            window.location.href = '/avs/Account/Login';
                         }
                         else {
                             alert(result.message);

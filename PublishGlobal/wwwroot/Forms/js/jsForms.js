@@ -25,7 +25,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SavePersonalDetPakistan',
+                url: '/Formularies/SavePersonalDetPakistan',
                 data: {
                     idForm: idForm,
                     idVisaAp: ddlVisaAp,
@@ -107,7 +107,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveApplicantsDetPakistan',
+                url: '/Formularies/SaveApplicantsDetPakistan',
                 data: {
                     idForm: idForm,
                     name: name,
@@ -166,7 +166,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SavePassportPakistan',
+                url: '/Formularies/SavePassportPakistan',
                 data: {
                     idForm: idForm,
                     idTypePass: ddTypePass,
@@ -249,7 +249,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveConctactDetails',
+                url: '/Formularies/SaveConctactDetails',
                 data: {
                     idForm: idForm,
                     idContry: ddCountryAdress,
@@ -326,7 +326,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SavePastJobs',
+                url: '/Formularies/SavePastJobs',
                 data: {
                     idForm: idForm,
                     designation: designation,
@@ -387,7 +387,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveFamilyData',
+                url: '/Formularies/SaveFamilyData',
                 data: {
                     idForm: idForm,
                     nMother: nMother,
@@ -512,7 +512,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/avs/Formularies/SaveBankData',
+                    url: '/Formularies/SaveBankData',
                     data: {
                         idForm: idForm,
                         nameBank: _nameBank,
@@ -580,7 +580,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/avs/Formularies/SaveTravelDeported',
+                    url: '/Formularies/SaveTravelDeported',
                     data: {
                         idForm: idForm,
                         dateDeport: datDeport,
@@ -620,7 +620,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/avs/Formularies/SaveTravelConviction',
+                    url: '/Formularies/SaveTravelConviction',
                     data: {
                         idForm: idForm,
                         dateConviction: datConviction,
@@ -650,7 +650,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveBitsTravles',
+                url: '/Formularies/SaveBitsTravles',
                 data: {
                     idForm: idForm,
                     bitRefused: bRefused,
@@ -700,7 +700,7 @@
             //console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
-                url: "/avs/Formularies/SaveTravelLast5",
+                url: "/Formularies/SaveTravelLast5",
                 data: JSON.stringify(model),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -927,10 +927,17 @@
         var numeroTelCu = $('#txtNumeroTel').val();
 
 
+        if (firstNameCu == '' || surNameCu == '' || addressCu == '' || zipeCode == ''
+            || townCu == '' || mailCu == '' || numeroTelCu == '') {
+            alert('Please capture the required fields');
+            return;
+        }
+
+
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveConctactDetCuba',
+                url: '/Formularies/SaveConctactDetCuba',
                 data: {
                     idForm: idForm,
                     firstName: firstNameCu,
@@ -959,6 +966,20 @@
 
     });
 
+    $('#dvformDifAddress').hide();
+
+    $('#chekShipYes').change(function () {
+        if (this.checked)
+            $('#dvformDifAddress').fadeIn('slow');
+
+    });
+
+    $('#checkShipNo').change(function () {
+        if (this.checked)
+            $('#dvformDifAddress').fadeOut('slow');
+
+    });
+
     $("#btnAddTripShip").click(function () {
 
         //Validation data 
@@ -973,10 +994,14 @@
 
         if ($('#chekShipYes').is(":checked")) {
             bShipDiff = true;
+            
         }
         if ($('#checkShipNo').is(":checked")) {
             bShipDiff = false;
+            
         }
+
+       
 
         var bppchf5 = false;
         var brschf750 = false;
@@ -1004,7 +1029,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveTripShippCuba',
+                url: '/Formularies/SaveTripShippCuba',
                 data: {
                     idForm: idForm,
                     dateEntry: dateEntryCuba,
@@ -1054,7 +1079,7 @@
                 processData: false,
                 contentType: false,
                 error: function (result) {
-                    alert("There is a Problem, Try Again!");
+                    //alert("There is a Problem, Try Again!");
                 },
                 success: function (result) {
                     console.log('resultado ' + result);
@@ -1097,7 +1122,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveSummary',
+                url: '/Formularies/SaveSummary',
                 data: {
                     idForm: idForm,
                     comments: comments,
@@ -1157,7 +1182,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SavePersonalInfo',
+                url: '/Formularies/SavePersonalInfo',
                 data: {
                     idForm: idForm,
                     idCountry: idCountrySK,
@@ -1235,7 +1260,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/avs/Formularies/SaveInformationReq',
+                url: '/Formularies/SaveInformationReq',
                 data: {
                     idForm: idForm,
                     bitOtherNat: bitOther,
@@ -1362,7 +1387,7 @@ function Validate() {
             success: function (result) {
                 console.log(result);
                 if (result.message == 'OK') {
-                    window.location.href = '/avs/Formularies/Form' + result.countrylog;
+                    window.location.href = '/Formularies/Form' + result.countrylog;
                 }
                 else {
                     alert(result.message);
