@@ -154,6 +154,7 @@ namespace AVS_Global.Controllers
         public ActionResult logOutSesession()
         {
             HttpContext.Session.Remove(SessionName);
+            HttpContext.Session.Remove(SessionForm);
             return Json(new { status = true, message = "OK" });
         }
     }

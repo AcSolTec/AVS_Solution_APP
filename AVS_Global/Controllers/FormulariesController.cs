@@ -15,21 +15,39 @@ using System.Net.Http.Headers;
 using System.IO;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
+using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AVS_Global.Controllers
 {
     public class FormulariesController : Controller
     {
         private readonly IConfiguration _configuration;
-
-        public FormulariesController(IConfiguration configuration)
+        private readonly IServiceProvider _provider;
+        private readonly IServiceCollection _services;
+        private readonly IOptions<RequestLocalizationOptions> _locOptions;
+        public FormulariesController(IConfiguration configuration, IServiceProvider provider, IServiceCollectionProvider serviceCollectionProvider, IOptions<RequestLocalizationOptions> LocOptions)
         {
             _configuration = configuration;
+            _provider = provider;
+            _services = serviceCollectionProvider.ServiceCollection;
+            _locOptions = LocOptions;
         }
 
+        
+
         [HttpPost]
-        public IActionResult ChangeLanguage(string culture, string returnUrl)
+        public IActionResult ChangeLanguage(string culture, string returnUrl, string idForm)
         {
+            if (!string.IsNullOrEmpty(idForm))
+            {
+                HttpContext.Session.SetString("_Form", idForm.Trim());
+                HttpContext.Session.SetString("_chLan", "1");
+            }
+
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
@@ -66,7 +84,7 @@ namespace AVS_Global.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-        
+
         }
 
 
@@ -76,11 +94,20 @@ namespace AVS_Global.Controllers
             string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
 
             ViewBag.Name = HttpContext.Session.GetString("_Name");
-            //ViewBag.Form = HttpContext.Session.GetString("_Form");
-            ViewBag.Form = HttpContext.Request.Query["idForm"].ToString();
+            var idForm = string.Empty;
+
+            if (HttpContext.Session.GetString("_chLan") != "1")
+            {
+                idForm = HttpContext.Request.Query["idForm"].ToString();
+            }
+            else
+            {
+                idForm = HttpContext.Session.GetString("_Form");
+                HttpContext.Session.Remove("_chLan");
+            }
             ViewBag.CountryName = "Pakistan";
             ViewData["User"] = ViewBag.Name;
-            ViewData["Form"] = ViewBag.Form;
+            ViewData["Form"] = idForm;
             ViewData["imgForm"] = "flags/PK.png";
 
 
@@ -341,6 +368,41 @@ namespace AVS_Global.Controllers
 
 
                 #endregion
+
+
+                _services.AddControllers();
+
+                _services.AddLocalization(options =>
+                {
+                    options.ResourcesPath = "Resources";
+                });
+
+                _services.AddControllersWithViews()
+                    .AddViewLocalization();
+
+                _services.Configure<RequestLocalizationOptions>(options =>
+                {
+                    options.DefaultRequestCulture = new RequestCulture("en-US");
+
+                    var cultures = new CultureInfo[]
+                    {
+                    new CultureInfo("en-US"),
+                   new CultureInfo("de-DE")
+
+                    };
+
+                    options.SupportedCultures = cultures;
+                    options.SupportedUICultures = cultures;
+                });
+
+                _services.AddControllersWithViews();
+
+                _services.AddSession(op =>
+                {
+                    op.IdleTimeout = TimeSpan.FromMinutes(60);
+                });
+
+                _services.AddMvc();
 
                 return View();
             }
@@ -1056,17 +1118,28 @@ namespace AVS_Global.Controllers
             string urlApiCuba = _configuration.GetSection("ApiCuba").Value;
             string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
             ViewBag.Name = HttpContext.Session.GetString("_Name");
-            ViewBag.Form = HttpContext.Request.Query["idForm"].ToString();
+            var idForm = string.Empty;
+
+            if (HttpContext.Session.GetString("_chLan") != "1")
+            {
+                idForm = HttpContext.Request.Query["idForm"].ToString();
+            }
+            else
+            {
+                idForm = HttpContext.Session.GetString("_Form");
+                HttpContext.Session.Remove("_chLan");
+            }
+
             ViewBag.CountryName = "Cuba";
             ViewData["User"] = ViewBag.Name;
-            ViewData["Form"] = ViewBag.Form;
+            ViewData["Form"] = idForm;
             ViewData["imgForm"] = "flags/CB.png";
 
             if (ViewData["User"] != null)
             {
 
                 #region catsFormCuba
-                
+
 
                 #endregion
 
@@ -1157,11 +1230,12 @@ namespace AVS_Global.Controllers
 
             }
             return Json(new { status = true, message = dataMessa, messagePage = "Contact data saved" });
-            
+
         }
 
         public ActionResult SaveTripShippCuba(int idForm, string dateEntry, string dateDeparture, int numAdults, int numChildrens, byte[] passportAdult, byte[] passportChil,
-            bool bitShippDifferent, bool bitPPchf5, bool bitRSchf750, bool bitESchf22, bool bitCourrierNatInt)
+            bool bitShippDifferent, bool bitPPchf5, bool bitRSchf750, bool bitESchf22, bool bitCourrierNatInt, string surNameShip, string firstNameShip, string addressShip,
+            string zipCodeShip, string townShip)
         {
             string urlApiCuba = _configuration.GetSection("ApiCuba").Value;
             var client = new RestClient(urlApiCuba + "SaveTripShipp");
@@ -1178,10 +1252,21 @@ namespace AVS_Global.Controllers
             dataAccount.PassportAdult = passportAdult;
             dataAccount.PassportChildren = passportChil;
             dataAccount.bitShippDifferent = bitShippDifferent;
+
+            if (bitShippDifferent == true)
+            {
+                dataAccount.SurnameShip = surNameShip;
+                dataAccount.FirstNameShip = firstNameShip;
+                dataAccount.AddressShip = addressShip;
+                dataAccount.ZipCodeShip = zipCodeShip;
+                dataAccount.TownShip = townShip;
+            }
+
             dataAccount.bitPpchf5 = bitPPchf5;
             dataAccount.bitRschf750 = bitRSchf750;
             dataAccount.bitEschf22 = bitESchf22;
             dataAccount.bitCourierNatInt = bitCourrierNatInt;
+
 
             request.AddJsonBody(dataAccount);
 
@@ -1312,7 +1397,7 @@ namespace AVS_Global.Controllers
 
 
         #endregion
-
+        
 
         public IActionResult FormSouthKorea()
         {
@@ -1320,7 +1405,20 @@ namespace AVS_Global.Controllers
             string urlApiSK = urlApiKorea;
             string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
             ViewBag.Name = HttpContext.Session.GetString("_Name");
-            ViewBag.Form = HttpContext.Request.Query["idForm"].ToString();
+
+            var idForm = string.Empty;
+
+            if (HttpContext.Session.GetString("_chLan") != "1")
+            {
+                idForm = HttpContext.Request.Query["idForm"].ToString();
+            }
+            else
+            {
+                idForm = HttpContext.Session.GetString("_Form");
+                HttpContext.Session.Remove("_chLan");
+            }
+
+            ViewBag.Form = idForm;
             ViewBag.CountryName = "South Korea";
             ViewData["User"] = ViewBag.Name;
             ViewData["Form"] = ViewBag.Form;
@@ -1375,6 +1473,9 @@ namespace AVS_Global.Controllers
 
 
                 #endregion
+
+
+
 
             }
             else

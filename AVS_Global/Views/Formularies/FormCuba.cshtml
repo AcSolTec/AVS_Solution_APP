@@ -40,6 +40,11 @@
             </div>
             <div class="container overflow-hidden">
                 <!--multisteps-form-->
+                <form asp-action="Index" asp-controller="Formularies" method="post">
+                    <div class="content__title content__title--m-sm">
+                        <button class="btn btn-success" type="submit" title="Return">@Localizer["but.Return"]</button>
+                    </div>
+                </form>
                 <div class="multisteps-form">
                     <!--progress bar-->
                     <div class="row">
@@ -214,7 +219,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-6">
                                                     <label>@Localizer["formCU.twn"]:</label>
-                                                    <input id="txtZPDifAd" maxlength="50" class="multisteps-form__input form-control" type="text" value="" />
+                                                    <input id="txtTownShipDif" maxlength="50" class="multisteps-form__input form-control" type="text" value="" />
                                                 </div>
                                             </div>
                                         </div>

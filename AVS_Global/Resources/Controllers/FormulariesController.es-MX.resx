@@ -123,6 +123,9 @@
   <data name="btn.prev" xml:space="preserve">
     <value>Anterior</value>
   </data>
+  <data name="but.Return" xml:space="preserve">
+    <value>Regresar a formularios</value>
+  </data>
   <data name="formCU.addr" xml:space="preserve">
     <value>Dirección</value>
   </data>

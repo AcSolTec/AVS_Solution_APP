@@ -20,5 +20,10 @@ namespace AVS_Global_API.Models
         public bool? BitRschf750 { get; set; }
         public bool? BitEschf22 { get; set; }
         public bool? BitCourierNatInt { get; set; }
+        public string SurnameShip { get; set; }
+        public string FirstNameShip { get; set; }
+        public string AddressShip { get; set; }
+        public string ZipCodeShip { get; set; }
+        public string TownShip { get; set; }
     }
 }

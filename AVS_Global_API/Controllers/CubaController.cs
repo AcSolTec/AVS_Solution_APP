@@ -89,6 +89,11 @@ namespace AVS_Global_API.Controllers
                     tripShippEntity.BitRschf750 = model.bitRschf750;
                     tripShippEntity.BitEschf22 = model.bitEschf22;
                     tripShippEntity.BitCourierNatInt = model.bitCourierNatInt;
+                    tripShippEntity.SurnameShip = model.SurnameShip;
+                    tripShippEntity.FirstNameShip = model.FirstNameShip;
+                    tripShippEntity.AddressShip = model.AddressShip;
+                    tripShippEntity.ZipCodeShip = model.ZipCodeShip;
+                    tripShippEntity.TownShip = model.TownShip;
                 }
                 else
                 {
@@ -105,6 +110,11 @@ namespace AVS_Global_API.Controllers
                     cubtriShipp.BitRschf750 = model.bitRschf750;
                     cubtriShipp.BitEschf22 = model.bitEschf22;
                     cubtriShipp.BitCourierNatInt = model.bitCourierNatInt;
+                    cubtriShipp.SurnameShip = model.SurnameShip;
+                    cubtriShipp.FirstNameShip = model.FirstNameShip;
+                    cubtriShipp.AddressShip = model.AddressShip;
+                    cubtriShipp.ZipCodeShip = model.ZipCodeShip;
+                    cubtriShipp.TownShip = model.TownShip;
                     context.TbCuTravShipDets.Add(cubtriShipp);
                 }
 
@@ -122,7 +132,7 @@ namespace AVS_Global_API.Controllers
 
         [HttpPost]
         [Route("recieveImagesCuba")]
-        public IActionResult RecieveImages(IList<IFormFile> files, int idForm)
+        public IActionResult RecieveImages(string idForm, IList<IFormFile> files)
         {
             string message = string.Empty;
             using (var context = new Models.AVS_DBContext())
@@ -130,24 +140,39 @@ namespace AVS_Global_API.Controllers
                 byte[] passportAdult = null;
                 byte[] passportChild = null;
                 
-                var tripShippEntity = context.TbCuTravShipDets.FirstOrDefault(x => x.IdForm == idForm);
+                var tripShippEntity = context.TbCuTravShipDets.FirstOrDefault(x => x.IdForm == int.Parse(idForm));
 
                 if (tripShippEntity != null)
                 {
 
-                    using (var ms = new MemoryStream())
+                    var conter = files.Count;
+
+                    if (conter > 1)
                     {
-                        files[0].CopyTo(ms);
-                        var fileBytesAd = ms.ToArray();
-                        passportAdult = fileBytesAd;
+                        using (var ms = new MemoryStream())
+                        {
+                            files[0].CopyTo(ms);
+                            var fileBytesAd = ms.ToArray();
+                            passportAdult = fileBytesAd;
+                        }
+
+                        using (var ms = new MemoryStream())
+                        {
+                            files[1].CopyTo(ms);
+                            var fileBytesChi = ms.ToArray();
+                            passportChild = fileBytesChi;
+                        }
+                    }
+                    else
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            files[0].CopyTo(ms);
+                            var fileBytesAd = ms.ToArray();
+                            passportAdult = fileBytesAd;
+                        }
                     }
 
-                    using (var ms = new MemoryStream())
-                    {
-                        files[1].CopyTo(ms);
-                        var fileBytesChi = ms.ToArray();
-                        passportChild = fileBytesChi;
-                    }
 
 
                     tripShippEntity.PassportAdult = passportAdult;
@@ -157,7 +182,11 @@ namespace AVS_Global_API.Controllers
                 }
                 else
                 {
-                    message = "Not idForm Provider";
+                    var cubtriShipp = new Models.TbCuTravShipDet();
+                    cubtriShipp.IdForm = int.Parse(idForm);
+                    cubtriShipp.PassportAdult = passportAdult;
+                    cubtriShipp.PassportChildren = passportChild;
+                    context.TbCuTravShipDets.Add(cubtriShipp);
                 }
 
 

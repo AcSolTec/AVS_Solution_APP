@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    //var urlHost = '/avs';
+    var urlHost = '';
 
     //PAKISTAN FORM
     $("#btnPersonalDet").click(function () {
@@ -25,7 +27,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePersonalDetPakistan',
+                url: urlHost+'/Formularies/SavePersonalDetPakistan',
                 data: {
                     idForm: idForm,
                     idVisaAp: ddlVisaAp,
@@ -107,7 +109,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveApplicantsDetPakistan',
+                url: urlHost +'/Formularies/SaveApplicantsDetPakistan',
                 data: {
                     idForm: idForm,
                     name: name,
@@ -166,7 +168,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePassportPakistan',
+                url: urlHost +'/Formularies/SavePassportPakistan',
                 data: {
                     idForm: idForm,
                     idTypePass: ddTypePass,
@@ -249,7 +251,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveConctactDetails',
+                url: urlHost +'/Formularies/SaveConctactDetails',
                 data: {
                     idForm: idForm,
                     idContry: ddCountryAdress,
@@ -326,7 +328,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePastJobs',
+                url: urlHost +'/Formularies/SavePastJobs',
                 data: {
                     idForm: idForm,
                     designation: designation,
@@ -387,7 +389,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveFamilyData',
+                url: urlHost +'/Formularies/SaveFamilyData',
                 data: {
                     idForm: idForm,
                     nMother: nMother,
@@ -437,7 +439,7 @@
             console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
-                url: "/avs/Formularies/SaveChildrens",
+                url: urlHost +"/Formularies/SaveChildrens",
                 data: JSON.stringify(model),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -493,7 +495,7 @@
             //console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
-                url: "/avs/Formularies/SaveAccompanying",
+                url: urlHost +"/Formularies/SaveAccompanying",
                 data: JSON.stringify(model),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -512,7 +514,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Formularies/SaveBankData',
+                    url: urlHost +'/Formularies/SaveBankData',
                     data: {
                         idForm: idForm,
                         nameBank: _nameBank,
@@ -580,7 +582,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Formularies/SaveTravelDeported',
+                    url: urlHost +'/Formularies/SaveTravelDeported',
                     data: {
                         idForm: idForm,
                         dateDeport: datDeport,
@@ -620,7 +622,7 @@
             $.ajax(
                 {
                     type: "POST",
-                    url: '/Formularies/SaveTravelConviction',
+                    url: urlHost +'/Formularies/SaveTravelConviction',
                     data: {
                         idForm: idForm,
                         dateConviction: datConviction,
@@ -650,7 +652,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveBitsTravles',
+                url: urlHost +'/Formularies/SaveBitsTravles',
                 data: {
                     idForm: idForm,
                     bitRefused: bRefused,
@@ -700,7 +702,7 @@
             //console.log(JSON.stringify(model));
             $.ajax({
                 type: "POST",
-                url: "/Formularies/SaveTravelLast5",
+                url: urlHost +"/Formularies/SaveTravelLast5",
                 data: JSON.stringify(model),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -730,7 +732,7 @@
         //console.log(JSON.stringify(model));
         $.ajax({
             type: "POST",
-            url: "/avs/Formularies/SaveTravelLast2",
+            url: urlHost +"/Formularies/SaveTravelLast2",
             data: JSON.stringify(model),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -937,7 +939,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveConctactDetCuba',
+                url: urlHost +'/Formularies/SaveConctactDetCuba',
                 data: {
                     idForm: idForm,
                     firstName: firstNameCu,
@@ -992,6 +994,12 @@
         var ddlChildren = $('#ddChildren').val();
         var bShipDiff = false;
 
+        var surNameShip = '';
+        var firstNameShip = '';
+        var addressShipDif = '';
+        var zipCodeShip = '';
+        var townShip = '';
+
         if ($('#chekShipYes').is(":checked")) {
             bShipDiff = true;
             
@@ -1001,6 +1009,13 @@
             
         }
 
+        if (bShipDiff == true) {
+            surNameShip = $('#txtSurNameDifAdd').val();
+            firstNameShip = $('#txtNameDifAd').val();
+            addressShipDif = $('#txtAddressDifAd').val();
+            zipCodeShip = $('#txtZPDifAd').val();
+            townShip = $('#txtTownShipDif').val();
+        }
        
 
         var bppchf5 = false;
@@ -1029,7 +1044,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveTripShippCuba',
+                url: urlHost +'/Formularies/SaveTripShippCuba',
                 data: {
                     idForm: idForm,
                     dateEntry: dateEntryCuba,
@@ -1042,7 +1057,12 @@
                     bitPPchf5: bppchf5,
                     bitRSchf750: brschf750,
                     bitESchf22: beschf22,
-                    bitCourrierNatInt: bNatInt
+                    bitCourrierNatInt: bNatInt,
+                    surNameShip: surNameShip,
+                    firstNameShip: firstNameShip,
+                    addressShip: addressShipDif,
+                    zipCodeShip: zipCodeShip,
+                    townShip: townShip
 
                 },
                 error: function (result) {
@@ -1069,19 +1089,19 @@
         var formData = new FormData();
         formData.append('files', $('#fuPassAdult')[0].files[0]);
         formData.append('files', $('#fuPassChild')[0].files[0]);
-        formData.append('idForm', idForm);
+        
 
        $.ajax(
-            {
+           {
                 type: "POST",
-                url: 'http://localhost/avs_api/api/cuba/recieveImagesCuba',
+                url: 'http://localhost/avs_api/api/cuba/recieveImagesCuba?idForm=' + idForm,
                 data: formData,
                 processData: false,
                 contentType: false,
                 error: function (result) {
                     //alert("There is a Problem, Try Again!");
                 },
-                success: function (result) {
+               success: function (result) {
                     console.log('resultado ' + result);
                     if (result.message == 'OK') {
                         //window.location.href = '/Formularies/Login';
@@ -1122,7 +1142,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveSummary',
+                url: urlHost +'/Formularies/SaveSummary',
                 data: {
                     idForm: idForm,
                     comments: comments,
@@ -1182,7 +1202,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SavePersonalInfo',
+                url: urlHost +'/Formularies/SavePersonalInfo',
                 data: {
                     idForm: idForm,
                     idCountry: idCountrySK,
@@ -1260,7 +1280,7 @@
         $.ajax(
             {
                 type: "POST",
-                url: '/Formularies/SaveInformationReq',
+                url: urlHost +'/Formularies/SaveInformationReq',
                 data: {
                     idForm: idForm,
                     bitOtherNat: bitOther,
@@ -1376,7 +1396,7 @@ function Validate() {
     $.ajax(
         {
             type: "POST",
-            url: '/Account/Validate',
+            url: urlHost +'/Account/Validate',
             data: {
                 user: user,
                 pass: pass

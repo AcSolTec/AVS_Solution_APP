@@ -1,8 +1,15 @@
-﻿@model AVS_Global.Models.CatModelsView
+﻿@using AVS_Global.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@model AVS_Global.Models.CatModelsView
 
 @{
     Layout = "~/Views/Shared/_NavBarForms.cshtml";
 }
+
+@inject IStringLocalizer<FormulariesController> Localizer
+@inject IHtmlLocalizer<FormulariesController> HtmlLocalizer
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,10 +50,16 @@
             </div>
             <div class="container overflow-hidden">
                 <!--multisteps-form-->
+                <form asp-action="Index" asp-controller="Formularies" method="post">
+                    <div class="content__title content__title--m-sm">
+                        <button class="btn btn-success" type="submit" title="Return">@Localizer["but.Return"]</button>
+                    </div>
+                </form>
                 <div class="multisteps-form">
                     <!--progress bar-->
                     <div class="row">
                         <div class="col-12 col-lg-10 ml-auto mr-auto mb-4">
+
                             <div class="multisteps-form__progress">
                                 <button class="multisteps-form__progress-btn js-active" type="button" title="Personal">Personal Info</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Applicants">Applicant's Details</button>
@@ -76,7 +89,6 @@
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Purpose of Visit:</label>
                                                 <select id="ddPurpose" class="multisteps-form__select form-control" asp-for="purposes.IdPurpose" asp-items="@(new SelectList(@ViewBag.itemsPurposes,"IdPurpose", "DescPurpose"))">
-                                                    
                                                 </select>
                                             </div>
                                         </div>
@@ -114,7 +126,7 @@
                                             <div class="col-12 col-sm-12">
                                                 <label>Details of profesional(Please specify Rank/Service, in case if Armed Forces/Uniform Personnel):</label>
                                                 <textarea id="txtDetailsProfesion" class="form-control" maxlength="200" rows="3" cols="75">@ViewBag.detProf</textarea>
-                                                
+
                                             </div>
 
                                         </div>
@@ -185,7 +197,7 @@
                                             <div class="col-12 col-sm-6">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     Male
-                                                    <input id="chekSexMen" name="check" type="checkbox" checked="@ViewBag.sexMan"  onclick="onlyOne(this)">
+                                                    <input id="chekSexMen" name="check" type="checkbox" checked="@ViewBag.sexMan" onclick="onlyOne(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -197,7 +209,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                       @{
+                                        @{
                                             if (ViewBag.marStat == true)
                                             {
                                                 ViewBag.married = true;
@@ -217,14 +229,14 @@
                                             <div class="col-12 col-sm-6">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     Single
-                                                    <input id="chekMaritalSingle" name="checkMarr" checked="@ViewBag.Nommarried"  type="checkbox" onclick="onlyCheckMarried(this)">
+                                                    <input id="chekMaritalSingle" name="checkMarr" checked="@ViewBag.Nommarried" type="checkbox" onclick="onlyCheckMarried(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label class="checkbox-wrap checkbox-primary">
                                                     Married
-                                                    <input id="chekMaritalMarried" name="checkMarr" checked="@ViewBag.married"  type="checkbox" onclick="onlyCheckMarried(this)">
+                                                    <input id="chekMaritalMarried" name="checkMarr" checked="@ViewBag.married" type="checkbox" onclick="onlyCheckMarried(this)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -246,7 +258,7 @@
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Religion:</label>
-                                                <input id="txtReligion" class="multisteps-form__input form-control" maxlength="50" type="text" value="@ViewBag.rel"  />
+                                                <input id="txtReligion" class="multisteps-form__input form-control" maxlength="50" type="text" value="@ViewBag.rel" />
                                             </div>
                                         </div>
                                         <div class="form-row mt-4">
@@ -281,7 +293,7 @@
                                             <label>Type of Passport</label>
                                             <select id="ddTypePass" class="multisteps-form__select form-control" asp-for="typesPass.IdTypePass" asp-items="@(new SelectList(@ViewBag.itemsTypesPass,"IdTypePass", "TypePass"))"></select>
                                         </div>
-                                    
+
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label class="checkbox-wrap checkbox-primary">
@@ -480,29 +492,29 @@
                                                     <div class="form-row mt-4">
                                                         <div class="col-12 col-sm-6">
                                                             <label>City:</label>
-                                                            <input id="txtCityB" class="multisteps-form__input form-control" maxlength="50"  type="text" value="@ViewBag.citySponso2" />
+                                                            <input id="txtCityB" class="multisteps-form__input form-control" maxlength="50" type="text" value="@ViewBag.citySponso2" />
                                                         </div>
                                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                             <label>ZIP:</label>
-                                                            <input id="txtPCB" class="multisteps-form__input form-control" maxlength="20"  type="text" value="@ViewBag.ZipSpon2" />
+                                                            <input id="txtPCB" class="multisteps-form__input form-control" maxlength="20" type="text" value="@ViewBag.ZipSpon2" />
                                                         </div>
                                                     </div>
                                                     @* next *@
                                                     <div class="form-row mt-4">
                                                         <div class="col-12 col-sm-6">
                                                             <label>Phone Home:</label>
-                                                            <input id="txtPHomeSponsorB" class="multisteps-form__input form-control" maxlength="20"  type="text" value="@ViewBag.PhoneHome2" />
+                                                            <input id="txtPHomeSponsorB" class="multisteps-form__input form-control" maxlength="20" type="text" value="@ViewBag.PhoneHome2" />
                                                         </div>
                                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                             <label>Phone Work:</label>
-                                                            <input id="txtPWorkSponsorB" class="multisteps-form__input form-control" maxlength="20"  type="text" value="@ViewBag.PhoneWork2" />
+                                                            <input id="txtPWorkSponsorB" class="multisteps-form__input form-control" maxlength="20" type="text" value="@ViewBag.PhoneWork2" />
                                                         </div>
                                                     </div>
                                                     @* next *@
                                                     <div class="form-row mt-4">
                                                         <div class="col-12 col-sm-6">
                                                             <label>Cell Work:</label>
-                                                            <input id="txtPCellSponsorB" class="multisteps-form__input form-control" maxlength="20"  type="text" value="@ViewBag.CellWork2" />
+                                                            <input id="txtPCellSponsorB" class="multisteps-form__input form-control" maxlength="20" type="text" value="@ViewBag.CellWork2" />
                                                         </div>
 
                                                     </div>
@@ -526,7 +538,7 @@
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
                                                 <label>Designation:</label>
-                                                <input id="txtDesignation" class="multisteps-form__input form-control" maxlength="50"  type="text" value="@ViewBag.designation" />
+                                                <input id="txtDesignation" class="multisteps-form__input form-control" maxlength="50" type="text" value="@ViewBag.designation" />
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                 <label>Departament:</label>
@@ -880,7 +892,7 @@
                                                     <tfoot>
                                                         <tr>
                                                             <td><input class="form-control" type="text" id="txtDateLast5" placeholder="dd/MM/yyyy" /></td>
-                                                            <td><input class="form-control" type="text" id="txtDestinLast5"  /></td>
+                                                            <td><input class="form-control" type="text" id="txtDestinLast5" /></td>
                                                             <td><input class="form-control" type="text" id="txtPurposeLast5" /></td>
                                                             <td><input class="form-control" type="text" id="txtDurationLast5" /></td>
                                                             <td><input class="btn btn-success" type="button" id="btnAddVisitedL5" value="Add" /></td>
@@ -891,7 +903,7 @@
                                             </div>
                                         </div>
 
-  
+
                                         <!--End form Visited last 5 years pakistan-->
 
                                         <div class="form-row mt-4">

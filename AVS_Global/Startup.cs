@@ -26,6 +26,8 @@ namespace AVS_Global
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddControllers();
+
             services.AddLocalization(options =>
             {
                 options.ResourcesPath = "Resources";
@@ -42,9 +44,9 @@ namespace AVS_Global
                 {
                     new CultureInfo("en-US"),
                     new CultureInfo("es-MX"),
-                    
+
                     //new CultureInfo("de-DE")
-                    
+
                 };
 
                 options.SupportedCultures = cultures;
@@ -59,6 +61,8 @@ namespace AVS_Global
             });
 
             services.AddMvc();
+            services.AddSingleton<IServiceCollectionProvider>(new ServiceCollectionProvider(services));
+
 
         }
 

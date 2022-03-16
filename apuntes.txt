@@ -1,0 +1,14 @@
+No hay retorno en el admin
+
+Al registrar, solo manda cuadro verde, no hay una confirmación..
+
+una vez que termina debe mandarse correo al cliente con un PDF de lo capturado y un correo al cliente.
+
+el boton regresar al panel de los formularios.
+
+en el workflow pintar color rojo si hace falta algo, y si estan completas que los pinte verde
+
+en el panel de forms agregar la opcion de agregar pais
+
+en el form de korea no muestra el upload images
+

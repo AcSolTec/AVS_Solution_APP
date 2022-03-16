@@ -37,6 +37,11 @@
             </div>
             <div class="container overflow-hidden">
                 <!--multisteps-form-->
+                <form asp-action="Index" asp-controller="Formularies" method="post">
+                    <div class="content__title content__title--m-sm">
+                        <button class="btn btn-success" type="submit" title="Return">@Localizer["but.Return"]</button>
+                    </div>
+                </form>
                 <div class="multisteps-form">
                     <!--progress bar-->
                     <div class="row">
@@ -64,7 +69,7 @@
                                                 </select>
                                                 <label style="color:red">@Localizer["formSK.infcount"]</label>
                                             </div>
-                                            @{ 
+                                            @{
                                                 ViewBag.Male = false;
                                                 ViewBag.Female = false;
 
@@ -167,7 +172,7 @@
                                                 <select id="ddCountryOtherSK" class="multisteps-form__select form-control" asp-for="countries.IdCatCountry" asp-items="@(new SelectList(@ViewBag.itemsCountries, "IdCatCountry", "Country"))">
                                                 </select>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-12">
@@ -231,7 +236,7 @@
                                             <div class="col-12 col-sm-7">
                                                 <input id="txtNumberKorea" maxlength="50" class="multisteps-form__input form-control" type="text" value="@ViewBag.mob" />
                                             </div>
-                                            <div class="col-12 col-sm-12"> 
+                                            <div class="col-12 col-sm-12">
                                                 <label style="color:red">@Localizer["formSK.infChanges"]</label>
                                             </div>
                                             <div class="col-12 col-sm-12">

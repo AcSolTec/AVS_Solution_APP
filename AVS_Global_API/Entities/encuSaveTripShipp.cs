@@ -19,5 +19,10 @@ namespace AVS_Global_API.Entities
         public bool? bitRschf750 { get; set; }
         public bool? bitEschf22 { get; set; }
         public bool? bitCourierNatInt { get; set; }
+        public string SurnameShip { get; set; }
+        public string FirstNameShip { get; set; }
+        public string AddressShip { get; set; }
+        public string ZipCodeShip { get; set; }
+        public string TownShip { get; set; }
     }
 }
