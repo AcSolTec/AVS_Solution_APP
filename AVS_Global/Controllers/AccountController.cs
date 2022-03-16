@@ -113,7 +113,7 @@ namespace AVS_Global.Controllers
                 }
                 else
                 {
-                    dataMessa = response.Content;
+                    dataMessa = responseAPI.Message;
                 }
 
             }

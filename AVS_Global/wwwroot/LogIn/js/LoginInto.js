@@ -79,7 +79,7 @@ $(document).ready(function () {
                 success: function (result) {
                     console.log(result);
                     if (result.message == 'OK') {
-                        window.location.href = '/Account/Login';
+                        window.location.href = urlHost + '/Account/Login';
                     }
                     else {
                         $('#pMeesage').text(result.messagePage);
