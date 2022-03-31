@@ -40,12 +40,17 @@ namespace AVS_Global.Controllers
         
 
         [HttpPost]
-        public IActionResult ChangeLanguage(string culture, string returnUrl, string idForm)
+        public IActionResult ChangeLanguage(string culture, string returnUrl, string idForm, string countryName)
         {
             if (!string.IsNullOrEmpty(idForm))
             {
                 HttpContext.Session.SetString("_Form", idForm.Trim());
                 HttpContext.Session.SetString("_chLan", "1");
+            }
+
+            if (countryName == "South Korea")
+            {
+                culture = "en-US";
             }
 
             Response.Cookies.Append(

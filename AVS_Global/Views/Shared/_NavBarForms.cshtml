@@ -59,6 +59,7 @@
                         <form asp-action="ChangeLanguage" asp-controller="Formularies" method="post">
                             <input type="hidden" id="returnUrl" name="returnUrl" value="@returnUrl" />
                             <input type="hidden" id="idForm" name="idForm" value="@ViewData["Form"]" />
+                            <input type="hidden" id="NameCon" name="CountryName" value="@ViewBag.CountryName" />
 
                             <select id="culture"
                                     name="culture"
