@@ -57,7 +57,10 @@ namespace AVS_Global.Controllers
                     }
             );
 
-            return LocalRedirect(returnUrl);
+            //Production SITE
+            string urlProd = "/avs" + returnUrl;
+
+            return LocalRedirect(urlProd);
         }
 
         public IActionResult Index()
@@ -369,40 +372,6 @@ namespace AVS_Global.Controllers
 
                 #endregion
 
-
-                _services.AddControllers();
-
-                _services.AddLocalization(options =>
-                {
-                    options.ResourcesPath = "Resources";
-                });
-
-                _services.AddControllersWithViews()
-                    .AddViewLocalization();
-
-                _services.Configure<RequestLocalizationOptions>(options =>
-                {
-                    options.DefaultRequestCulture = new RequestCulture("en-US");
-
-                    var cultures = new CultureInfo[]
-                    {
-                    new CultureInfo("en-US"),
-                   new CultureInfo("de-DE")
-
-                    };
-
-                    options.SupportedCultures = cultures;
-                    options.SupportedUICultures = cultures;
-                });
-
-                _services.AddControllersWithViews();
-
-                _services.AddSession(op =>
-                {
-                    op.IdleTimeout = TimeSpan.FromMinutes(60);
-                });
-
-                _services.AddMvc();
 
                 return View();
             }
@@ -1327,73 +1296,13 @@ namespace AVS_Global.Controllers
             //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
 
+        public ActionResult saveFormCuba()
+        {
+            string dataMessa = string.Empty;
 
 
-        //public ActionResult sendImages(IList<IFormFile> files, int idForm)
-        //{
-
-        //    var req = files;
-
-        //    var client = new RestClient("https://localhost:44330/api/Cuba/recieveImagesCuba");
-        //    var request = new RestRequest(Method.POST);
-
-
-        //    byte[] passportAdult = null;
-        //    byte[] passportChild = null;
-
-
-        //    using (var ms = new MemoryStream())
-        //    {
-        //        files[0].CopyTo(ms);
-        //        var fileBytesAd = ms.ToArray();
-        //        passportAdult = fileBytesAd;
-        //    }
-
-        //    using (var ms = new MemoryStream())
-        //    {
-        //        files[1].CopyTo(ms);
-        //        var fileBytesChi = ms.ToArray();
-        //        passportChild = fileBytesChi;
-        //    }
-
-
-
-        //    //Models.cuSavePassports dataAccount = new Models.cuSavePassports();
-        //    //dataAccount.idForm = idForm;
-        //    //dataAccount.pasportAdult = passportAdult;
-        //    //dataAccount.pasportChild = passportChild;
-
-        //    request.AddHeader("Content-Type", "false");
-        //    request.AddHeader("processData", "false");
-        //    request.AddFile("files", passportAdult, "passportAdult");
-        //    request.AddFile("files", passportChild, "passportChild");
-        //    request.AddParameter("idForm", idForm, ParameterType.RequestBody);
-
-
-        //    //request.AddJsonBody(dataAccount);
-
-
-        //    var response = client.Execute(request);
-
-
-        //    string content = response.Content.Replace("\"", "");
-        //    string dataMessa = string.Empty;
-
-        //    if (response.StatusCode == HttpStatusCode.OK)
-        //    {
-
-        //        if (content == "OK")
-        //        {
-        //            dataMessa = "OK";
-        //        }
-        //        else
-        //        {
-        //            dataMessa = response.Content;
-        //        }
-
-        //    }
-        //    return Json(new { status = true, message = "", messagePage = "" });
-        //}
+            return Json(new { status = true, message = dataMessa, messagePage = "Form of CUBA data saved" });
+        }
 
 
         #endregion
@@ -1488,8 +1397,9 @@ namespace AVS_Global.Controllers
         }
 
 
+        #region FormSouthKorea
         public ActionResult SavePersonalInfo(int idForm, int idCountry, string name, string surName, bool bitSex, bool BitNameUk,
-                                                    bool bitSurNamUk, string passNum, string dateBirth, string dateExpired)
+                                                  bool bitSurNamUk, string passNum, string dateBirth, string dateExpired)
         {
             string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
             var client = new RestClient(urlApiKorea + "SavePersonalInfo");
@@ -1594,6 +1504,8 @@ namespace AVS_Global.Controllers
             ViewBag.items = response.Data;
             return View(response.Data);
         }
+
+        #endregion
 
 
     }
