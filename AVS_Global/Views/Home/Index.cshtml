@@ -12,12 +12,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">AVS</h1>
+                    <h1 class="m-0">AVS | Allviusum service</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item active">Reviews Forms</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,7 +27,7 @@
     <!-- Main content -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">DataTable with default features</h3>
+            <h3 class="card-title">Review forms with status awaiting authorization</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -39,6 +39,7 @@
                         <th>Customer</th>
                         <th>Status</th>
                         <th>Action</th>
+                        <th>View Form</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,6 +59,7 @@
                                 @item.status
                             </td>
                             <td>@Html.ActionLink("Authorize", "Auth", new { idform = item.idForm })</td>
+                            <td>@Html.ActionLink("View", "CreatePDF","Formularies", new { idform = item.idForm })</td>
                         </tr>
 
                     }
@@ -69,6 +71,7 @@
                         <th>Customer</th>
                         <th>Status</th>
                         <th>Action</th>
+                        <th>View Form</th>
                     </tr>
                 </tfoot>
             </table>
@@ -76,4 +79,5 @@
     </div>
     <!-- /.content -->
 </div>
+
 <!-- /.content-wrapper -->

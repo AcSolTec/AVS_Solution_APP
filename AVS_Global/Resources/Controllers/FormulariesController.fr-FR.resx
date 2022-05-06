@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btn.next" xml:space="preserve">
+    <value>Suivants</value>
+  </data>
+  <data name="btn.prev" xml:space="preserve">
+    <value>Précédente</value>
+  </data>
+  <data name="but.Return" xml:space="preserve">
+    <value>Retour aux formulaires</value>
+  </data>
+  <data name="formCU.addr" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="formCU.bloq1" xml:space="preserve">
+    <value>Les cartes touristiques pour Cuba ne peuvent pas être annulées ou retournées. La carte coûte 65 CHF pour les adultes et 50 CHF pour les enfants jusqu´à 16 ans. Les frais ne sont pas remboursables. J´ai lu et j´accepte ces conditions</value>
+  </data>
+  <data name="formCU.bloq2" xml:space="preserve">
+    <value>Cette carte de touriste ne sera pas valide si vous voyagez au-dessus / en provenance des États-Unis à Cuba.Dans ce cas, vous devez obtenir la carte directement aux États-Unis.</value>
+  </data>
+  <data name="formCU.bloq3" xml:space="preserve">
+    <value>Le passeport doit être valable au moins 6 mois après le retour de Cuba</value>
+  </data>
+  <data name="formCU.chf22" xml:space="preserve">
+    <value>Courrier express Suisse: 22.00 CHF</value>
+  </data>
+  <data name="formCU.chf5" xml:space="preserve">
+    <value>A-Post Plus (assuré, livraison sans signature),: 5.00 CHF</value>
+  </data>
+  <data name="formCU.chf750" xml:space="preserve">
+    <value>Courrier recommandé Suisse : 7.50 CHF</value>
+  </data>
+  <data name="formCU.chfnatint" xml:space="preserve">
+    <value>Voyage de coursier national / international : Prix sur demande</value>
+  </data>
+  <data name="formCU.dtDep" xml:space="preserve">
+    <value>Date de départ de Cuba</value>
+  </data>
+  <data name="formCU.dtEntry" xml:space="preserve">
+    <value>Date d´entrée à Cuba</value>
+  </data>
+  <data name="formCU.emad" xml:space="preserve">
+    <value>Adresse e-mail</value>
+  </data>
+  <data name="formCU.Fact" xml:space="preserve">
+    <value>Facture (+10.00 CHF) Paiement anticipé</value>
+  </data>
+  <data name="formCU.gtc1" xml:space="preserve">
+    <value>J´ai lu les conditions générales</value>
+  </data>
+  <data name="formCU.gtc2" xml:space="preserve">
+    <value>et je les accepte</value>
+  </data>
+  <data name="formCU.mailestb" xml:space="preserve">
+    <value>Adresse e-mail</value>
+  </data>
+  <data name="formCU.MetPay" xml:space="preserve">
+    <value>Procédé de paiement</value>
+  </data>
+  <data name="formCU.name" xml:space="preserve">
+    <value>Prénom(s)</value>
+  </data>
+  <data name="formCU.No" xml:space="preserve">
+    <value>Ne pas</value>
+  </data>
+  <data name="formCU.numAd" xml:space="preserve">
+    <value>Adultes</value>
+  </data>
+  <data name="formCU.numChi" xml:space="preserve">
+    <value>Enfants (0-16 ans)</value>
+  </data>
+  <data name="formCU.numsAC" xml:space="preserve">
+    <value>Indiquez le nombre de cartes de tourisme que vous souhaitez acheter</value>
+  </data>
+  <data name="formCU.pssAd" xml:space="preserve">
+    <value>Enfants (0-16 ans)</value>
+  </data>
+  <data name="formCU.pssCh" xml:space="preserve">
+    <value>Passeport(s) pour adultes</value>
+  </data>
+  <data name="formCU.reInf" xml:space="preserve">
+    <value>J'ai lu ces informations et je confirme que je suis conscient que toute erreur dans les détails du passeport fournis dans ma demande entraînera l'entrée à Cuba à un point de passage de la frontière.</value>
+  </data>
+  <data name="formCU.shipAd" xml:space="preserve">
+    <value>Pasaporte(s) para menores de edad</value>
+  </data>
+  <data name="formCU.shipTo" xml:space="preserve">
+    <value>L´adresse de livraison est-elle différente de l´adresse de contact ?</value>
+  </data>
+  <data name="formCU.surname" xml:space="preserve">
+    <value>Nom(s),de famille</value>
+  </data>
+  <data name="formCU.tbDep" xml:space="preserve">
+    <value>Date Sortie</value>
+  </data>
+  <data name="formCU.tbEntry" xml:space="preserve">
+    <value>Date Entrée</value>
+  </data>
+  <data name="formCU.tbName" xml:space="preserve">
+    <value>Nom(s)</value>
+  </data>
+  <data name="formCU.tbNumAdl" xml:space="preserve">
+    <value># Adultes</value>
+  </data>
+  <data name="formCU.tbNumChld" xml:space="preserve">
+    <value># Enfants</value>
+  </data>
+  <data name="formCU.tbSure" xml:space="preserve">
+    <value>Ap(s)</value>
+  </data>
+  <data name="formCU.tbTel" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="formCU.TitSum" xml:space="preserve">
+    <value>Informations importantes</value>
+  </data>
+  <data name="formCU.tnum" xml:space="preserve">
+    <value>Numéro de téléphone</value>
+  </data>
+  <data name="formCU.twn" xml:space="preserve">
+    <value>Ville</value>
+  </data>
+  <data name="formCU.yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="formCU.zc" xml:space="preserve">
+    <value>code postal</value>
+  </data>
+  <data name="navBar.lan" xml:space="preserve">
+    <value>choisir une langue</value>
+  </data>
+  <data name="steps.cd" xml:space="preserve">
+    <value>Coordonnées</value>
+  </data>
+  <data name="steps.pay" xml:space="preserve">
+    <value>Paiement</value>
+  </data>
+  <data name="steps.sk.pi" xml:space="preserve">
+    <value>Information personnelle</value>
+  </data>
+  <data name="steps.sk.ri" xml:space="preserve">
+    <value>Information requise</value>
+  </data>
+  <data name="steps.sk.uf" xml:space="preserve">
+    <value>Téléchargement de fichiers</value>
+  </data>
+  <data name="steps.sum" xml:space="preserve">
+    <value>Résumé</value>
+  </data>
+  <data name="steps.ts" xml:space="preserve">
+    <value>Détails voyage et livraison</value>
+  </data>
+</root>

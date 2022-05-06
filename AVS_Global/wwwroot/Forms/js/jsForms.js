@@ -1,7 +1,11 @@
 ﻿$(document).ready(function () {
 
+   
+
     //var urlHost = '/avs';
     var urlHost = '';
+
+    
 
     //PAKISTAN FORM
     $("#btnPersonalDet").click(function () {

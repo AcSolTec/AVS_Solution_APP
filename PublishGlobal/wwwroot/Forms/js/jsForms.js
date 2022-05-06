@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
 
-    var urlHost = '/avs';
+    //var urlHost = '/avs';
+    var urlHost = '';
 
     //PAKISTAN FORM
     $("#btnPersonalDet").click(function () {
@@ -1088,19 +1089,19 @@
         var formData = new FormData();
         formData.append('files', $('#fuPassAdult')[0].files[0]);
         formData.append('files', $('#fuPassChild')[0].files[0]);
-        formData.append('idForm', idForm);
+        
 
        $.ajax(
-            {
+           {
                 type: "POST",
-                url: 'http://localhost/avs_api/api/cuba/recieveImagesCuba',
+                url: 'http://localhost/avs_api/api/cuba/recieveImagesCuba?idForm=' + idForm,
                 data: formData,
                 processData: false,
                 contentType: false,
                 error: function (result) {
                     //alert("There is a Problem, Try Again!");
                 },
-                success: function (result) {
+               success: function (result) {
                     console.log('resultado ' + result);
                     if (result.message == 'OK') {
                         //window.location.href = '/Formularies/Login';

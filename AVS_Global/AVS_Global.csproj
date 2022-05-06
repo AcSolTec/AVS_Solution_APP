@@ -4,9 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
 	  <RestoreFallbackFolders>clear</RestoreFallbackFolders>
+	  <Configurations>Debug;Release;pdf_creator</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.15">

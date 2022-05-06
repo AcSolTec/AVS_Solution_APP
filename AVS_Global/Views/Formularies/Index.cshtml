@@ -1,5 +1,4 @@
-﻿
-@using AVS_Global.Controllers
+﻿@using AVS_Global.Controllers
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Localization
 @model AVS_Global.Models.CatModelsView
@@ -53,23 +52,23 @@
                             @foreach (var item in ViewBag.forms)
                             {
                                 var nameForm = "Form" + item.country + "?idForm=" + item.idForm;
-                                    <tr>
-                                        <td>
-                                            @item.idForm
-                                        </td>
-                                        <td>
-                                            @item.country
-                                        </td>
-                                        <td>
-                                            @item.customer
-                                        </td>
-                                        <td>
-                                            @item.status
-                                        </td>
-                                        <td><a href="@Url.Content(nameForm)">Go to Form</a></td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        @item.idForm
+                                    </td>
+                                    <td>
+                                        @item.country
+                                    </td>
+                                    <td>
+                                        @item.customer
+                                    </td>
+                                    <td>
+                                        @item.status
+                                    </td>
+                                    <td><a href="@Url.Content(nameForm)">Go to Form</a></td>
+                                </tr>
 
-                                }
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -81,6 +80,12 @@
     <script src="~/script.js"></script>
     <script src="~/Bootstrap/js/jquery-1.8.3.min.js"></script>
     <script src="~/Bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $('#culture option:contains("English (United States)")').attr("disabled", "disabled");
+        $('#culture option:contains("Spanish (Mexico)")').attr("style", "display:none");
+        $('#culture option:contains("French (France)")').attr("style", "display:none");
+        $('#culture option:contains("German (Germany)")').attr("style", "display:none");
+    </script>
 </body>
 </html>
 <!-- /.content-wrapper -->

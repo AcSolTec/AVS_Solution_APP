@@ -1,0 +1,64 @@
+{
+  "TerminalId": "17869305",
+  "Payment": {
+    "Amount": {
+      "Value": "245",
+      "CurrencyCode": "EUR"
+    },
+    "OrderId": 9,
+    "Description": "Test Order #9"
+  },
+  "Notification": {
+    "SuccessNotifyUrl": "https://shop.saferpay.eu:443/saferpayintegration/status_safp_success_notify.php?sessionId=9",
+    "FailNotifyUrl": "https://shop.saferpay.eu:443/saferpayintegration/status_safp_fail_notify.php?sessionId=9"
+  },
+  "Payer": {
+    "BillingAddress": {
+      "FirstName": "John",
+      "LastName": "Doe",
+      "Email": "john.doe@provider.com",
+      "CountryCode": "de"
+    }
+  },
+  "Order": {
+    "Items": [
+      {
+        "Type": "DIGITAL",
+        "Quantity": 1,
+        "Name": "Test product",
+        "UnitPrice": 245
+      }
+    ]
+  },
+  "RiskFactors": {
+    "DeliveryType": "HOMEDELIVERY",
+    "PayerProfile": {
+      "HasAccount": false,
+      "HasPassword": false,
+      "FirstName": "John",
+      "LastName": "Doe",
+      "DateOfBirth": "1990-12-17",
+      "Gender": "MALE",
+      "Email": "john.doe@provider.com",
+      "Phone": {
+        "Main": "+411234509876",
+        "Mobile": "+410987612345"
+      }
+    }
+  },
+  "RequestHeader": {
+    "SpecVersion": "1.27",
+    "CustomerId": "242225",
+    "RequestId": "fe8bd27cea055af6cd307041031beab4",
+    "RetryIndicator": 0,
+    "ClientInfo": {
+      "ShopInfo": "My Shop",
+      "OsInfo": "Windows Server 2013"
+    }
+  },
+  "ReturnUrls": {
+    "Success": "https://shop.saferpay.eu:443/saferpayintegration/status_success.php?sessionId=9",
+    "Fail": "https://shop.saferpay.eu:443/saferpayintegration/status_fail.php?sessionId=9",
+    "Abort": "https://shop.saferpay.eu:443/saferpayintegration/status_abort.php?sessionId=9"
+  }
+}

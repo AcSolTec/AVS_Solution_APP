@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
 	  <RestoreFallbackFolders>clear</RestoreFallbackFolders>
+	  <Configurations>Debug;Release;pdf_creator</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

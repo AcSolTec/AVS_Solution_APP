@@ -1,0 +1,63 @@
+{
+  "TerminalId": "17869305",
+  "Payment": {
+    "Amount": {
+      "Value": "200",
+      "CurrencyCode": "EUR"
+    },
+    "OrderId": "1010",
+    "Description": "Visa of CUBA"
+  },
+  "Notification": {
+    "SuccessNotifyUrl": "https://shop.saferpay.eu:443/saferpayintegration/status_safp_success_notify.php?sessionId=0",
+    "FailNotifyUrl": "https://shop.saferpay.eu:443/saferpayintegration/status_safp_fail_notify.php?sessionId=0"
+  },
+  "Payer": {
+    "BillingAddress": {
+      "FirstName": "John",
+      "LastName": "Doe",
+      "Email": "john.doe@provider.com",
+      "CountryCode": "de"
+    }
+  },
+  "Order": {
+    "Items": [
+      {
+        "Type": "DIGITAL",
+        "Quantity": "1",
+        "Name": "Test product",
+        "UnitPrice": "245"
+      }
+    ]
+  },
+  "RiskFactors": {
+    "DeliveryType": "HOMEDELIVERY",
+    "PayerProfile": {
+      "HasAccount": "false",
+      "HasPassword": "false",
+      "FirstName": "John",
+      "LastName": "Doe",
+      "DateOfBirth": "1990-12-17",
+      "Gender": "MALE",
+      "Email": "john.doe@provider.com",
+      "Phone": {
+        "Main": "+411234509876",
+        "Mobile": "+410987612345"
+      }
+    }
+  },
+  "RequestHeader": {
+    "SpecVersion": "1.27",
+    "CustomerId": "251768",
+    "RequestId": "9925fcaef5039b182b006d7219e28f05",
+    "RetryIndicator": "0",
+    "ClientInfo": {
+      "ShopInfo": "My Shop",
+      "OsInfo": "Windows Server 2013"
+    }
+  },
+  "ReturnUrls": {
+    "Success": null,
+    "Fail": null
+  }
+}

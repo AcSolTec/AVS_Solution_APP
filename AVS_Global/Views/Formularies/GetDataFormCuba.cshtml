@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Form | CUBA</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/admin/dist/css/adminlte.min.css">
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        tr {
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image">
+            <br />
+            <br />
+            <br />
+            <img src="~/AVS_logo.png" width="150px;" height="70px;" alt="Allvisum">
+        </div>
+        <br />
+        <br />
+         <table style="border:none">
+             <tr>
+
+             </tr>
+            <tr>
+                <td>Country: <b>CUBA</b></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>Formularie: <b>@ViewBag.Form</b></td>
+            </tr>
+        </table>
+        <br />
+
+        <table>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Address</th>
+                <th>ZipCode</th>
+                <th>Town</th>
+                <th>E-Mail</th>
+                 <th>Tel</th>
+            </tr>
+            <tr>
+                <td>@ViewBag.Name</td>
+                <td>@ViewBag.surName</td>
+                <td>@ViewBag.Address</td>
+                <td>@ViewBag.ZipCode</td>
+                <td>@ViewBag.Town</td>
+                <td>@ViewBag.email</td>
+                <td>@ViewBag.tel</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+<!-- jQuery -->
+<script src="~/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+</html>

@@ -1,3 +1,6 @@
+using AVS_Global.Utilty;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,6 +29,10 @@ namespace AVS_Global
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             services.AddControllers();
 
@@ -44,8 +52,8 @@ namespace AVS_Global
                 {
                     new CultureInfo("en-US"),
                     new CultureInfo("es-MX"),
-
-                    //new CultureInfo("de-DE")
+                    new CultureInfo("de-DE"),
+                    new CultureInfo("fr-FR")
 
                 };
 

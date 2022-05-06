@@ -159,6 +159,9 @@
   <data name="formCU.emad" xml:space="preserve">
     <value>E-Mail Address</value>
   </data>
+  <data name="formCU.Fact" xml:space="preserve">
+    <value>Invoice (+10.00 CHF) Prepayment</value>
+  </data>
   <data name="formCU.gtc1" xml:space="preserve">
     <value>I have read </value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="formCU.mailestb" xml:space="preserve">
     <value>E-Mail</value>
+  </data>
+  <data name="formCU.MetPay" xml:space="preserve">
+    <value>Payment method</value>
   </data>
   <data name="formCU.name" xml:space="preserve">
     <value>First Name</value>

@@ -361,7 +361,7 @@
                                 </div>
                                 <!--Paymet-->
                                 <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                                    <h3 class="multisteps-form__title">Method of payment's</h3>
+                                    <h3 class="multisteps-form__title">@Localizer["formCU.MetPay"]</h3>
                                     <div class="multisteps-form__content">
                                         <div class="form-row mt-4">
                                             @*<a href="https://test.saferpay.com/vt2/api/PaymentPage/242225/17869305/qm2p4c21z15hgtd4djp2twfp8" data-lightbox="paymentForm">
@@ -375,7 +375,7 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="rdOnline">
                                                     <label class="form-check-label" for="flexRadioDefault1">
-                                                        Online Payment
+                                                        @Localizer["formCU.MetPay"]
                                                     </label>
                                                 </div>
                                             </div>
@@ -385,21 +385,12 @@
 
                                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="rdFormat" checked>
                                                     <label class="form-check-label" for="flexRadioDefault2">
-                                                        Format - 2
+                                                        @Localizer["formCU.Fact"]
                                                     </label>
                                                 </div>
                                             </div>
 
                                             <iframe id="frmOnlineBuy" name="fields-card-number" scrolling="yes" width="100%" src=""></iframe>
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
                                             <br />
                                             <br />
                                             <br />
@@ -497,130 +488,10 @@
 
 
 
-        if ($('#rdOnline').click(function () {
-
-            //replace names of customer
-
-
-
-            //code sample test or prod
-            //{
-            //    "RequestHeader": {
-            //        "SpecVersion": "[current Spec-Version]",
-            //            "CustomerId": "[your customer id]",
-            //                "RequestId": "[unique request identifier]",
-            //                    "RetryIndicator": 0
-            //    },
-            //    "TerminalId": "[your terminal id]",
-            //        "Payment": {
-            //        "Amount": {
-            //            "Value": "100",
-            //                "CurrencyCode": "CHF"
-            //        },
-            //        "OrderId": "Id of the order",
-            //            "Description": "Description of payment"
-            //    },
-            //    "ReturnUrls": {
-            //        "Success": "[your shop payment success url]",
-            //            "Fail": "[your shop payment fail url]"
-            //    }
-            //}
-
-
-            $.ajax(
-                {
-                    type: "POST",
-                    url: 'https://test.saferpay.com/api/payment/v1/PaymentPage/Initialize',
-                    data: JSON.stringify({
-                        "TerminalId": "17869305",
-                        "Payment": {
-                            "Amount": {
-                                "Value": "245",
-                                "CurrencyCode": "EUR"
-                            },
-                            "OrderId": 13,
-                            "Description": "Test Order #13"
-                        },
-                        "Notification": {
-                            "SuccessNotifyUrl": "https://shop.saferpay.eu:443/saferpayintegration/status_safp_success_notify.php?sessionId=13",
-                            "FailNotifyUrl": "https://shop.saferpay.eu:443/saferpayintegration/status_safp_fail_notify.php?sessionId=13"
-                        },
-                        "Payer": {
-                            "BillingAddress": {
-                                "FirstName": "John",
-                                "LastName": "Doe",
-                                "Email": "john.doe@provider.com",
-                                "CountryCode": "de"
-                            }
-                        },
-                        "Order": {
-                            "Items": [
-                                {
-                                    "Type": "DIGITAL",
-                                    "Quantity": 1,
-                                    "Name": "Test product",
-                                    "UnitPrice": 245
-                                }
-                            ]
-                        },
-                        "RiskFactors": {
-                            "DeliveryType": "HOMEDELIVERY",
-                            "PayerProfile": {
-                                "HasAccount": false,
-                                "HasPassword": false,
-                                "FirstName": "John",
-                                "LastName": "Doe",
-                                "DateOfBirth": "1990-12-17",
-                                "Gender": "MALE",
-                                "Email": "john.doe@provider.com",
-                                "Phone": {
-                                    "Main": "+411234509876",
-                                    "Mobile": "+410987612345"
-                                }
-                            }
-                        },
-                        "RequestHeader": {
-                            "SpecVersion": "1.27",
-                            "CustomerId": "242225",
-                            "RequestId": "a51cbb17200880ea2099911fa95604b5",
-                            "RetryIndicator": 0,
-                            "ClientInfo": {
-                                "ShopInfo": "My Shop",
-                                "OsInfo": "Windows Server 2013"
-                            }
-                        },
-                        "ReturnUrls": {
-                            "Success": "https://shop.saferpay.eu:443/saferpayintegration/status_success.php?sessionId=13",
-                            "Fail": "https://shop.saferpay.eu:443/saferpayintegration/status_fail.php?sessionId=13",
-                            "Abort": "https://shop.saferpay.eu:443/saferpayintegration/status_abort.php?sessionId=13"
-                        }
-                    }),
-                    error: function (result) {
-                        alert("There is a Problem, Try Again!");
-                    },
-                    success: function (result) {
-
-                        $("#frmOnlineBuy").attr('src', result.RedirectUrl);
-
-                        console.log(result);
-                        alert(result);
-                    }
-                });
-
-
-        }));
-
-
-
-        $(window).bind('message', function (e) {
-            switch (e.originalEvent.data.message) {
-                case 'css':
-                    $('#iframe').css('height', e.originalEvent.data.height + "px");
-                    break;
-            }
-        });
+   
 
     </script>
+    <script src="~/Forms/js/jsCallPayment.js"></script>
     <script src="~/Forms/js/jsForms.js"></script>
 </body>
 </html>

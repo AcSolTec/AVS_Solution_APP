@@ -308,62 +308,6 @@
     <script src="~/Bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Bootstrap/js/bootstrap-datetimepicker.js"></script>
     <script src="~/Forms/js/jsForms.js"></script>
-    <script>
-        $('#dtBirthSK').datetimepicker({
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0
-        });
-
-        $('#dtExpiredSK').datetimepicker({
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0
-        });
-
-
-        function onlyOneArres(checkbox) {
-            var checkboxes = document.getElementsByName('checkArres');
-            checkboxes.forEach((item) => {
-                if (item !== checkbox) item.checked = false
-            });
-        }
-
-        function onlyOneCUSU(checkbox) {
-            var checkboxes = document.getElementsByName('checkcusu');
-            checkboxes.forEach((item) => {
-                if (item !== checkbox) item.checked = false
-            });
-        }
-
-        function onlyOneYesNop(checkbox) {
-            var checkboxes = document.getElementsByName('checkhVisi');
-            checkboxes.forEach((item) => {
-                if (item !== checkbox) item.checked = false
-            });
-        }
-
-        function onlyOneSex(checkbox) {
-            var checkboxes = document.getElementsByName('checkMF');
-            checkboxes.forEach((item) => {
-                if (item !== checkbox) item.checked = false
-            });
-        }
-
-        function onlyOneOtCo(checkbox) {
-            var checkboxes = document.getElementsByName('checkAC');
-            checkboxes.forEach((item) => {
-                if (item !== checkbox) item.checked = false
-            });
-        }
-    </script>
+    <script src="~/Forms/js/jsSK.js"></script>
 </body>
 </html>

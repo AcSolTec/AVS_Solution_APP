@@ -1,4 +1,8 @@
-﻿$(document).ready(function () {
+﻿//var urlHost = '/avs';
+var urlHost = '';
+
+$(document).ready(function () {
+
 
 
     function validateAccount(valor) {
@@ -58,10 +62,11 @@
         }
 
 
+
         $.ajax(
             {
                 type: "POST",
-                url: '/Account/SaveCustomer',
+                url: urlHost + '/Account/SaveCustomer',
                 data: {
                     RegisteredMail: user,
                     Pass: pass,
@@ -74,7 +79,7 @@
                 success: function (result) {
                     console.log(result);
                     if (result.message == 'OK') {
-                        window.location.href = '/Account/Login';
+                        window.location.href = urlHost + '/Account/Login';
                     }
                     else {
                         $('#pMeesage').text(result.messagePage);
@@ -94,7 +99,6 @@
 
 
 function Validate() {
-
 
 
     
@@ -121,24 +125,25 @@ function Validate() {
     $.ajax(
         {
             type: "POST",
-            url: '/Account/Validate',
+            url: urlHost+'/Account/Validate',
             data: {
                 user: user,
                 pass: pass
             },
             error: function (result) {
                 alert("There is a Problem, Try Again!");
+                console.log(urlHost + '/Account/SaveCustomer');
             },
             success: function (result) {
                 console.log(result.rol);
-
+                console.log(urlHost + '/Account/SaveCustomer');
                 var linktoGo = '';
 
                 if (result.rol == 'Admin') {
 
                 }
                 else if (result.rol == 'Auth') {
-                    linktoGo = '/Home/Index'
+                    linktoGo = urlHost+'/Home/Index'
 
                 }
                 else if (result.rol == 'Cap') {
@@ -146,7 +151,7 @@ function Validate() {
                 }
                 else {
                     //linktoGo = '/Formularies/Form' + result.countrylog;
-                    linktoGo = '/Formularies/Index';
+                    linktoGo = urlHost +'/Formularies/Index';
                 }
 
 

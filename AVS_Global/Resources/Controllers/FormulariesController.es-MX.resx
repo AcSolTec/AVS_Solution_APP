@@ -159,6 +159,9 @@
   <data name="formCU.emad" xml:space="preserve">
     <value>Correo electrónico</value>
   </data>
+  <data name="formCU.Fact" xml:space="preserve">
+    <value>Factura ( +10.00 CHF) Pago anticipado</value>
+  </data>
   <data name="formCU.gtc1" xml:space="preserve">
     <value>He leído </value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="formCU.mailestb" xml:space="preserve">
     <value>Correo</value>
+  </data>
+  <data name="formCU.MetPay" xml:space="preserve">
+    <value>Método de pago</value>
   </data>
   <data name="formCU.name" xml:space="preserve">
     <value>Nombre(s)</value>
@@ -181,7 +187,7 @@
     <value>Menores de edad (0-16 años)</value>
   </data>
   <data name="formCU.numsAC" xml:space="preserve">
-    <value>Adultos</value>
+    <value>Ingresa el Número de Tarjetas de Turista que requieres</value>
   </data>
   <data name="formCU.pssAd" xml:space="preserve">
     <value>Menores de edad (0-16 años)</value>
