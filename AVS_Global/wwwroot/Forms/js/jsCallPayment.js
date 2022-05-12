@@ -10,7 +10,6 @@ $(document).ready(function () {
 
         };
 
-
         $.ajax(
             {
                 type: "POST",
@@ -25,6 +24,7 @@ $(document).ready(function () {
 
                     var d = JSON.parse(result);
                     $("#frmOnlineBuy").attr('src', d.RedirectUrl);
+
                 }
             });
 

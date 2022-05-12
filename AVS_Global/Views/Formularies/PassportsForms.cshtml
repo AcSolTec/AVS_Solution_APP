@@ -1,0 +1,85 @@
+﻿@using AVS_Global.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model AVS_Global.Models.CubaModelView
+
+@inject IStringLocalizer<FormulariesController> Localizer
+@inject IHtmlLocalizer<FormulariesController> HtmlLocalizer
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Passport's Forms</title>
+        <link rel="stylesheet" href="~/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/admin/dist/css/adminlte.min.css">
+</head>
+<body>
+    <div class="content">
+        <div class="content__inner">
+            <button id="btnPassAdult" class="btn btn-success" type="button" title="Choose a pic">Choose a pic</button>
+         @*   <div class="container">
+
+                <div class="form-group">
+                    <label>@Localizer["formCU.pssAd"]</label>
+                    <input id="fuPassAdult" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
+                </div>
+                <div class="form-group">
+                    <label>@Localizer["formCU.pssAd"]</label>
+                    <input id="fuPassChild" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
+                </div>
+
+            </div>*@
+        </div>
+    </div>
+
+    <button id="btnMessagePage" data-toggle="modal" data-target="#modalMessage" style="display:none"></button>
+
+    <div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Please choose a picture's of passoprts</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>@Localizer["formCU.pssAd"]</label>
+                            <input id="fuPassAdult" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
+                        </div>
+                        <div class="form-group">
+                            <label>@Localizer["formCU.pssAd"]</label>
+                            <input id="fuPassChild" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <input class="btn btn-success" type="button" id="btnValidateUser" value="Validar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- jQuery -->
+<script src="~/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script>
+      $("#btnPassAdult").click(function () {
+
+        $('#btnMessagePage').click();
+        $('#lblTitleMess').text('Abastecedora en línea | Error de pagina.');
+        $('#lblMessagePopUp').text('Ocurrio un error inesperado, por favor intente mas tarde.');
+
+    });
+</script>
+</html>

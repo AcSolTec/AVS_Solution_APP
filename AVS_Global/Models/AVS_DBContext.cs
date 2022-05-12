@@ -34,6 +34,8 @@ namespace AVS_Global.Models
         public virtual DbSet<TbConvictionsTravel> TbConvictionsTravels { get; set; }
         public virtual DbSet<TbCountry> TbCountries { get; set; }
         public virtual DbSet<TbCuContactDetail> TbCuContactDetails { get; set; }
+        public virtual DbSet<TbCuPassport> TbCuPassports { get; set; }
+        public virtual DbSet<TbCuPaymentsOnline> TbCuPaymentsOnlines { get; set; }
         public virtual DbSet<TbCuSummary> TbCuSummaries { get; set; }
         public virtual DbSet<TbCuTravShipDet> TbCuTravShipDets { get; set; }
         public virtual DbSet<TbCustomersAv> TbCustomersAvs { get; set; }
@@ -393,6 +395,44 @@ namespace AVS_Global.Models
 
                 entity.Property(e => e.ZipCode)
                     .HasMaxLength(10)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbCuPassport>(entity =>
+            {
+                entity.HasKey(e => e.IdPassport)
+                    .HasName("PK__tb_cu_pa__BAAF27F7AF27C05B");
+
+                entity.ToTable("tb_cu_passports");
+            });
+
+            modelBuilder.Entity<TbCuPaymentsOnline>(entity =>
+            {
+                entity.HasKey(e => e.IdPayment)
+                    .HasName("PK__tb_cu_pa__613289C04CFF1CDD");
+
+                entity.ToTable("tb_cu_payments_online");
+
+                entity.Property(e => e.DateTransc).HasColumnType("datetime");
+
+                entity.Property(e => e.Expiration)
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RedUrl)
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RequestId)
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SpecVersion)
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Token)
+                    .HasMaxLength(1)
                     .IsUnicode(false);
             });
 

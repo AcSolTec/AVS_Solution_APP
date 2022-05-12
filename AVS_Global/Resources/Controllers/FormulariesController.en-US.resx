@@ -126,6 +126,9 @@
   <data name="but.Return" xml:space="preserve">
     <value>Return to Forms</value>
   </data>
+  <data name="form.pay" xml:space="preserve">
+    <value>Payment made successfully!</value>
+  </data>
   <data name="formCU.addr" xml:space="preserve">
     <value>Address</value>
   </data>

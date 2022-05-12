@@ -126,6 +126,9 @@
   <data name="but.Return" xml:space="preserve">
     <value>Zurück zu Formularen</value>
   </data>
+  <data name="form.pay" xml:space="preserve">
+    <value>Zahlung erfolgreich durchgeführt.</value>
+  </data>
   <data name="formCU.addr" xml:space="preserve">
     <value>Adresse</value>
   </data>

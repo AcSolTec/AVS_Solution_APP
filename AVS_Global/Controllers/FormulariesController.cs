@@ -94,6 +94,10 @@ namespace AVS_Global.Controllers
                 var request = new RestRequest(Method.GET);
                 var response = client.Execute<List<Models.FormsCap>>(request);
                 ViewBag.forms = response.Data;
+
+
+
+
                 return View();
             }
             else
@@ -1121,8 +1125,19 @@ namespace AVS_Global.Controllers
             if (ViewData["User"] != null)
             {
 
-                #region catsFormCuba
+                #region isCompleteForm
 
+                using (var context = new Models.AVS_DBContext())
+                {
+
+                    var cubaForm = context.TbFormularies.FirstOrDefault(x => x.IdForm == int.Parse(idForm));
+
+                    if (cubaForm != null)
+                    {
+                        ViewBag.status = cubaForm.IdStatus;
+                    }
+
+                }
 
                 #endregion
 
@@ -1165,6 +1180,24 @@ namespace AVS_Global.Controllers
 
 
                 #endregion
+
+
+                //using (var context = new Models.AVS_DBContext())
+                //{
+                //    var query = context.TbCuPassports
+                //      .Where(s => s.IdPassport == 1)
+                //      .FirstOrDefault<TbCuPassport>();
+
+                //    ViewBag.Passport1 = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(query.Passport));
+
+                //    var query2 = context.TbCuPassports
+                //     .Where(s => s.IdPassport == 2)
+                //     .FirstOrDefault<TbCuPassport>();
+
+                //    ViewBag.Passport2 = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(query2.Passport));
+
+                //}
+
             }
             else
             {
@@ -1229,7 +1262,7 @@ namespace AVS_Global.Controllers
                 Page = "https://localhost:44349/Formularies/GetDataFormCuba?idForm=" + idform,
                 WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
                 HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
-                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Formularie: " + idform }
             };
             var pdf = new HtmlToPdfDocument()
             {
@@ -1242,6 +1275,77 @@ namespace AVS_Global.Controllers
 
         }
 
+
+        public IActionResult ReqPassportsAdults(string idForm, IList<IFormFile> files)
+        {
+            string message = string.Empty;
+            using (var context = new AVS_DBContext())
+            {
+
+                List<TbCuPassport> lstPassport = new List<TbCuPassport>();
+
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+
+                        files[i].CopyTo(ms);
+
+                        TbCuPassport cuPassports = new TbCuPassport();
+                        cuPassports.IdForm = int.Parse(idForm);
+
+                        var fileBytesAd = ms.ToArray();
+
+                        cuPassports.Passport = fileBytesAd;
+                        cuPassports.BitAdult = true;
+                        cuPassports.BitChild = false;
+
+                        lstPassport.Add(cuPassports);
+                    }
+
+                }
+
+                context.TbCuPassports.AddRange(lstPassport);
+                context.SaveChanges();
+            }
+            return Ok(message);
+        }
+
+        public IActionResult ReqPassportsAChildrens(string idForm, IList<IFormFile> files)
+        {
+            string message = string.Empty;
+            using (var context = new AVS_DBContext())
+            {
+                List<TbCuPassport> lstPassport = new List<TbCuPassport>();
+                for (int i = 0; i < files.Count; i++)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+
+                        files[i].CopyTo(ms);
+
+                        TbCuPassport cuPassports = new TbCuPassport();
+                        cuPassports.IdForm = int.Parse(idForm);
+
+                        var fileBytesAd = ms.ToArray();
+
+                        cuPassports.Passport = fileBytesAd;
+                        cuPassports.BitAdult = true;
+                        cuPassports.BitChild = false;
+
+                        lstPassport.Add(cuPassports);
+                    }
+
+                }
+
+                context.TbCuPassports.AddRange(lstPassport);
+                context.SaveChanges();
+
+
+            }
+            return Ok(message);
+        }
 
         public ActionResult SaveConctactDetCuba(int idForm, string firstName, string surName, string address, string zipCode, string town, string emailAddress, string telNum)
         {
@@ -1377,18 +1481,31 @@ namespace AVS_Global.Controllers
             //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
         }
 
-        public ActionResult saveFormCuba()
+        public IActionResult saveFormCuba(int idForm)
         {
             string dataMessa = string.Empty;
 
+            using (var context = new AVS_DBContext())
+            {
 
-            return Json(new { status = true, message = dataMessa, messagePage = "Form of CUBA data saved" });
+                var cubaForm= context.TbFormularies.FirstOrDefault(x => x.IdForm == idForm);
+
+                if (cubaForm != null)
+                {
+                    cubaForm.IdStatus = 2;//CAPTURED
+                }
+
+                context.SaveChanges();
+
+            }
+
+            return RedirectToAction("Index", "Formularies");
         }
 
 
         public ActionResult SubmitRequest(enReqPayment model)
         {
-           
+
 
             Root request = new Root();
             RequestHeader requestHeader = new RequestHeader();
@@ -1456,7 +1573,7 @@ namespace AVS_Global.Controllers
                     var responseData = client.UploadString(sfpUrl, JsonConvert.SerializeObject(request));
 
 
-                    var response =  JsonConvert.DeserializeObject(responseData);
+                    var response = JsonConvert.DeserializeObject(responseData);
 
 
                     return Json(responseData);
@@ -1466,212 +1583,222 @@ namespace AVS_Global.Controllers
                     return Json(new { status = true, message = "Error in web page", messagePage = "CUBA" });
                 }
             }
-           
+
+        }
+
+        public IActionResult paymentSuccess(int idForm, string token, string url)
+        {
+
+
+
+
+
+            return View();
         }
 
 
-            #endregion
+        #endregion
 
 
-            public IActionResult FormSouthKorea()
+        public IActionResult FormSouthKorea()
+        {
+            string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
+            string urlApiSK = urlApiKorea;
+            string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
+
+            var idForm = string.Empty;
+
+            if (HttpContext.Session.GetString("_chLan") != "1")
             {
-                string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
-                string urlApiSK = urlApiKorea;
-                string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
-                ViewBag.Name = HttpContext.Session.GetString("_Name");
-
-                var idForm = string.Empty;
-
-                if (HttpContext.Session.GetString("_chLan") != "1")
-                {
-                    idForm = HttpContext.Request.Query["idForm"].ToString();
-                }
-                else
-                {
-                    idForm = HttpContext.Session.GetString("_Form");
-                    HttpContext.Session.Remove("_chLan");
-                }
-
-                ViewBag.Form = idForm;
-                ViewBag.CountryName = "South Korea";
-                ViewData["User"] = ViewBag.Name;
-                ViewData["Form"] = ViewBag.Form;
-                ViewData["imgForm"] = "flags/SK.png";
-
-                if (ViewData["User"] != null)
-                {
-                    #region CallCatCountries
-                    //Visa requiered
-                    var clientCountry = new RestClient(urlApiCatalogs + "CatCountries");
-                    var request = new RestRequest(Method.GET);
-                    //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
-                    var responseCtry = clientCountry.Execute<List<Models.CatCountries>>(request);
-                    ViewBag.itemsCountries = responseCtry.Data;
-                    #endregion
-
-                    #region CatPurposes
-                    //Visa requiered
-                    var clientPurpose = new RestClient(urlApiCatalogs + "CatPurposes");
-                    //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
-                    int idCountrySK = 3;
-                    var responsePurpose = clientPurpose.Execute<List<Models.CatPurposes>>(request);
-                    ViewBag.itemsPurposes = responsePurpose.Data.Where(x => x.IdCountry == idCountrySK);
-                    #endregion
-
-
-                    var clientCat = new RestClient(urlApiCatalogs + "CatCurrentJobs");
-                    var requestCat = new RestRequest(Method.GET);
-                    var responseCat = clientCat.Execute<List<Models.CatCurrentsJobs>>(requestCat);
-                    ViewBag.itemsCuJobs = responseCat.Data;
-
-                    #region getDataForm
-                    var clientpi = new RestClient(urlApiSK + "getDataPersonalInfo?idForm=" + ViewData["Form"]);
-                    var requestpi = new RestRequest(Method.GET);
-                    //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
-                    var responsepi = clientpi.Execute<Models.skPersonalInfo>(requestpi);
-
-                    if (responsepi.StatusCode == HttpStatusCode.OK)
-                    {
-
-                        ViewBag.nameSK = responsepi.Data.NamePassport;
-                        ViewBag.IdCountrySK = responsepi.Data.IdCountry;
-                        ViewBag.surNameSK = responsepi.Data.Surname;
-                        ViewBag.bitSex = responsepi.Data.BitSex;
-                        ViewBag.bitNameUk = responsepi.Data.BitNameUknown;
-                        ViewBag.bitSurNameUk = responsepi.Data.BitSurNamUknown;
-                        ViewBag.passNumSK = responsepi.Data.PassportNum;
-                        ViewBag.dateBirthSK = responsepi.Data.DateBirth;
-                        ViewBag.dateExpSK = responsepi.Data.DateExpiredPassport;
-
-                    }
-
-
-                    #endregion
-
-
-
-
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Account");
-                }
-
-
-                return View();
+                idForm = HttpContext.Request.Query["idForm"].ToString();
+            }
+            else
+            {
+                idForm = HttpContext.Session.GetString("_Form");
+                HttpContext.Session.Remove("_chLan");
             }
 
+            ViewBag.Form = idForm;
+            ViewBag.CountryName = "South Korea";
+            ViewData["User"] = ViewBag.Name;
+            ViewData["Form"] = ViewBag.Form;
+            ViewData["imgForm"] = "flags/SK.png";
 
-            #region FormSouthKorea
-            public ActionResult SavePersonalInfo(int idForm, int idCountry, string name, string surName, bool bitSex, bool BitNameUk,
-                                                      bool bitSurNamUk, string passNum, string dateBirth, string dateExpired)
+            if (ViewData["User"] != null)
             {
-                string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
-                var client = new RestClient(urlApiKorea + "SavePersonalInfo");
-                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
-                var request = new RestRequest(Method.POST);
-
-                Models.skPersonalInfo pi = new Models.skPersonalInfo();
-                pi.IdForm = idForm;
-                pi.IdCountry = idCountry;
-                pi.NamePassport = name;
-                pi.BitSex = bitSex;
-                pi.BitNameUknown = BitNameUk;
-                pi.Surname = surName;
-                pi.BitSurNamUknown = bitSurNamUk;
-                pi.PassportNum = passNum;
-                pi.DateBirth = dateBirth;
-                pi.DateExpiredPassport = dateExpired;
-
-                request.AddJsonBody(pi);
-
-                var response = client.Execute(request);
-                string content = response.Content.Replace("\"", "");
-                string dataMessa = string.Empty;
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-
-                    if (content == "OK")
-                    {
-                        dataMessa = "OK";
-                    }
-                    else
-                    {
-                        dataMessa = response.Content;
-                    }
-
-                }
-                return Json(new { status = true, message = dataMessa, messagePage = "Personal Info saved" });
-                //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
-            }
-
-
-
-            public ActionResult SaveInformationReq(int idForm, bool bitOtherNat, string mobileNumber, bool bitVisitedKorea, int idCountry, string postalCode,
-                                                        string addressPostal, string numberContactKorea, int IdJob, bool BitInfectiuos15, bool BitArrested, string sponsorName,
-                                                        string addressNumber, string zipCode, string city, int IdPurposeSK)
-            {
-                string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
-                var client = new RestClient(urlApiKorea + "SaveInfoReq");
-                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
-                var request = new RestRequest(Method.POST);
-
-                Models.skInformationReq pi = new Models.skInformationReq();
-                pi.IdForm = idForm;
-                pi.BitOtherNat = bitOtherNat;
-                pi.MobileNumber = mobileNumber;
-                pi.BitVisitedKorea = bitVisitedKorea;
-                pi.IdCountry = idCountry;
-                pi.PostalCode = postalCode;
-                pi.AddressPostal = addressPostal;
-                pi.NumberContactKorea = numberContactKorea;
-                pi.IdJob = IdJob;
-                pi.BitInfectiuos15 = BitInfectiuos15;
-                pi.BitArrested = BitArrested;
-                pi.SponsorName = sponsorName;
-                pi.AddressNumber = addressNumber;
-                pi.ZipCode = zipCode;
-                pi.City = city;
-                pi.IdPurpose = IdPurposeSK;
-
-                request.AddJsonBody(pi);
-
-                var response = client.Execute(request);
-                string content = response.Content.Replace("\"", "");
-                string dataMessa = string.Empty;
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-
-                    if (content == "OK")
-                    {
-                        dataMessa = "OK";
-                    }
-                    else
-                    {
-                        dataMessa = response.Content;
-                    }
-
-                }
-                return Json(new { status = true, message = dataMessa, messagePage = "Info Required saved" });
-                //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
-            }
-
-            public IActionResult catTypeVisasApplied()
-            {
-                string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
-                var client = new RestClient(urlApiPakistan + "CatVisasApplied");
-                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                #region CallCatCountries
+                //Visa requiered
+                var clientCountry = new RestClient(urlApiCatalogs + "CatCountries");
                 var request = new RestRequest(Method.GET);
-                var response = client.Execute<List<Models.CatVisasApplied>>(request);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var responseCtry = clientCountry.Execute<List<Models.CatCountries>>(request);
+                ViewBag.itemsCountries = responseCtry.Data;
+                #endregion
 
-                ViewBag.items = response.Data;
-                return View(response.Data);
+                #region CatPurposes
+                //Visa requiered
+                var clientPurpose = new RestClient(urlApiCatalogs + "CatPurposes");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                int idCountrySK = 3;
+                var responsePurpose = clientPurpose.Execute<List<Models.CatPurposes>>(request);
+                ViewBag.itemsPurposes = responsePurpose.Data.Where(x => x.IdCountry == idCountrySK);
+                #endregion
+
+
+                var clientCat = new RestClient(urlApiCatalogs + "CatCurrentJobs");
+                var requestCat = new RestRequest(Method.GET);
+                var responseCat = clientCat.Execute<List<Models.CatCurrentsJobs>>(requestCat);
+                ViewBag.itemsCuJobs = responseCat.Data;
+
+                #region getDataForm
+                var clientpi = new RestClient(urlApiSK + "getDataPersonalInfo?idForm=" + ViewData["Form"]);
+                var requestpi = new RestRequest(Method.GET);
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var responsepi = clientpi.Execute<Models.skPersonalInfo>(requestpi);
+
+                if (responsepi.StatusCode == HttpStatusCode.OK)
+                {
+
+                    ViewBag.nameSK = responsepi.Data.NamePassport;
+                    ViewBag.IdCountrySK = responsepi.Data.IdCountry;
+                    ViewBag.surNameSK = responsepi.Data.Surname;
+                    ViewBag.bitSex = responsepi.Data.BitSex;
+                    ViewBag.bitNameUk = responsepi.Data.BitNameUknown;
+                    ViewBag.bitSurNameUk = responsepi.Data.BitSurNamUknown;
+                    ViewBag.passNumSK = responsepi.Data.PassportNum;
+                    ViewBag.dateBirthSK = responsepi.Data.DateBirth;
+                    ViewBag.dateExpSK = responsepi.Data.DateExpiredPassport;
+
+                }
+
+
+                #endregion
+
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
             }
 
-            #endregion
 
-
+            return View();
         }
+
+
+        #region FormSouthKorea
+        public ActionResult SavePersonalInfo(int idForm, int idCountry, string name, string surName, bool bitSex, bool BitNameUk,
+                                                  bool bitSurNamUk, string passNum, string dateBirth, string dateExpired)
+        {
+            string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
+            var client = new RestClient(urlApiKorea + "SavePersonalInfo");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.skPersonalInfo pi = new Models.skPersonalInfo();
+            pi.IdForm = idForm;
+            pi.IdCountry = idCountry;
+            pi.NamePassport = name;
+            pi.BitSex = bitSex;
+            pi.BitNameUknown = BitNameUk;
+            pi.Surname = surName;
+            pi.BitSurNamUknown = bitSurNamUk;
+            pi.PassportNum = passNum;
+            pi.DateBirth = dateBirth;
+            pi.DateExpiredPassport = dateExpired;
+
+            request.AddJsonBody(pi);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Personal Info saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+
+
+        public ActionResult SaveInformationReq(int idForm, bool bitOtherNat, string mobileNumber, bool bitVisitedKorea, int idCountry, string postalCode,
+                                                    string addressPostal, string numberContactKorea, int IdJob, bool BitInfectiuos15, bool BitArrested, string sponsorName,
+                                                    string addressNumber, string zipCode, string city, int IdPurposeSK)
+        {
+            string urlApiKorea = _configuration.GetSection("ApiSouthKorea").Value;
+            var client = new RestClient(urlApiKorea + "SaveInfoReq");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.POST);
+
+            Models.skInformationReq pi = new Models.skInformationReq();
+            pi.IdForm = idForm;
+            pi.BitOtherNat = bitOtherNat;
+            pi.MobileNumber = mobileNumber;
+            pi.BitVisitedKorea = bitVisitedKorea;
+            pi.IdCountry = idCountry;
+            pi.PostalCode = postalCode;
+            pi.AddressPostal = addressPostal;
+            pi.NumberContactKorea = numberContactKorea;
+            pi.IdJob = IdJob;
+            pi.BitInfectiuos15 = BitInfectiuos15;
+            pi.BitArrested = BitArrested;
+            pi.SponsorName = sponsorName;
+            pi.AddressNumber = addressNumber;
+            pi.ZipCode = zipCode;
+            pi.City = city;
+            pi.IdPurpose = IdPurposeSK;
+
+            request.AddJsonBody(pi);
+
+            var response = client.Execute(request);
+            string content = response.Content.Replace("\"", "");
+            string dataMessa = string.Empty;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+
+                if (content == "OK")
+                {
+                    dataMessa = "OK";
+                }
+                else
+                {
+                    dataMessa = response.Content;
+                }
+
+            }
+            return Json(new { status = true, message = dataMessa, messagePage = "Info Required saved" });
+            //ResponseApiClubPremier responseAPICP = new JsonDeserializer().Deserialize<ResponseApiClubPremier>(response);
+        }
+
+        public IActionResult catTypeVisasApplied()
+        {
+            string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
+            var client = new RestClient(urlApiPakistan + "CatVisasApplied");
+            //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+            var request = new RestRequest(Method.GET);
+            var response = client.Execute<List<Models.CatVisasApplied>>(request);
+
+            ViewBag.items = response.Data;
+            return View(response.Data);
+        }
+
+        #endregion
+
+
     }
+}

@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+  
+
    
 
     //var urlHost = '/avs';
@@ -1087,34 +1089,34 @@
 
 
 
-        var passportAdult;
-        var passportChild;
+       // var passportAdult;
+       // var passportChild;
 
-        var formData = new FormData();
-        formData.append('files', $('#fuPassAdult')[0].files[0]);
-        formData.append('files', $('#fuPassChild')[0].files[0]);
+       // var formData = new FormData();
+       // formData.append('files', $('#fuPassAdult')[0].files[0]);
+       // formData.append('files', $('#fuPassChild')[0].files[0]);
         
 
-       $.ajax(
-           {
-                type: "POST",
-                url: 'http://localhost/avs_api/api/cuba/recieveImagesCuba?idForm=' + idForm,
-                data: formData,
-                processData: false,
-                contentType: false,
-                error: function (result) {
-                    //alert("There is a Problem, Try Again!");
-                },
-               success: function (result) {
-                    console.log('resultado ' + result);
-                    if (result.message == 'OK') {
-                        //window.location.href = '/Formularies/Login';
-                    }
-                    else {
-                        alert(result.messagePage);
-                    }
-                }
-            });
+       //$.ajax(
+       //    {
+       //         type: "POST",
+       //         url: 'http://localhost/avs_api/api/cuba/recieveImagesCuba?idForm=' + idForm,
+       //         data: formData,
+       //         processData: false,
+       //         contentType: false,
+       //         error: function (result) {
+       //             //alert("There is a Problem, Try Again!");
+       //         },
+       //        success: function (result) {
+       //             console.log('resultado ' + result);
+       //             if (result.message == 'OK') {
+       //                 //window.location.href = '/Formularies/Login';
+       //             }
+       //             else {
+       //                 alert(result.messagePage);
+       //             }
+       //         }
+       //     });
 
 
        
@@ -1152,6 +1154,40 @@
                     comments: comments,
                     bitReadSuccess: bitRead,
                     bitReadGTC: bitGTC
+
+                },
+                error: function (result) {
+                    alert("There is a Problem, Try Again!");
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.message == 'OK') {
+                        //window.location.href = '/Formularies/Login';
+                    }
+                    else {
+
+                        alert(result.messagePage);
+                    }
+                }
+            });
+
+    });
+
+
+    $("#btnSaveForm").click(function () {
+
+
+        //Validation data 
+
+        var idForm = $('#lblidForm').text();
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: urlHost + '/Formularies/saveFormCuba',
+                data: {
+                    idForm: idForm
 
                 },
                 error: function (result) {

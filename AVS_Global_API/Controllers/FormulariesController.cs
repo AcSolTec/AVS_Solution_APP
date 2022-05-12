@@ -19,12 +19,12 @@ namespace AVS_Global_API.Controllers
             {
 
 
-
+                
                 var formularies = (from forms in db.TbFormularies
                                    join countries in db.TbCountries on forms.IdCountry equals countries.IdCountry
                                    join customers in db.TbCustomersAvs on forms.IdCustomer equals customers.IdCustomer
                                    join statusForms in db.TbStatusForms on forms.IdStatus equals statusForms.IdStatus
-                                   where (forms.IdStatus == 1 && customers.RegisteredMail == mailAccount)
+                                   where (customers.RegisteredMail == mailAccount)
                                    select new { IdForm = forms.IdForm, Country = countries.Name, Customer = customers.RegisteredMail, Status = statusForms.Description }).ToList();
 
 
