@@ -162,20 +162,106 @@
 
                                         <div class="form-row mt-4">
                                             <div class="col-12 col-sm-6">
-                                                <button id="btnPassAdult" class="btn btn-success" type="button" title="Choose a pic">Choose's' a passport's Adults</button>
+
+                                                @{
+                                                    if (ViewBag.status == 2) //captured
+                                                    {
+                                                        <button id="btnPassAdult" class="btn btn-success" disabled type="button" title="Choose a pic">Choose's' a passport's Adults</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button id="btnPassAdult" class="btn btn-success" type="button" title="Choose a pic">Choose's' a passport's Adults</button>
+                                                    }
+                                                }
+
+
+
+
                                                 <br />
-                                                <img src="@ViewBag.Passport1" width="150px;" height="70px;" alt="passport 1">
                                                 <br />
-                                                 <img src="@ViewBag.Passport2" width="150px;" height="70px;" alt="passport2">
+                                                @{
+
+
+
+                                                    if (ViewData["pass0"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass0"]" class="btn btn-outline-success" data-lightbox="passAdult">Show passport's</a>
+                                                        <br />
+                                                    }
+
+                                                    if (ViewData["pass1"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass1"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass2"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass2"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass3"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass3"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass4"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass4"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass5"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass5"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+
+                                                    <!-- Passport's childrens' -->
+                                                    if (ViewData["pass6"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass6"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass7"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass7"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass8"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass8"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass9"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass9"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+                                                    if (ViewData["pass10"] != null)
+                                                    {
+                                                        <a href="@ViewData["pass10"]" data-lightbox="passAdult"></a>
+                                                        <br />
+                                                    }
+
+
+                                                }
+
+
                                                 @*<label>@Localizer["formCU.pssAd"]</label>
                                                     <input id="fuPassAdult" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />*@
                                             </div>
                                             <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            @{
+                                                 if (ViewBag.status == 2) //captured
+                                                {
+                                                <button id="btnPassChild" class="btn btn-success" disabled type="button" title="Choose a pic">Choose's a passport's Children's</button>
+                                                }
+                                                else
+                                                {
                                                 <button id="btnPassChild" class="btn btn-success" type="button" title="Choose a pic">Choose's a passport's Children's</button>
-                                                <br />
-                                                <button id="btnShowPass" class="btn btn-warning" type="button" title="Show Pic">Show Passport's</button>
-                                                @* <label>@Localizer["formCU.pssCh"]</label>
-                                                    <input id="fuPassChild" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />*@
+                                                }
+
+                                            }
+                                               
                                             </div>
                                         </div>
 
@@ -443,11 +529,11 @@
                                                 }
                                                 else
                                                 {
-                                                     <button id="btnSaveForm" class="btn btn-success ml-auto js-btn-next" type="button" title="Next">Save form</button>
+                                                    <button id="btnSaveForm" class="btn btn-success ml-auto js-btn-next" type="button" title="Next">Save form</button>
                                                 }
                                             }
 
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -524,14 +610,14 @@
                                     <input id="fuPassChild3" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
                                     <br />
                                     <input id="fuPassChild4" name="imgupload" type="file" class="file-loading" required accept="image/jpg,image/png,image/jpeg" />
-                                   
+
 
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                           <input class="btn btn-success" type="button" id="btnUploadPassCh" value="Upload" />
+                            <input class="btn btn-success" type="button" id="btnUploadPassCh" value="Upload" />
                         </div>
                     </div>
                 </div>
@@ -585,6 +671,6 @@
     </script>
     <script src="~/Forms/js/jsCallPayment.js"></script>
     <script src="~/Forms/js/jsForms.js"></script>
-     <script src="~/Forms/js/jsCU.js"></script>
+    <script src="~/Forms/js/jsCU.js"></script>
 </body>
 </html>

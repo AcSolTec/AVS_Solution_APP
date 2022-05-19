@@ -36,6 +36,7 @@ namespace AVS_Global.Controllers
         private readonly IServiceCollection _services;
         private readonly IOptions<RequestLocalizationOptions> _locOptions;
         private IConverter _converter;
+        const string SessionMessage = "_Message";
         public FormulariesController(IConfiguration configuration, IServiceProvider provider, IServiceCollectionProvider serviceCollectionProvider, IOptions<RequestLocalizationOptions> LocOptions, IConverter converter)
         {
             _configuration = configuration;
@@ -82,9 +83,14 @@ namespace AVS_Global.Controllers
             string urlApiForms = _configuration.GetSection("ApiForms").Value;
             string urlApiPakistan = _configuration.GetSection("ApiPakistan").Value;
             string urlApiCatalogs = _configuration.GetSection("ApiCatalogs").Value;
+            string urlApiAccount = _configuration.GetSection("UrlApiAccount").Value;
 
             ViewBag.Name = HttpContext.Session.GetString("_Name");
             ViewData["User"] = ViewBag.Name;
+
+
+            ViewBag.MessageInNewForm = HttpContext.Session.GetString("_Message");
+
 
 
             if (ViewData["User"] != null)
@@ -95,6 +101,13 @@ namespace AVS_Global.Controllers
                 var response = client.Execute<List<Models.FormsCap>>(request);
                 ViewBag.forms = response.Data;
 
+
+
+                var reqClient = new RestClient(urlApiAccount + "CatCountriesCustomer");
+                //client.Authenticator = new HttpBasicAuthenticator(userApiKey, PassApiKey);
+                var req = new RestRequest(Method.GET);
+                var resp = reqClient.Execute<List<Models.CatCountriesCustomers>>(req);
+                ViewBag.items = resp.Data;
 
 
 
@@ -108,6 +121,74 @@ namespace AVS_Global.Controllers
 
         }
 
+
+        public IActionResult AddNewCountryFormForCustomer(int IdCountry, string account)
+        {
+            string msjeOut = string.Empty;
+            string res = string.Empty;
+            HttpContext.Session.Remove(SessionMessage);
+            using (var context = new Models.AVS_DBContext())
+            {
+                var _validateCountry = context.TbCustomersAvs.Where(s => s.RegisteredMail == account && s.IdCountry == IdCountry);
+
+                if (_validateCountry.Any())
+                {
+
+                    msjeOut = "Customer already exists with that country";
+                    HttpContext.Session.SetString(SessionMessage, msjeOut);
+                    res = "401";
+                    return Json(new { message = msjeOut, estatus = "NOT OK" });
+                }
+                else
+                {
+
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var newCustom = new Models.TbCustomersAv();
+                            newCustom.IdCountry = IdCountry;
+                            newCustom.RegisteredMail = account;
+                            newCustom.Seed = "customerseed";
+                            newCustom.DateOfEntry = DateTime.Now;
+                            newCustom.DateValidity = DateTime.Now.AddYears(1);
+                            context.TbCustomersAvs.Add(newCustom);
+
+                            context.SaveChanges();
+
+                            var customer = context.TbCustomersAvs.OrderByDescending(s => s.RegisteredMail == account && s.IdCountry == IdCountry).FirstOrDefault();
+
+                            if (customer != null)
+                            {
+                                var newForm = new TbFormulary();
+                                newForm.IdCountry = IdCountry;
+                                newForm.IdCustomer = customer.IdCustomer;
+                                newForm.IdStatus = 1; //Pre-capture
+                                newForm.DateOfEntry = DateTime.Now;
+                                context.TbFormularies.Add(newForm);
+                                context.SaveChanges();
+                            }
+
+
+                            dbContextTransaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+
+
+                    }
+                }
+
+                msjeOut = "Country added successfully.";
+                res = "200";
+            }
+
+            HttpContext.Session.SetString(SessionMessage, msjeOut);
+
+            return Json(new { message = msjeOut , estatus = "OK" });
+        }
 
         public IActionResult FormPakistan()
         {
@@ -1182,21 +1263,21 @@ namespace AVS_Global.Controllers
                 #endregion
 
 
-                //using (var context = new Models.AVS_DBContext())
-                //{
-                //    var query = context.TbCuPassports
-                //      .Where(s => s.IdPassport == 1)
-                //      .FirstOrDefault<TbCuPassport>();
+                using (var context = new Models.AVS_DBContext())
+                {
 
-                //    ViewBag.Passport1 = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(query.Passport));
+                    List<TbCuPassport> LstPassports = new List<TbCuPassport>();
 
-                //    var query2 = context.TbCuPassports
-                //     .Where(s => s.IdPassport == 2)
-                //     .FirstOrDefault<TbCuPassport>();
 
-                //    ViewBag.Passport2 = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(query2.Passport));
+                    var pasports = context.TbCuPassports.Where(d => d.IdForm == int.Parse(idForm)).ToList();
 
-                //}
+                    for (int i = 0; i < pasports.Count; i++)
+                    {
+                        ViewData["pass" + i] = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(pasports[i].Passport));
+
+                    }
+
+                }
 
             }
             else
@@ -1488,7 +1569,7 @@ namespace AVS_Global.Controllers
             using (var context = new AVS_DBContext())
             {
 
-                var cubaForm= context.TbFormularies.FirstOrDefault(x => x.IdForm == idForm);
+                var cubaForm = context.TbFormularies.FirstOrDefault(x => x.IdForm == idForm);
 
                 if (cubaForm != null)
                 {

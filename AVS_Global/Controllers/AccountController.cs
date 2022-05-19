@@ -20,6 +20,7 @@ namespace AVS_Global.Controllers
         const string SessionName = "_Name";
         const string SessionForm = "_Form";
         const string SessionCountry = "_CountryName";
+        const string SessionMessage = "_Message";
         string urlApiAccount = string.Empty;
 
         public AccountController(IConfiguration configuration)
@@ -155,6 +156,7 @@ namespace AVS_Global.Controllers
         {
             HttpContext.Session.Remove(SessionName);
             HttpContext.Session.Remove(SessionForm);
+            HttpContext.Session.Remove(SessionMessage);
             return Json(new { status = true, message = "OK" });
         }
     }

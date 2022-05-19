@@ -9,7 +9,9 @@
 @{
     Layout = "~/Views/Shared/_NavBarForms.cshtml";
 }
-
+@{
+    ViewData["Title"] = "Formularies";
+}
 
 <!DOCTYPE html>
 
@@ -32,13 +34,47 @@
             <!-- Content Header (Page header) -->
             <!-- /.content-header -->
             <!-- Main content -->
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">You can choose another country to apply for the visa</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="form-row mt-4">
+                        <div class="col-6 col-sm-6">
+                            <select id="ddCountry" class="multisteps-form__select form-control" asp-for="countriesCust.IdCountry" asp-items="@(new SelectList(@ViewBag.items,"IdCountry", "Name"))">
+                                <option value="0">Choose Country</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-sm-6 mt-4 mt-sm-0">
+                            <input id="btnAddCountry"  class="btn btn-success" type="submit" value="Add" title="Choose a pic"/>
+                        </div>
+                    </div>
+                    <div class="form-row mt-4">
+                        <div id="dvcardMessage" style="display:none" class="card text-white bg-danger mb-3">
+                            <div class="card-body">
+                                <p id="pMeesage" class="card-text">@ViewBag.MessageInNewForm</p>
+                            </div>
+                        </div>
+                         <div id="dvCardSuccess" style="display:none" class="card text-white bg-success mb-3">
+                            <div class="card-body">
+                                <p id="pMeesageSuc" class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <br />
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Choose form for continue capture</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="tbForms" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Id Form</th>
@@ -65,7 +101,7 @@
                                     <td>
                                         @item.status
                                     </td>
-                                    <td><a href="@Url.Content(nameForm)">Go to Form</a></td>
+                                    <td><a class="btn btn-outline-dark" href="@Url.Content(nameForm)">Go to Form</a></td>
                                 </tr>
 
                             }
@@ -80,6 +116,7 @@
     <script src="~/script.js"></script>
     <script src="~/Bootstrap/js/jquery-1.8.3.min.js"></script>
     <script src="~/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Forms/js/jsIndex.js"></script>
     <script>
         $('#culture option:contains("English (United States)")').attr("disabled", "disabled");
         $('#culture option:contains("Spanish (Mexico)")').attr("style", "display:none");
